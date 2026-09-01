@@ -27,6 +27,9 @@
 # output of the dev-only visual check scripts
 /.screenshots
 
+# deploy artifact produced by @payloadcms/figma
+/lambda.zip
+
 # debug
 npm-debug.log*
 yarn-debug.log*
