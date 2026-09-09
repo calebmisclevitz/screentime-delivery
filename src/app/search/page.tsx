@@ -5,10 +5,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronLeftIcon,
   ClockIcon,
-  SearchIcon,
-  SearchXIcon,
-  XIcon,
-} from "lucide-react";
+  MagnifyingGlassIcon,
+  MagnifyingGlassMinusIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
@@ -49,17 +49,17 @@ export default function SearchPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl pb-10">
-      <div className="sticky top-0 z-10 flex items-center gap-2 border-b bg-background/95 px-2 py-2 backdrop-blur md:px-4">
+      <div className="sticky top-0 z-10 flex items-center gap-2 bg-background/95 px-2 py-2 backdrop-blur md:px-4">
         <button
           type="button"
           onClick={() => router.back()}
           aria-label="Go back"
-          className="flex size-10 shrink-0 items-center justify-center rounded-lg hover:bg-muted"
+          className="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-muted"
         >
           <ChevronLeftIcon className="size-5" />
         </button>
         <div className="relative flex-1">
-          <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
             ref={inputRef}
             value={query}
@@ -73,9 +73,9 @@ export default function SearchPage() {
             }}
             type="search"
             enterKeyHint="search"
-            placeholder="Search Swapmeet Raleigh"
+            placeholder="Search"
             aria-label="Search items"
-            className="h-11 w-full rounded-full border bg-background pr-10 pl-9 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-search-cancel-button]:hidden"
+            className="h-12 w-full rounded-full bg-card pr-10 pl-9 text-base shadow-brand outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-search-cancel-button]:hidden"
           />
           {query && (
             <button
@@ -87,7 +87,7 @@ export default function SearchPage() {
               aria-label="Clear search"
               className="absolute top-1/2 right-2 flex size-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground hover:bg-muted"
             >
-              <XIcon className="size-4" />
+              <XMarkIcon className="size-4" />
             </button>
           )}
         </div>
@@ -98,7 +98,7 @@ export default function SearchPage() {
           {hydrated && recentSearches.length > 0 && (
             <section>
               <div className="flex items-center justify-between pb-2">
-                <h2 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
                   Recent
                 </h2>
                 <Button
@@ -128,7 +128,7 @@ export default function SearchPage() {
           )}
 
           <section>
-            <h2 className="pb-2 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+            <h2 className="pb-2 font-mono text-xs font-medium tracking-wider text-muted-foreground">
               Try searching
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -137,7 +137,7 @@ export default function SearchPage() {
                   key={term}
                   type="button"
                   onClick={() => setQuery(term)}
-                  className="h-9 rounded-full border px-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="h-9 rounded-full bg-card px-4 text-sm text-muted-foreground shadow-brand transition-colors hover:text-foreground"
                 >
                   {term}
                 </button>
@@ -147,7 +147,7 @@ export default function SearchPage() {
         </div>
       ) : results.length === 0 ? (
         <EmptyState
-          icon={SearchXIcon}
+          icon={MagnifyingGlassMinusIcon}
           title={`No results for "${query.trim()}"`}
           description="Check the spelling, or browse by category to see everything listed nearby."
           actionLabel="Browse all items"
@@ -155,10 +155,10 @@ export default function SearchPage() {
         />
       ) : (
         <>
-          <p className="px-4 pt-4 text-xs text-muted-foreground md:px-6">
+          <p className="px-4 pt-4 font-mono text-xs tracking-wider text-muted-foreground md:px-6">
             {results.length} {results.length === 1 ? "result" : "results"}
           </p>
-          <div className="grid grid-cols-2 gap-3 p-4 md:grid-cols-3 md:px-6 lg:grid-cols-4">
+          <div className="grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-4">
             {results.map((item) => (
               <ItemCard key={item.id} item={item} />
             ))}

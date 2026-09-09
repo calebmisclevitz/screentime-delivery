@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { HandshakeIcon, PackageXIcon, TruckIcon } from "lucide-react";
+import {
+  ArchiveBoxXMarkIcon,
+  HandRaisedIcon,
+  TruckIcon,
+} from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
@@ -39,7 +43,7 @@ export default function CheckoutPage() {
       <div className="mx-auto w-full max-w-2xl">
         <PageHeader title="Checkout" />
         <EmptyState
-          icon={PackageXIcon}
+          icon={ArchiveBoxXMarkIcon}
           title="This listing is gone"
           description="It may have been sold or taken down while you were deciding."
           actionLabel="Browse items"
@@ -67,7 +71,7 @@ export default function CheckoutPage() {
       <PageHeader title="Checkout" />
 
       <div className="space-y-7 p-4 md:p-6">
-        <div className="flex gap-3 rounded-xl border p-3">
+        <div className="flex gap-3 rounded-xl bg-card p-3 shadow-brand">
           <div className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-muted">
             <Image
               src={item.images[0]}
@@ -78,18 +82,18 @@ export default function CheckoutPage() {
             />
           </div>
           <div className="min-w-0 flex-1 space-y-0.5">
-            <p className="truncate text-sm font-medium">{item.title}</p>
-            <p className="font-heading text-sm font-semibold">
+            <p className="truncate text-sm">{item.title}</p>
+            <p className="font-mono text-sm tracking-wide">
               {formatPrice(item.price)}
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="font-mono text-xs tracking-wider text-muted-foreground">
               {item.location.neighborhood} · {formatDistance(miles)}
             </p>
           </div>
         </div>
 
         <section className="space-y-3">
-          <h2 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+          <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
             How do you want it?
           </h2>
 
@@ -109,7 +113,7 @@ export default function CheckoutPage() {
           />
 
           <FulfillmentOption
-            icon={HandshakeIcon}
+            icon={HandRaisedIcon}
             title="Pick it up myself"
             description={`Arrange a time with ${item.seller.name} and meet in ${item.location.neighborhood}.`}
             price="Free"
@@ -135,7 +139,7 @@ export default function CheckoutPage() {
         )}
 
         <section className="space-y-3">
-          <h2 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+          <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
             Summary
           </h2>
           <dl className="space-y-2 text-sm">
@@ -146,8 +150,8 @@ export default function CheckoutPage() {
             />
             <Separator />
             <div className="flex items-baseline justify-between">
-              <dt className="font-medium">Total</dt>
-              <dd className="font-heading text-lg font-semibold">
+              <dt>Total</dt>
+              <dd className="font-mono text-lg tracking-wide">
                 {formatPrice(total)}
               </dd>
             </div>
@@ -170,7 +174,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-16 z-20 border-t bg-background/95 p-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-16 z-20 bg-background/95 p-3 backdrop-blur md:hidden">
         <Button onClick={confirm} disabled={submitting} className="h-12 w-full">
           {chosen === "delivery"
             ? `Buy and request delivery · ${formatPrice(total)}`
@@ -185,7 +189,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between">
       <dt className="text-muted-foreground">{label}</dt>
-      <dd className="tabular-nums">{value}</dd>
+      <dd className="font-mono tabular-nums tracking-wide">{value}</dd>
     </div>
   );
 }
@@ -217,31 +221,33 @@ function FulfillmentOption({
       aria-pressed={selected}
       className={cn(
         "flex w-full gap-3 rounded-xl border p-4 text-left transition-colors",
-        selected ? "border-foreground bg-secondary/50" : "border-border",
+        selected ? "border-primary bg-lilac/40" : "border-border bg-card",
         disabled && "opacity-50",
       )}
     >
       <span
         className={cn(
           "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border-2",
-          selected ? "border-foreground bg-foreground" : "border-muted-foreground/40",
+          selected ? "border-primary bg-primary" : "border-muted-foreground/40",
         )}
       >
-        {selected && <span className="size-1.5 rounded-full bg-background" />}
+        {selected && <span className="size-1.5 rounded-full bg-primary-foreground" />}
       </span>
       <span className="min-w-0 flex-1 space-y-1">
         <span className="flex flex-wrap items-center gap-2">
-          <Icon className="size-4" />
-          <span className="text-sm font-medium">{title}</span>
+          <Icon className="size-4 text-primary" />
+          <span className="text-sm">{title}</span>
           {badge && (
-            <span className="rounded-full bg-foreground px-2 py-0.5 text-[10px] font-medium text-background">
+            <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[10px] tracking-wide text-accent-foreground">
               {badge}
             </span>
           )}
         </span>
         <span className="block text-xs text-muted-foreground">{description}</span>
       </span>
-      <span className="shrink-0 text-sm font-medium tabular-nums">{price}</span>
+      <span className="shrink-0 font-mono text-sm tracking-wide tabular-nums">
+        {price}
+      </span>
     </button>
   );
 }

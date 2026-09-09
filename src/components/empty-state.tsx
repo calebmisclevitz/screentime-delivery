@@ -18,11 +18,11 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 px-6 py-16 text-center">
-      <span className="flex size-11 items-center justify-center rounded-full bg-muted">
-        <Icon className="size-5 text-muted-foreground" />
+      <span className="flex size-11 items-center justify-center rounded-full bg-lilac text-primary">
+        <Icon className="size-5" />
       </span>
       <div className="space-y-1">
-        <p className="font-heading text-base font-medium">{title}</p>
+        <p className="font-heading text-base">{title}</p>
         <p className="mx-auto max-w-xs text-sm text-muted-foreground">
           {description}
         </p>

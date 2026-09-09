@@ -19,8 +19,8 @@ const TILE_ATTRIBUTION =
 
 function stickerIcon(item: Item, selected: boolean) {
   const ring = selected
-    ? "border-foreground bg-foreground text-background shadow-lg scale-105"
-    : "border-border bg-background text-foreground shadow-sm";
+    ? "border-primary bg-primary text-primary-foreground shadow-lg scale-105"
+    : "border-border bg-card text-foreground shadow-brand";
 
   return L.divIcon({
     className: "sticker-icon",
@@ -30,7 +30,7 @@ function stickerIcon(item: Item, selected: boolean) {
       <div class="sticker-wrap">
         <div class="flex items-center gap-1 rounded-full border py-0.5 pr-2 pl-0.5 transition-all ${ring}">
           <img src="${item.images[0]}" alt="" class="size-6 shrink-0 rounded-full object-cover" />
-          <span class="text-[11px] font-semibold whitespace-nowrap">${formatPrice(item.price)}</span>
+          <span class="font-mono text-[11px] tracking-wide whitespace-nowrap">${formatPrice(item.price)}</span>
         </div>
       </div>
     `,
@@ -39,8 +39,8 @@ function stickerIcon(item: Item, selected: boolean) {
 
 function dotIcon(label: string, filled: boolean) {
   const style = filled
-    ? "border-background bg-foreground text-background"
-    : "border-foreground bg-background text-foreground";
+    ? "border-background bg-primary text-primary-foreground"
+    : "border-primary bg-card text-primary";
   return L.divIcon({
     className: "sticker-icon",
     iconSize: [0, 0],
@@ -49,7 +49,7 @@ function dotIcon(label: string, filled: boolean) {
       <div class="sticker-wrap" style="transform: translate(-50%, 50%)">
         <div class="flex items-center gap-1.5">
           <span class="size-3 rounded-full border-2 ${style}"></span>
-          <span class="rounded-full border border-border bg-background/90 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap text-foreground">${label}</span>
+          <span class="rounded-full border border-border bg-card/90 px-2 py-0.5 font-mono text-[10px] tracking-wide whitespace-nowrap text-foreground">${label}</span>
         </div>
       </div>
     `,
@@ -63,13 +63,9 @@ function courierIcon() {
     iconAnchor: [0, 0],
     html: `
       <div class="sticker-wrap" style="transform: translate(-50%, 50%)">
-        <span class="flex size-7 items-center justify-center rounded-full border-2 border-background bg-foreground shadow-md">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 text-background">
-            <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
-            <path d="M15 18H9"/>
-            <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
-            <circle cx="17" cy="18" r="2"/>
-            <circle cx="7" cy="18" r="2"/>
+        <span class="flex size-7 items-center justify-center rounded-full border-2 border-background bg-primary shadow-md">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 text-primary-foreground">
+            <path d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
           </svg>
         </span>
       </div>
@@ -195,7 +191,7 @@ export function RouteMap({
       <Polyline
         positions={route.map((p) => [p.lat, p.lng] as [number, number])}
         pathOptions={{
-          color: "#171717",
+          color: "#3a1e6c",
           weight: 3,
           opacity: 0.35,
           dashArray: "6 8",

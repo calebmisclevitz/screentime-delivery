@@ -1,6 +1,6 @@
 "use client";
 
-import { BookmarkIcon } from "lucide-react";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
@@ -29,21 +29,21 @@ export default function SavedPage() {
       />
 
       {!hydrated ? (
-        <div className="grid grid-cols-2 gap-3 p-4 md:grid-cols-3 md:px-6 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-px p-4 md:grid-cols-3 md:px-6 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="aspect-3/4 rounded-xl" />
           ))}
         </div>
       ) : items.length === 0 ? (
         <EmptyState
-          icon={BookmarkIcon}
+          icon={HeartIcon}
           title="Nothing saved yet"
-          description="Tap the bookmark on any listing and it will show up here so you can come back to it."
+          description="Tap the heart on any listing and it will show up here so you can come back to it."
           actionLabel="Find something"
           actionHref="/browse"
         />
       ) : (
-        <div className="grid grid-cols-2 gap-3 p-4 md:grid-cols-3 md:px-6 lg:grid-cols-4">
+        <div className="grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-4">
           {items.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}

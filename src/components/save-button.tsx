@@ -1,6 +1,7 @@
 "use client";
 
-import { BookmarkIcon } from "lucide-react";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ export function SaveButton({ itemId, title, variant = "icon", className }: Props
   const saved = useStore((s) => s.savedIds.includes(itemId));
   const toggleSaved = useStore((s) => s.toggleSaved);
   const isSaved = hydrated && saved;
+  const Icon = isSaved ? HeartSolid : HeartOutline;
 
   function onClick(e: React.MouseEvent) {
     e.preventDefault();
@@ -39,7 +41,7 @@ export function SaveButton({ itemId, title, variant = "icon", className }: Props
         aria-pressed={isSaved}
         className={cn("h-12 gap-2 px-4", className)}
       >
-        <BookmarkIcon className={cn("size-4", isSaved && "fill-current")} />
+        <Icon className={cn("size-4", isSaved && "text-primary")} />
         {isSaved ? "Saved" : "Save"}
       </Button>
     );
@@ -52,11 +54,11 @@ export function SaveButton({ itemId, title, variant = "icon", className }: Props
       aria-label={isSaved ? "Remove from saved" : "Save item"}
       aria-pressed={isSaved}
       className={cn(
-        "flex size-8 items-center justify-center rounded-full bg-background/85 text-foreground backdrop-blur transition-colors hover:bg-background",
+        "flex size-6 items-center justify-center rounded-md border border-black/8 bg-card text-primary shadow-brand transition-colors hover:bg-card",
         className,
       )}
     >
-      <BookmarkIcon className={cn("size-4", isSaved && "fill-current")} />
+      <Icon className="size-4" />
     </button>
   );
 }

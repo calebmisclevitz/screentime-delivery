@@ -7,9 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-cossette);
+  --font-mono: var(--font-dm-mono);
+  --font-heading: var(--font-stack-headline);
+  --font-display: var(--font-stack-notch);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +40,11 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-lilac: var(--lilac);
+  --color-lavender: var(--lavender);
+  --color-lime: var(--lime);
+  --color-forest: var(--forest);
+  --shadow-brand: 0 3px 5px rgb(28 26 22 / 0.1);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,72 +55,80 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #f3f3f3;
+  --foreground: #1c1a16;
+  --card: #ffffff;
+  --card-foreground: #1c1a16;
+  --popover: #ffffff;
+  --popover-foreground: #1c1a16;
+  --primary: #3a1e6c;
+  --primary-foreground: #ffffff;
+  --secondary: #cabaff;
+  --secondary-foreground: #3a1e6c;
+  --muted: #e8e8e8;
+  --muted-foreground: rgb(28 26 22 / 40%);
+  --accent: #c5ff92;
+  --accent-foreground: #094e26;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --border: rgb(0 0 0 / 13%);
+  --input: rgb(0 0 0 / 13%);
+  --ring: #3a1e6c;
+  --chart-1: #3a1e6c;
+  --chart-2: #cabaff;
+  --chart-3: #c5ff92;
+  --chart-4: #094e26;
+  --chart-5: #dac7ff;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c1a16;
+  --sidebar-primary: #3a1e6c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #cabaff;
+  --sidebar-accent-foreground: #3a1e6c;
+  --sidebar-border: rgb(0 0 0 / 13%);
+  --sidebar-ring: #3a1e6c;
+  --lilac: #dac7ff;
+  --lavender: #cabaff;
+  --lime: #c5ff92;
+  --forest: #094e26;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #160c28;
+  --foreground: #f3f3f3;
+  --card: #24153d;
+  --card-foreground: #f3f3f3;
+  --popover: #24153d;
+  --popover-foreground: #f3f3f3;
+  --primary: #cabaff;
+  --primary-foreground: #3a1e6c;
+  --secondary: #3a1e6c;
+  --secondary-foreground: #dac7ff;
+  --muted: #2c1a4a;
+  --muted-foreground: rgb(243 243 243 / 50%);
+  --accent: #c5ff92;
+  --accent-foreground: #094e26;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: rgb(255 255 255 / 12%);
+  --input: rgb(255 255 255 / 14%);
+  --ring: #cabaff;
+  --chart-1: #cabaff;
+  --chart-2: #c5ff92;
+  --chart-3: #dac7ff;
+  --chart-4: #094e26;
+  --chart-5: #3a1e6c;
+  --sidebar: #24153d;
+  --sidebar-foreground: #f3f3f3;
+  --sidebar-primary: #c5ff92;
+  --sidebar-primary-foreground: #094e26;
+  --sidebar-accent: #3a1e6c;
+  --sidebar-accent-foreground: #dac7ff;
+  --sidebar-border: rgb(255 255 255 / 12%);
+  --sidebar-ring: #cabaff;
+  --lilac: #dac7ff;
+  --lavender: #cabaff;
+  --lime: #c5ff92;
+  --forest: #c5ff92;
 }
 
 @layer base {
@@ -129,7 +143,7 @@
   }
 }
 
-/* Leaflet ships its own opinionated chrome; align it with the monochrome theme. */
+/* Leaflet ships its own opinionated chrome; align it with the brand. */
 .leaflet-container {
   background: var(--muted);
   font-family: inherit;
@@ -142,9 +156,9 @@
   isolation: isolate;
 }
 
-/* Desaturate the OSM raster tiles so item photos are the only color on screen. */
+/* Soften the OSM raster so listing photos stay the loudest color. */
 .leaflet-tile-pane {
-  filter: grayscale(1) contrast(0.92) brightness(1.06);
+  filter: grayscale(0.55) saturate(0.7) contrast(0.95) brightness(1.04);
 }
 
 .leaflet-control-attribution {
@@ -165,7 +179,7 @@
 }
 
 .leaflet-control-zoom a {
-  background: var(--background) !important;
+  background: var(--card) !important;
   border-bottom-color: var(--border) !important;
   color: var(--foreground) !important;
   font-weight: 400;

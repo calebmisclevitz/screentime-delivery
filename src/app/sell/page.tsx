@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 
 import { SectionHeader } from "@/components/page-header";
@@ -77,7 +77,7 @@ export default function SellPage() {
                 aria-pressed={draft.image === src}
                 className={cn(
                   "relative aspect-square overflow-hidden rounded-lg border-2 bg-muted transition-colors",
-                  draft.image === src ? "border-foreground" : "border-transparent",
+                  draft.image === src ? "border-primary" : "border-transparent",
                 )}
               >
                 <Image
@@ -88,7 +88,7 @@ export default function SellPage() {
                   className="object-cover"
                 />
                 {draft.image === src && (
-                  <span className="absolute right-1 bottom-1 flex size-4 items-center justify-center rounded-full bg-foreground text-background">
+                  <span className="absolute right-1 bottom-1 flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground">
                     <CheckIcon className="size-2.5" />
                   </span>
                 )}
@@ -206,7 +206,7 @@ export default function SellPage() {
           />
         </section>
 
-        <section className="flex items-center justify-between gap-4 rounded-xl border p-4">
+        <section className="flex items-center justify-between gap-4 rounded-xl bg-card p-4 shadow-brand">
           <div className="space-y-0.5">
             <Label htmlFor="delivery">Offer delivery</Label>
             <p className="text-xs text-muted-foreground">

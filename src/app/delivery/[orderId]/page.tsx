@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
-import { CheckIcon, PackageXIcon } from "lucide-react";
+import { ArchiveBoxXMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
 import { RouteMap } from "@/components/map";
@@ -52,7 +52,7 @@ export default function DeliveryPage() {
       <div className="mx-auto w-full max-w-2xl">
         <PageHeader title="Order" />
         <EmptyState
-          icon={PackageXIcon}
+          icon={ArchiveBoxXMarkIcon}
           title="Order not found"
           description="This order isn't on this device. Orders in the demo are stored locally in your browser."
           actionLabel="Browse items"
@@ -76,7 +76,7 @@ export default function DeliveryPage() {
     <div className="mx-auto w-full max-w-2xl pb-10">
       <PageHeader title={`Order ${order.id}`} />
 
-      <div className="h-64 border-b md:h-80">
+      <div className="h-64 md:h-80">
         <RouteMap
           route={route}
           courier={done ? undefined : courier}
@@ -89,11 +89,11 @@ export default function DeliveryPage() {
       <div className="space-y-6 p-4 md:p-6">
         <div className="space-y-1">
           <div className="flex items-baseline justify-between gap-3">
-            <h1 className="font-heading text-lg font-semibold tracking-tight">
+            <h1 className="font-heading text-lg tracking-tight">
               {current.label}
             </h1>
             {!done && (
-              <span className="shrink-0 text-sm text-muted-foreground tabular-nums">
+              <span className="shrink-0 font-mono text-sm tracking-wide text-muted-foreground tabular-nums">
                 {eta} min away
               </span>
             )}
@@ -103,7 +103,7 @@ export default function DeliveryPage() {
 
         <div className="h-1 overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-foreground transition-[width] duration-300 ease-linear"
+            className="h-full rounded-full bg-primary transition-[width] duration-300 ease-linear"
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>
@@ -121,20 +121,20 @@ export default function DeliveryPage() {
                     className={cn(
                       "flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                       complete || active
-                        ? "border-foreground bg-foreground text-background"
+                        ? "border-primary bg-primary text-primary-foreground"
                         : "border-muted-foreground/30",
                     )}
                   >
                     {complete && <CheckIcon className="size-3" />}
                     {active && !complete && (
-                      <span className="size-1.5 rounded-full bg-background" />
+                      <span className="size-1.5 rounded-full bg-primary-foreground" />
                     )}
                   </span>
                   {!last && (
                     <span
                       className={cn(
                         "w-0.5 flex-1 transition-colors",
-                        complete ? "bg-foreground" : "bg-border",
+                        complete ? "bg-primary" : "bg-border",
                       )}
                     />
                   )}
@@ -144,7 +144,7 @@ export default function DeliveryPage() {
                     className={cn(
                       "text-sm",
                       active || complete
-                        ? "font-medium text-foreground"
+                        ? "text-foreground"
                         : "text-muted-foreground",
                     )}
                   >
@@ -172,11 +172,11 @@ export default function DeliveryPage() {
             />
           </div>
           <div className="min-w-0 flex-1 space-y-0.5 text-sm">
-            <p className="truncate font-medium">{item.title}</p>
+            <p className="truncate">{item.title}</p>
             <p className="text-muted-foreground">
               Courier: {order.courierName}
             </p>
-            <p className="truncate text-xs text-muted-foreground">
+            <p className="truncate font-mono text-xs tracking-wider text-muted-foreground">
               To {order.dropoffAddress}
             </p>
           </div>
@@ -185,16 +185,16 @@ export default function DeliveryPage() {
         <dl className="space-y-2 text-sm">
           <div className="flex justify-between">
             <dt className="text-muted-foreground">Item</dt>
-            <dd className="tabular-nums">{formatPrice(order.itemPrice)}</dd>
+            <dd className="font-mono tabular-nums">{formatPrice(order.itemPrice)}</dd>
           </div>
           <div className="flex justify-between">
             <dt className="text-muted-foreground">Delivery</dt>
-            <dd className="tabular-nums">{formatPrice(order.deliveryFee)}</dd>
+            <dd className="font-mono tabular-nums">{formatPrice(order.deliveryFee)}</dd>
           </div>
           <Separator />
-          <div className="flex justify-between font-medium">
+          <div className="flex justify-between">
             <dt>Total paid</dt>
-            <dd className="font-heading tabular-nums">
+            <dd className="font-mono tabular-nums">
               {formatPrice(order.total)}
             </dd>
           </div>
@@ -225,13 +225,11 @@ function PickupConfirmation({
       <PageHeader title={`Order ${orderId}`} />
       <div className="space-y-6 p-4 md:p-6">
         <div className="flex flex-col items-center gap-3 py-8 text-center">
-          <span className="flex size-11 items-center justify-center rounded-full bg-foreground text-background">
+          <span className="flex size-11 items-center justify-center rounded-full bg-accent text-accent-foreground">
             <CheckIcon className="size-5" />
           </span>
           <div className="space-y-1">
-            <p className="font-heading text-base font-medium">
-              Pickup confirmed
-            </p>
+            <p className="font-heading text-base">Pickup confirmed</p>
             <p className="mx-auto max-w-xs text-sm text-muted-foreground">
               The seller has your details and will message you to arrange a time
               for {itemTitle}.

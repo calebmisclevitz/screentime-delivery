@@ -1,6 +1,6 @@
 "use client";
 
-import { SlidersHorizontalIcon } from "lucide-react";
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -55,11 +55,11 @@ export function FilterSheet({
   return (
     <Sheet open={open} onOpenChange={openSheet}>
       <SheetTrigger asChild>
-        <Button variant="outline" className="h-10 gap-2 px-3">
-          <SlidersHorizontalIcon className="size-4" />
+        <Button variant="outline" className="h-10 gap-2 bg-card px-3 shadow-brand">
+          <AdjustmentsHorizontalIcon className="size-4" />
           Filters
           {count > 0 && (
-            <Badge className="ml-0.5 size-4 justify-center rounded-full p-0 text-[10px] tabular-nums">
+            <Badge className="ml-0.5 size-4 justify-center rounded-full p-0 font-mono text-[10px] tabular-nums">
               {count}
             </Badge>
           )}
@@ -78,7 +78,7 @@ export function FilterSheet({
           <section className="space-y-3">
             <div className="flex items-center justify-between">
               <Label>Max price</Label>
-              <span className="font-heading text-sm font-medium tabular-nums">
+              <span className="font-mono text-sm tabular-nums">
                 {draft.maxPrice >= PRICE_CEILING
                   ? "Any"
                   : `$${draft.maxPrice.toLocaleString("en-US")}`}
@@ -97,7 +97,7 @@ export function FilterSheet({
 
           <section className="space-y-3">
             <Label>Condition</Label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-5">
               {CONDITIONS.map((condition) => {
                 const active = draft.conditions.includes(condition);
                 return (
@@ -107,10 +107,10 @@ export function FilterSheet({
                     onClick={() => toggleCondition(condition)}
                     aria-pressed={active}
                     className={cn(
-                      "h-9 rounded-full border px-4 text-sm transition-colors",
+                      "text-sm lowercase tracking-wide transition-colors",
                       active
-                        ? "border-foreground bg-foreground text-background"
-                        : "border-border text-muted-foreground hover:text-foreground",
+                        ? "rounded-full bg-card px-4 py-2 text-foreground shadow-brand"
+                        : "text-foreground/40 hover:text-foreground/70",
                     )}
                   >
                     {condition}
@@ -148,7 +148,7 @@ export function FilterSheet({
                   className={cn(
                     "flex h-10 items-center rounded-lg border px-3 text-sm transition-colors",
                     draft.sort === key
-                      ? "border-foreground bg-secondary text-foreground"
+                      ? "border-primary bg-secondary text-primary"
                       : "border-border text-muted-foreground hover:text-foreground",
                   )}
                 >

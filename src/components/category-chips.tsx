@@ -19,26 +19,29 @@ export function CategoryChips({
   return (
     <div
       className={cn(
-        "flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "flex items-center gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         className,
       )}
     >
-      {options.map((option) => (
-        <button
-          key={option}
-          type="button"
-          onClick={() => onChange(option)}
-          aria-pressed={value === option}
-          className={cn(
-            "h-8 shrink-0 rounded-full border px-3 text-xs font-medium whitespace-nowrap transition-colors",
-            value === option
-              ? "border-foreground bg-foreground text-background"
-              : "border-border bg-background text-muted-foreground hover:text-foreground",
-          )}
-        >
-          {option}
-        </button>
-      ))}
+      {options.map((option) => {
+        const active = value === option;
+        return (
+          <button
+            key={option}
+            type="button"
+            onClick={() => onChange(option)}
+            aria-pressed={active}
+            className={cn(
+              "shrink-0 text-base lowercase tracking-wide whitespace-nowrap transition-colors",
+              active
+                ? "rounded-full bg-card px-4 py-2 text-foreground shadow-brand"
+                : "text-foreground/40 hover:text-foreground/70",
+            )}
+          >
+            {option}
+          </button>
+        );
+      })}
     </div>
   );
 }

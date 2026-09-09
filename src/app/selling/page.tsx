@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { PackageIcon, ShoppingBagIcon, TagIcon, TruckIcon } from "lucide-react";
+import {
+  ArchiveBoxIcon,
+  ShoppingBagIcon,
+  TagIcon,
+  TruckIcon,
+} from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 
 import { EmptyState } from "@/components/empty-state";
@@ -94,7 +99,7 @@ export default function SellingPage() {
             <TabsContent value="sold" className="p-4 md:px-6">
               {sold.length === 0 ? (
                 <EmptyState
-                  icon={PackageIcon}
+                  icon={ArchiveBoxIcon}
                   title="Nothing sold yet"
                   description="Once a buyer takes one of your listings it moves here with the final price."
                 />
@@ -141,7 +146,7 @@ function ListingRow({
   onRemove?: () => void;
 }) {
   return (
-    <li className="flex gap-3 rounded-xl border p-3">
+    <li className="flex gap-3 rounded-xl bg-card p-3 shadow-brand">
       <Link
         href={`/item/${item.id}`}
         className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-muted"
@@ -156,12 +161,12 @@ function ListingRow({
       </Link>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <Link href={`/item/${item.id}`} className="min-w-0">
-          <p className="truncate text-sm font-medium">{item.title}</p>
-          <p className="font-heading text-sm font-semibold">
+          <p className="truncate text-sm">{item.title}</p>
+          <p className="font-mono text-sm tracking-wide">
             {formatPrice(item.price)}
           </p>
         </Link>
-        <p className="flex flex-wrap items-center gap-x-3 text-xs text-muted-foreground">
+        <p className="flex flex-wrap items-center gap-x-3 font-mono text-xs tracking-wider text-muted-foreground">
           <span>
             {formatRelativeTime(item.postedAt)} · {item.location.neighborhood}
           </span>
@@ -203,7 +208,7 @@ function OrderRow({ order }: { order: Order }) {
       : stageAt(progressFor(order, now)).label;
 
   return (
-    <li className="flex gap-3 rounded-xl border p-3">
+    <li className="flex gap-3 rounded-xl bg-card p-3 shadow-brand">
       <Link
         href={`/delivery/${order.id}`}
         className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-muted"
@@ -217,8 +222,8 @@ function OrderRow({ order }: { order: Order }) {
         />
       </Link>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <p className="truncate text-sm font-medium">{item.title}</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="truncate text-sm">{item.title}</p>
+        <p className="font-mono text-xs tracking-wider text-muted-foreground">
           {order.id} · {formatPrice(order.total)} total
         </p>
         <p className="text-xs font-medium">{stage}</p>

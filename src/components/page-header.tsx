@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ export function PageHeader({
   return (
     <div
       className={cn(
-        "sticky top-0 z-20 flex h-12 items-center gap-1 border-b bg-background/95 px-2 backdrop-blur",
+        "sticky top-0 z-20 flex h-12 items-center gap-1 bg-background/95 px-2 backdrop-blur",
         className,
       )}
     >
@@ -28,11 +28,11 @@ export function PageHeader({
         type="button"
         onClick={() => router.back()}
         aria-label="Go back"
-        className="flex size-9 items-center justify-center rounded-lg text-foreground hover:bg-muted"
+        className="flex size-9 items-center justify-center rounded-full text-foreground hover:bg-muted"
       >
         <ChevronLeftIcon className="size-5" />
       </button>
-      <span className="truncate font-heading text-sm font-medium">{title}</span>
+      <span className="truncate text-sm">{title}</span>
       {action && <div className="ml-auto pr-1">{action}</div>}
     </div>
   );
@@ -49,13 +49,15 @@ export function SectionHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-end justify-between gap-3 px-4 pt-5 pb-3 md:px-6">
+    <div className="flex items-end justify-between gap-3 px-4 pt-4 pb-3 md:px-6">
       <div>
-        <h1 className="font-heading text-xl font-semibold tracking-tight">
+        <h1 className="font-display text-[32px] leading-none font-medium tracking-[-0.04em] text-primary lowercase">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
+          <p className="mt-1.5 font-mono text-xs tracking-wider text-muted-foreground">
+            {subtitle}
+          </p>
         )}
       </div>
       {action}

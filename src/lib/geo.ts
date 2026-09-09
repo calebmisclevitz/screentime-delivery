@@ -23,7 +23,7 @@ export function distanceMiles(a: LatLng, b: LatLng): number {
 }
 
 export function formatDistance(miles: number): string {
-  return miles < 0.1 ? "Nearby" : `${miles.toFixed(1)} mi away`;
+  return miles < 0.1 ? "Nearby" : `${miles.toFixed(1)} mi`;
 }
 
 const SIZE_BASE_FEE: Record<ItemSize, number> = {

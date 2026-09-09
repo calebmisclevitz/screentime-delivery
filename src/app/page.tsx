@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { SearchIcon, TruckIcon } from "lucide-react";
+import { MagnifyingGlassIcon, TruckIcon } from "@heroicons/react/24/outline";
 
 import { CategoryChips, type CategoryValue } from "@/components/category-chips";
 import { ItemCard } from "@/components/item-card";
@@ -47,7 +47,7 @@ export default function MapPage() {
     <div className="absolute inset-0 flex">
       {/* Desktop results panel */}
       <aside className="hidden w-[380px] shrink-0 flex-col border-r lg:flex xl:w-[440px]">
-        <div className="border-b p-4">
+        <div className="p-4">
           <SearchLink />
           <CategoryChips
             value={category}
@@ -55,18 +55,17 @@ export default function MapPage() {
             className="mt-3"
           />
         </div>
-        <div className="flex-1 overflow-y-auto p-4">
-          <p className="pb-3 text-xs text-muted-foreground">
+        <div className="flex-1 overflow-y-auto">
+          <p className="px-4 pb-3 font-mono text-xs tracking-wider text-muted-foreground">
             {items.length} items in Raleigh
           </p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2">
             {items.map((item) => (
               <div
                 key={item.id}
                 onMouseEnter={() => setPickedId(item.id)}
                 className={cn(
-                  "rounded-xl transition-shadow",
-                  selectedId === item.id && "ring-2 ring-foreground/20",
+                  selectedId === item.id && "bg-card",
                 )}
               >
                 <ItemCard item={item} />
@@ -119,10 +118,10 @@ function SearchLink() {
   return (
     <Link
       href="/search"
-      className="flex h-11 items-center gap-2.5 rounded-full border bg-background/95 px-4 text-sm text-muted-foreground shadow-sm backdrop-blur transition-colors hover:text-foreground"
+      className="flex h-12 items-center gap-3 rounded-full bg-card px-4 text-base text-muted-foreground shadow-brand transition-colors hover:text-foreground"
     >
-      <SearchIcon className="size-4" />
-      Search vintage finds in Raleigh
+      <MagnifyingGlassIcon className="size-4" />
+      Search
     </Link>
   );
 }
@@ -146,8 +145,8 @@ function RailCard({
       href={`/item/${item.id}`}
       onFocus={onFocusItem}
       className={cn(
-        "relative flex w-[248px] shrink-0 gap-3 rounded-xl border bg-background/95 p-2 shadow-sm backdrop-blur transition-colors",
-        selected ? "border-foreground" : "border-border",
+        "relative flex w-[248px] shrink-0 gap-3 rounded-xl bg-card p-2 shadow-brand transition-colors",
+        selected && "ring-2 ring-primary/30",
       )}
     >
       <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
@@ -160,23 +159,22 @@ function RailCard({
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center pr-7">
-        <div className="flex items-center gap-1.5">
-          <span className="font-heading text-sm font-semibold">
-            {formatPrice(item.price)}
+        <p className="truncate text-sm">{item.title}</p>
+        <p className="mt-1 flex items-center gap-1 font-mono text-xs tracking-wide">
+          <span>{formatPrice(item.price)}</span>
+          <span aria-hidden className="text-muted-foreground">
+            ·
           </span>
+          <span>{formatDistance(miles)}</span>
           {item.deliveryAvailable && (
             <TruckIcon className="size-3 text-muted-foreground" />
           )}
-        </div>
-        <p className="truncate text-xs text-foreground">{item.title}</p>
-        <p className="truncate text-[11px] text-muted-foreground">
-          {item.location.neighborhood} · {formatDistance(miles)}
         </p>
       </div>
       <SaveButton
         itemId={item.id}
         title={item.title}
-        className="absolute top-2 right-2 size-7 bg-transparent"
+        className="absolute top-2 right-2"
       />
     </Link>
   );
