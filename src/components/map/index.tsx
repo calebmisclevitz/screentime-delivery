@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /**
- * Leaflet reaches for `window` at import time, so every map surface is loaded
+ * MapLibre reaches for `window` at import time, so every map surface is loaded
  * on the client only.
  */
 const loading = () => <Skeleton className="size-full rounded-none" />;

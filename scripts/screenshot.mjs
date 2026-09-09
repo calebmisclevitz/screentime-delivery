@@ -30,14 +30,14 @@ mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
 
 /**
- * OSM tiles are the slowest thing on the page and every context refetches the
- * same ones. Serving repeats from memory keeps the map looking real without
- * paying for the round trip twice.
+ * OpenFreeMap vector tiles are the slowest thing on the page and every context
+ * refetches the same ones. Serving repeats from memory keeps the map looking
+ * real without paying for the round trip twice.
  */
 const tileCache = new Map();
 
 async function cacheTiles(context) {
-  await context.route("**://*.tile.openstreetmap.org/**", async (route) => {
+  await context.route("**://tiles.openfreemap.org/**", async (route) => {
     const url = route.request().url();
     const hit = tileCache.get(url);
     if (hit) return route.fulfill(hit);
@@ -56,17 +56,17 @@ async function cacheTiles(context) {
 /** Bounded settle: never block a shot for more than a beat on a slow tile. */
 async function settle(page) {
   await page.waitForLoadState("networkidle", { timeout: 2500 }).catch(() => {});
-  const map = page.locator(".leaflet-container");
+  const map = page.locator(".maplibregl-canvas");
   if (await map.count()) {
     await page
       .waitForFunction(
-        () => document.querySelectorAll(".leaflet-tile-loaded").length > 0,
+        () => document.querySelectorAll(".maplibregl-canvas").length > 0,
         undefined,
         { timeout: 2500 },
       )
       .catch(() => {});
   }
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(400);
 }
 
 async function run(viewport) {

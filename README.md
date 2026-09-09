@@ -15,14 +15,14 @@ npm run dev
 
 Then open http://localhost:3000.
 
-The map tiles come from OpenStreetMap, so the app needs network access to render them, but there is no API key or account to set up.
+The map uses OpenFreeMap’s Positron vector tiles through MapLibre, so the app needs network access to render them, but there is no API key or account to set up.
 
 ## Feature tour
 
 | Screen | Route | What to try |
 | --- | --- | --- |
-| Map browse | `/` | Items appear as photo-and-price stickers on the map. Tap one to select it and the card rail below scrolls to match. Category chips filter the pins. |
-| List browse | `/browse` | Category tabs plus a filter sheet for max price, condition, delivery-only, and sort order. |
+| Map browse | `/map` | Items appear as photo-and-price stickers on the map. Tap one to select it and the card rail below scrolls to match. Category chips filter the pins. |
+| List browse | `/` | Category tabs plus a filter sheet for max price, condition, delivery-only, and sort order. |
 | Search | `/search` | Instant results across titles, descriptions, and neighborhoods. Recent searches persist. |
 | Item detail | `/item/[id]` | Photo, condition, distance, seller, delivery estimate, and a pickup-area mini map. |
 | Checkout | `/checkout/[id]` | Choose delivery or self-pickup and see the fee breakdown before confirming. |
@@ -37,7 +37,7 @@ A delivery runs its full course in about 90 seconds of real time, standing in fo
 
 - **Next.js 16** App Router with TypeScript and Tailwind v4
 - **shadcn/ui** on Radix, default style, `neutral` base color for the monochrome theme
-- **Leaflet** and **react-leaflet** over OpenStreetMap raster tiles. Tiles are desaturated in CSS so item photos are the only color on screen.
+- **MapLibre GL** over OpenFreeMap Positron vector tiles (no API key). Extra street labels are hidden and land/water are tinted toward the yardsale palette so item photos stay the loudest color. `npm install` copies MapLibre’s worker into `public/maplibre/` so Next can load vector tiles.
 - **Zustand** with the `persist` middleware for saved items, orders, and your own listings
 
 There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 24 seeded items scattered across real Raleigh neighborhoods, and everything you do on top of it is stored in `localStorage` under the `swapmeet` key. Clearing site data resets the demo.
@@ -60,7 +60,7 @@ src/
     store.ts               the persisted Zustand store
 ```
 
-Leaflet touches `window` at import time, so every map is loaded through `next/dynamic` with `ssr: false`. Leaflet also assigns its panes z-indexes in the hundreds, which is why `.leaflet-container` gets `isolation: isolate` in `globals.css` — without it the map paints over the floating search bar and sticky headers.
+MapLibre reaches for `window` at import time, so every map is loaded through `next/dynamic` with `ssr: false`. `.yardsale-map` gets `isolation: isolate` in `globals.css` so the canvas stays under floating search and sticky headers.
 
 Anything read from `localStorage` is gated behind `useHydrated()` so the server and client render the same markup on the first pass.
 
@@ -79,7 +79,7 @@ npm run flow    # buys an item and samples the delivery tracking screen
 
 The last two need Playwright's Chromium (`npx playwright install chromium`) and a dev server already running. They write PNGs to `.screenshots/`, which is gitignored. Set `BASE_URL` if your dev server isn't on port 3000, or `SCALE=2` for retina captures.
 
-Both run in a few seconds each. `shots` walks the two viewports in parallel and caches OSM tiles across them; `flow` backdates the persisted order's `placedAt` to jump between courier stages rather than waiting out the 90-second simulation.
+Both run in a few seconds each. `shots` walks the two viewports in parallel and caches OpenFreeMap tiles across them; `flow` backdates the persisted order's `placedAt` to jump between courier stages rather than waiting out the 90-second simulation.
 
 ## Demo caveats
 

@@ -151,66 +151,25 @@
   }
 }
 
-/* Leaflet ships its own opinionated chrome; align it with the brand. */
-.leaflet-container {
+/* MapLibre chrome; isolate so map layers stay under app overlays. */
+.yardsale-map,
+.maplibregl-map {
   background: var(--muted);
   font-family: inherit;
-  outline: none;
-  /*
-   * Leaflet gives its panes and controls z-indexes in the hundreds. Without an
-   * isolated stacking context those compete with the app's own layers and
-   * paint over floating controls and sticky headers.
-   */
   isolation: isolate;
+  outline: none;
 }
 
-/* Soften the OSM raster so listing photos stay the loudest color. */
-.leaflet-tile-pane {
-  filter: grayscale(0.55) saturate(0.7) contrast(0.95) brightness(1.04);
-}
-
-.leaflet-control-attribution {
+.maplibregl-ctrl-attrib {
   background: color-mix(in oklch, var(--background), transparent 15%) !important;
   color: var(--muted-foreground);
   font-size: 10px;
-  padding: 1px 5px;
 }
 
-.leaflet-control-attribution a {
+.maplibregl-ctrl-attrib a {
   color: var(--muted-foreground);
 }
 
-.leaflet-control-zoom {
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-md) !important;
-  overflow: hidden;
-}
-
-.leaflet-control-zoom a {
-  background: var(--card) !important;
-  border-bottom-color: var(--border) !important;
-  color: var(--foreground) !important;
-  font-weight: 400;
-}
-
-.leaflet-control-zoom a:hover {
-  background: var(--muted) !important;
-}
-
-/*
- * Item stickers are div icons of unknown width, so the Leaflet icon box is
- * collapsed to a point and the sticker is centered above it with a transform.
- */
-.sticker-icon {
+.maplibregl-marker {
   background: none;
-  border: none;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-.sticker-wrap {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-50%);
 }
