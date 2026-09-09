@@ -36,13 +36,13 @@ export default function ItemPage() {
   if (!item) {
     return (
       <div className="mx-auto w-full max-w-6xl">
-        <PageHeader title="Item" />
+        <PageHeader />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
           title="This listing is gone"
           description="It may have been sold or taken down. There's plenty more nearby."
           actionLabel="Browse items"
-          actionHref="/browse"
+          actionHref="/"
         />
       </div>
     );
@@ -54,9 +54,8 @@ export default function ItemPage() {
   const isSold = item.status === "sold";
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-28 md:pb-10">
+    <div className="mx-auto w-full max-w-6xl pb-[calc(var(--spacing-floating-nav)+4.5rem)] md:pb-10">
       <PageHeader
-        title={item.title}
         action={
           !isMine && (
             <SaveButton
@@ -88,11 +87,14 @@ export default function ItemPage() {
         </div>
 
         <div className="space-y-6 p-4 md:p-0">
-          <div className="space-y-2">
-            <p className="font-mono text-2xl tracking-wide">
-              {formatPrice(item.price)}
-            </p>
-            <h1 className="font-heading text-lg leading-snug">{item.title}</h1>
+          <div className="space-y-3">
+            <ConditionBadge condition={item.condition} />
+            <div className="space-y-2">
+              <h1 className="text-xl font-medium leading-snug">{item.title}</h1>
+              <p className="font-mono text-xs tracking-wide">
+                {formatPrice(item.price)}
+              </p>
+            </div>
             <p className="font-mono text-xs tracking-wider text-muted-foreground">
               {item.location.neighborhood} · {formatDistance(miles)} ·{" "}
               {formatRelativeTime(item.postedAt)}
@@ -101,7 +103,6 @@ export default function ItemPage() {
 
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">{item.category}</Badge>
-            <ConditionBadge condition={item.condition} />
             <Badge variant="outline">{SIZE_LABEL[item.size]}</Badge>
           </div>
 
@@ -123,8 +124,8 @@ export default function ItemPage() {
           )}
 
           <div className="space-y-2">
-            <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
-              Details
+            <h2 className="text-[15px] font-medium">
+              Description
             </h2>
             <p className="text-sm leading-relaxed whitespace-pre-line">
               {item.description}
@@ -134,7 +135,7 @@ export default function ItemPage() {
           <Separator />
 
           <div className="flex items-center gap-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-lilac font-display text-xs text-primary">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary font-display text-2xl text-primary-foreground">
               {item.seller.name
                 .split(" ")
                 .map((part) => part[0])
@@ -151,7 +152,7 @@ export default function ItemPage() {
           </div>
 
           <div className="space-y-2">
-            <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
+            <h2 className="text-[15px] font-medium">
               Pickup area
             </h2>
             <div className="h-44 overflow-hidden rounded-xl">
@@ -174,7 +175,7 @@ export default function ItemPage() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-16 z-20 flex gap-3 bg-background/95 p-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-floating-nav z-20 flex gap-3 bg-background/95 p-3 backdrop-blur md:hidden">
         <ItemActions
           itemId={item.id}
           title={item.title}

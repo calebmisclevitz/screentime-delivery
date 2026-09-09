@@ -48,7 +48,7 @@ export default function SearchPage() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-10">
+    <div className="mx-auto w-full max-w-6xl pb-floating-nav md:pb-10">
       <div className="sticky top-0 z-10 flex items-center gap-2 bg-background/95 px-2 py-2 backdrop-blur md:px-4">
         <button
           type="button"
@@ -75,7 +75,7 @@ export default function SearchPage() {
             enterKeyHint="search"
             placeholder="Search"
             aria-label="Search items"
-            className="h-12 w-full rounded-full bg-card pr-10 pl-9 text-base shadow-brand outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-search-cancel-button]:hidden"
+            className="h-12 w-full rounded-full bg-card pr-10 pl-9 text-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-search-cancel-button]:hidden"
           />
           {query && (
             <button
@@ -151,7 +151,7 @@ export default function SearchPage() {
           title={`No results for "${query.trim()}"`}
           description="Check the spelling, or browse by category to see everything listed nearby."
           actionLabel="Browse all items"
-          actionHref="/browse"
+          actionHref="/"
         />
       ) : (
         <>

@@ -2,49 +2,44 @@ import Image from "next/image";
 
 const PROMOS = [
   {
-    eyebrow: "Just in",
-    title: "Fresh finds in Raleigh",
-    className: "bg-primary text-lilac",
-    images: ["/items/technics-sl1200.jpg", "/items/hollowbody-guitar.jpg"],
+    title: "new furniture in your area",
+    action: "Explore",
+    className: "bg-primary text-primary-foreground",
+    buttonClass: "bg-background text-primary",
+    image: "/items/rattan-lounge-chair.jpg",
   },
   {
-    eyebrow: "Price drops",
-    title: "Markdowns near you",
-    className: "bg-forest text-lime",
-    images: ["/items/teak-credenza.jpg", "/items/walnut-speakers.jpg"],
+    title: "popular items",
+    action: "Discover now",
+    className: "bg-olive text-sprout",
+    buttonClass: "bg-sprout text-olive",
+    image: "/items/technics-sl1200.jpg",
   },
 ] as const;
 
 export function PromoRail() {
   return (
-    <div className="flex gap-2.5 overflow-x-auto px-4 [scrollbar-width:none] md:px-6 [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-3 overflow-x-auto px-4 [scrollbar-width:none] md:px-6 [&::-webkit-scrollbar]:hidden">
       {PROMOS.map((promo) => (
         <article
-          key={promo.eyebrow}
-          className={`relative h-[136px] w-[287px] shrink-0 overflow-hidden rounded-xl shadow-brand ${promo.className}`}
+          key={promo.title}
+          className={`relative h-[155px] w-[287px] shrink-0 overflow-hidden rounded-3xl ${promo.className}`}
         >
-          <p className="absolute top-4 left-4 font-mono text-xs font-medium tracking-wider">
-            {promo.eyebrow}
-          </p>
-          <p className="absolute bottom-4 left-4 w-[130px] font-heading text-2xl leading-[1.11] tracking-wide">
+          <p className="absolute top-2.5 left-4 w-[150px] font-display text-[32px] leading-none">
             {promo.title}
           </p>
-          <div className="absolute top-1 right-1 h-32 w-[116px]">
-            <Image
-              src={promo.images[0]}
-              alt=""
-              width={90}
-              height={110}
-              className="absolute top-2 left-0 h-[95px] w-[77px] rotate-[15deg] object-cover"
-            />
-            <Image
-              src={promo.images[1]}
-              alt=""
-              width={110}
-              height={80}
-              className="absolute top-0 left-8 h-[71px] w-[107px] rotate-[15deg] object-cover"
-            />
-          </div>
+          <span
+            className={`absolute bottom-4 left-4 flex h-[31px] items-center rounded-full px-4 text-sm font-medium ${promo.buttonClass}`}
+          >
+            {promo.action}
+          </span>
+          <Image
+            src={promo.image}
+            alt=""
+            width={132}
+            height={156}
+            className="absolute top-8 -right-2 h-[156px] w-[132px] object-cover"
+          />
         </article>
       ))}
     </div>

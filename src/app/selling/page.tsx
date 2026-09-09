@@ -11,7 +11,6 @@ import {
 import { toast } from "sonner";
 
 import { EmptyState } from "@/components/empty-state";
-import { SectionHeader } from "@/components/page-header";
 import { useClock } from "@/lib/clock";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -33,20 +32,10 @@ export default function SellingPage() {
   const sold = listings.filter((l) => l.status === "sold");
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-10">
-      <SectionHeader
-        title="Your stall"
-        subtitle="Listings you've posted and things you've bought"
-        action={
-          <Button asChild size="lg" className="h-10">
-            <Link href="/sell">New listing</Link>
-          </Button>
-        }
-      />
-
+    <div className="mx-auto w-full max-w-6xl pb-floating-nav md:pb-10">
       <Tabs defaultValue="active" className="gap-0">
-        <div className="sticky top-0 z-10 border-b bg-background/95 px-4 pb-3 backdrop-blur md:px-6">
-          <TabsList className="h-10 w-full">
+        <div className="sticky top-0 z-10 flex items-center gap-2 border-b bg-background/95 px-4 py-3 backdrop-blur md:px-6">
+          <TabsList className="h-10 min-w-0 flex-1">
             <TabsTrigger value="active">
               Active {hydrated && active.length > 0 && `(${active.length})`}
             </TabsTrigger>
@@ -57,6 +46,9 @@ export default function SellingPage() {
               Bought {hydrated && orders.length > 0 && `(${orders.length})`}
             </TabsTrigger>
           </TabsList>
+          <Button asChild size="lg" className="h-10 shrink-0">
+            <Link href="/sell">New listing</Link>
+          </Button>
         </div>
 
         {!hydrated ? (
@@ -119,7 +111,7 @@ export default function SellingPage() {
                   title="No purchases yet"
                   description="Buy something with delivery and you'll be able to watch the courier make their way to you."
                   actionLabel="Browse items"
-                  actionHref="/browse"
+                  actionHref="/"
                 />
               ) : (
                 <ul className="space-y-3">

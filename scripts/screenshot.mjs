@@ -10,8 +10,8 @@ const OUT = ".screenshots";
 const SCALE = Number(process.env.SCALE ?? 1);
 
 const SHOTS = [
-  { name: "map", path: "/" },
-  { name: "browse", path: "/browse" },
+  { name: "home", path: "/" },
+  { name: "map", path: "/map" },
   { name: "search", path: "/search" },
   { name: "item", path: "/item/rhodes-mark-i" },
   { name: "checkout", path: "/checkout/rhodes-mark-i" },

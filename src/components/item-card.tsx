@@ -28,7 +28,7 @@ export function ItemCard({
       )}
     >
       <div className="flex flex-col gap-2">
-        <p className="line-clamp-1 text-sm leading-tight">{item.title}</p>
+        <p className="line-clamp-1 text-sm font-medium leading-tight">{item.title}</p>
         <p className="flex items-center gap-1 font-mono text-xs tracking-wide">
           <span>{formatPrice(item.price)}</span>
           <span aria-hidden className="text-muted-foreground">

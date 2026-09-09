@@ -3,8 +3,8 @@ import type { Condition } from "@/lib/types";
 
 const STYLES: Record<Condition, string> = {
   Excellent: "bg-lime text-forest",
-  Good: "bg-lavender text-primary",
-  Fair: "bg-muted text-primary",
+  Good: "bg-lime text-forest",
+  Fair: "bg-lime text-foreground",
 };
 
 export function ConditionBadge({

@@ -11,7 +11,7 @@ export function PageHeader({
   action,
   className,
 }: {
-  title: string;
+  title?: string;
   action?: React.ReactNode;
   className?: string;
 }) {
@@ -32,35 +32,8 @@ export function PageHeader({
       >
         <ChevronLeftIcon className="size-5" />
       </button>
-      <span className="truncate text-sm">{title}</span>
+      {title && <span className="truncate text-sm">{title}</span>}
       {action && <div className="ml-auto pr-1">{action}</div>}
-    </div>
-  );
-}
-
-/** Plain title block for top-level tab screens, which have no back target. */
-export function SectionHeader({
-  title,
-  subtitle,
-  action,
-}: {
-  title: string;
-  subtitle?: string;
-  action?: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-end justify-between gap-3 px-4 pt-4 pb-3 md:px-6">
-      <div>
-        <h1 className="font-display text-[32px] leading-none font-medium tracking-[-0.04em] text-primary lowercase">
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="mt-1.5 font-mono text-xs tracking-wider text-muted-foreground">
-            {subtitle}
-          </p>
-        )}
-      </div>
-      {action}
     </div>
   );
 }

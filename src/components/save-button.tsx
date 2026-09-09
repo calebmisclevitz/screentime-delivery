@@ -54,7 +54,7 @@ export function SaveButton({ itemId, title, variant = "icon", className }: Props
       aria-label={isSaved ? "Remove from saved" : "Save item"}
       aria-pressed={isSaved}
       className={cn(
-        "flex size-6 items-center justify-center rounded-md border border-black/8 bg-card text-primary shadow-brand transition-colors hover:bg-card",
+        "flex size-6 items-center justify-center rounded-xl border border-black/8 bg-card text-primary shadow-brand transition-colors hover:bg-card",
         className,
       )}
     >

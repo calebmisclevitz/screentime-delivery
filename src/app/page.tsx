@@ -11,17 +11,11 @@ import { CategoryChips } from "@/components/category-chips";
 import { EmptyState } from "@/components/empty-state";
 import { FilterSheet } from "@/components/filter-sheet";
 import { ItemCard } from "@/components/item-card";
-import { SectionHeader } from "@/components/page-header";
 import { PromoRail } from "@/components/promo-rail";
 import { MARKET_ITEMS } from "@/lib/data/items";
-import {
-  DEFAULT_FILTERS,
-  SORT_LABELS,
-  applyFilters,
-  type Filters,
-} from "@/lib/filters";
+import { DEFAULT_FILTERS, applyFilters, type Filters } from "@/lib/filters";
 
-export default function BrowsePage() {
+export default function HomePage() {
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
   const results = useMemo(
     () => applyFilters(MARKET_ITEMS, filters),
@@ -29,16 +23,11 @@ export default function BrowsePage() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-10">
-      <SectionHeader
-        title="Browse"
-        subtitle={`${results.length} ${results.length === 1 ? "item" : "items"} · ${SORT_LABELS[filters.sort]}`}
-      />
-
-      <div className="px-4 pb-3 md:px-6">
+    <div className="mx-auto w-full max-w-6xl pb-floating-nav md:pb-10">
+      <div className="px-4 pt-3 pb-3 md:px-6">
         <Link
           href="/search"
-          className="flex h-12 items-center gap-3 rounded-full bg-card px-4 text-base text-muted-foreground shadow-brand transition-colors hover:text-foreground"
+          className="flex h-12 items-center gap-3 rounded-full bg-card px-4 text-lg text-muted-foreground transition-colors hover:text-foreground"
         >
           <MagnifyingGlassIcon className="size-4" />
           Search

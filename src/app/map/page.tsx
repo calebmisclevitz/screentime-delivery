@@ -46,7 +46,7 @@ export default function MapPage() {
   return (
     <div className="absolute inset-0 flex">
       {/* Desktop results panel */}
-      <aside className="hidden w-[380px] shrink-0 flex-col border-r lg:flex xl:w-[440px]">
+      <aside className="hidden w-[380px] shrink-0 flex-col border-r pt-14 lg:flex xl:w-[440px]">
         <div className="p-4">
           <SearchLink />
           <CategoryChips
@@ -80,10 +80,11 @@ export default function MapPage() {
           items={items}
           selectedId={selectedId}
           onSelect={setPickedId}
+          className="absolute inset-0"
         />
 
         {/* Mobile overlay controls */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 space-y-3 p-3 lg:hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-14 z-10 space-y-3 p-3 lg:hidden">
           <div className="pointer-events-auto">
             <SearchLink />
           </div>
@@ -94,7 +95,7 @@ export default function MapPage() {
 
         {/* Mobile card rail */}
         <div
-          className="absolute inset-x-0 bottom-0 z-10 flex gap-3 overflow-x-auto p-3 [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
+          className="absolute inset-x-0 bottom-0 z-10 flex gap-3 overflow-x-auto p-3 pb-floating-nav [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
         >
           {items.map((item) => (
             <RailCard
@@ -118,7 +119,7 @@ function SearchLink() {
   return (
     <Link
       href="/search"
-      className="flex h-12 items-center gap-3 rounded-full bg-card px-4 text-base text-muted-foreground shadow-brand transition-colors hover:text-foreground"
+      className="flex h-12 items-center gap-3 rounded-full bg-card px-4 text-lg text-muted-foreground transition-colors hover:text-foreground"
     >
       <MagnifyingGlassIcon className="size-4" />
       Search

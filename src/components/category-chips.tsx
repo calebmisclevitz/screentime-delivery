@@ -32,10 +32,10 @@ export function CategoryChips({
             onClick={() => onChange(option)}
             aria-pressed={active}
             className={cn(
-              "shrink-0 text-base lowercase tracking-wide whitespace-nowrap transition-colors",
+              "shrink-0 text-lg lowercase tracking-wide whitespace-nowrap transition-colors",
               active
-                ? "rounded-full bg-card px-4 py-2 text-foreground shadow-brand"
-                : "text-foreground/40 hover:text-foreground/70",
+                ? "rounded-full bg-card px-4 py-2 text-foreground"
+                : "text-foreground/50 hover:text-foreground/70",
             )}
           >
             {option}

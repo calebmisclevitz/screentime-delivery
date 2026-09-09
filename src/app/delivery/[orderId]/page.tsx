@@ -41,7 +41,7 @@ export default function DeliveryPage() {
   if (!hydrated) {
     return (
       <div className="mx-auto w-full max-w-2xl">
-        <PageHeader title="Order" />
+        <PageHeader />
         <Skeleton className="m-4 h-64 rounded-xl" />
       </div>
     );
@@ -50,13 +50,13 @@ export default function DeliveryPage() {
   if (!order || !item) {
     return (
       <div className="mx-auto w-full max-w-2xl">
-        <PageHeader title="Order" />
+        <PageHeader />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
           title="Order not found"
           description="This order isn't on this device. Orders in the demo are stored locally in your browser."
           actionLabel="Browse items"
-          actionHref="/browse"
+          actionHref="/"
         />
       </div>
     );
@@ -73,8 +73,8 @@ export default function DeliveryPage() {
   const done = current.stage === "delivered";
 
   return (
-    <div className="mx-auto w-full max-w-2xl pb-10">
-      <PageHeader title={`Order ${order.id}`} />
+    <div className="mx-auto w-full max-w-2xl pb-floating-nav md:pb-10">
+      <PageHeader />
 
       <div className="h-64 md:h-80">
         <RouteMap
@@ -205,7 +205,7 @@ export default function DeliveryPage() {
             <Link href="/selling">View orders</Link>
           </Button>
           <Button asChild className="h-11 flex-1">
-            <Link href="/browse">Keep browsing</Link>
+            <Link href="/">Keep browsing</Link>
           </Button>
         </div>
       </div>
@@ -222,7 +222,7 @@ function PickupConfirmation({
 }) {
   return (
     <div className="mx-auto w-full max-w-2xl">
-      <PageHeader title={`Order ${orderId}`} />
+      <PageHeader />
       <div className="space-y-6 p-4 md:p-6">
         <div className="flex flex-col items-center gap-3 py-8 text-center">
           <span className="flex size-11 items-center justify-center rounded-full bg-accent text-accent-foreground">
@@ -241,7 +241,7 @@ function PickupConfirmation({
             <Link href="/selling">View orders</Link>
           </Button>
           <Button asChild className="h-11 flex-1">
-            <Link href="/browse">Keep browsing</Link>
+            <Link href="/">Keep browsing</Link>
           </Button>
         </div>
       </div>

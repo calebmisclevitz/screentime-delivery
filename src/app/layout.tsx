@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Cossette_Texte,
   DM_Mono,
-  Stack_Sans_Headline,
-  Stack_Sans_Notch,
+  Special_Gothic,
+  Special_Gothic_Condensed_One,
 } from "next/font/google";
 
 import { AppShell } from "@/components/app-shell";
@@ -12,22 +11,17 @@ import { Toaster } from "@/components/ui/sonner";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
-const cossette = Cossette_Texte({
-  variable: "--font-cossette",
+const specialGothic = Special_Gothic({
+  variable: "--font-special",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500"],
   adjustFontFallback: false,
 });
 
-const stackHeadline = Stack_Sans_Headline({
-  variable: "--font-stack-headline",
+const specialGothicCondensed = Special_Gothic_Condensed_One({
+  variable: "--font-special-condensed",
   subsets: ["latin"],
-  adjustFontFallback: false,
-});
-
-const stackNotch = Stack_Sans_Notch({
-  variable: "--font-stack-notch",
-  subsets: ["latin"],
+  weight: "400",
   adjustFontFallback: false,
 });
 
@@ -38,7 +32,7 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swapmeet — Raleigh",
+  title: "Yardsale — Raleigh",
   description:
     "Buy and sell secondhand nearby. Choose delivery and a neighbor brings it to you.",
 };
@@ -47,16 +41,16 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#f3f3f3",
+  themeColor: "#deedf2",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${cossette.variable} ${stackHeadline.variable} ${stackNotch.variable} ${dmMono.variable} antialiased`}
+      className={`${specialGothic.variable} ${specialGothicCondensed.variable} ${dmMono.variable} antialiased`}
     >
-      <body className="flex h-dvh flex-col overflow-hidden bg-background text-foreground">
+      <body className="relative flex h-dvh flex-col overflow-hidden bg-background text-foreground">
         <AppShell>{children}</AppShell>
         <Toaster position="top-center" />
       </body>
