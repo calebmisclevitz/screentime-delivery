@@ -65,7 +65,7 @@ export default function SellPage() {
       as="form"
       width="narrow"
       onSubmit={submit}
-      className="pb-24 md:pb-10"
+      className="pb-floating-nav md:pb-10"
     >
       <PageHeader title="Sell an item" />
       <div className="space-y-8 p-4 md:p-6">

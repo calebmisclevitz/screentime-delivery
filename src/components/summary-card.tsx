@@ -9,7 +9,7 @@ export function SummaryCard({
 }: React.ComponentProps<typeof Card>) {
   return (
     <Card
-      className={cn("flex-row gap-4 p-4 shadow-brand ring-0", className)}
+      className={cn("flex-row gap-4 p-4 ring-0", className)}
       {...props}
     />
   );

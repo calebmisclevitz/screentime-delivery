@@ -10,11 +10,11 @@ import { SearchField } from "@/components/ui/search-field";
 export function BrowseHeader() {
   return (
     <header className="pointer-events-none absolute inset-x-0 top-0 z-30 px-4 py-4">
-      <div className="mx-auto flex w-full max-w-6xl items-center gap-4">
+      <div className="mx-auto flex w-full max-w-6xl items-center gap-2">
         <SearchField
           href="/search"
           placeholder="Search Raleigh"
-          className="pointer-events-auto min-w-0 flex-1 hover:text-foreground"
+          className="pointer-events-auto min-w-0 flex-1 shadow-brand hover:text-foreground"
         />
         <Link
           href="/you"

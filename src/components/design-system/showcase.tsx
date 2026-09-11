@@ -8,6 +8,7 @@ import {
   TagIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
+import { ChevronDownIcon as ChevronDownMiniIcon } from "@heroicons/react/20/solid";
 
 import { ConditionBadge } from "@/components/condition-badge";
 import { EmptyState } from "@/components/empty-state";
@@ -149,10 +150,14 @@ export function DesignSystemShowcase() {
       <ShowcaseSection
         id="actions"
         title="Buttons and icon buttons"
-        description="The normal action is 48px high with a 24px icon; compact is explicit."
+        description="The normal action is 48px high with a 24px icon; overlay is the white-on-media treatment. Add shadow-brand when the control sits on a photo or map. Trailing affordances use the 20px mini icon set via data-icon-size."
       >
         <div className="flex flex-wrap items-center gap-4">
           <Button>Primary</Button>
+          <Button variant="overlay">Overlay</Button>
+          <Button variant="overlay" className="shadow-brand">
+            Overlay + shadow
+          </Button>
           <Button variant="outline">Outline</Button>
           <Button variant="secondary">Secondary</Button>
           <Button variant="ghost">Ghost</Button>
@@ -161,14 +166,25 @@ export function DesignSystemShowcase() {
           <Button>
             Continue <ArrowRightIcon data-icon="inline-end" />
           </Button>
+          <Button variant="overlay">
+            All categories
+            <ChevronDownMiniIcon data-icon="inline-end" data-icon-size="mini" />
+          </Button>
         </div>
         <div className="mt-8 flex items-center gap-4">
           <IconButton icon={HeartIcon} aria-label="Save item" />
           <IconButton
             icon={HeartIcon}
-            aria-label="Compact save item"
+            aria-label="Overlay save item"
             size="compact"
-            variant="outline"
+            variant="overlay"
+          />
+          <IconButton
+            icon={HeartIcon}
+            aria-label="Elevated overlay save item"
+            size="compact"
+            variant="overlay"
+            className="shadow-brand"
           />
           <Button size="sm">Compact action</Button>
         </div>
@@ -219,10 +235,14 @@ export function DesignSystemShowcase() {
       <ShowcaseSection
         id="search"
         title="Search"
-        description="Linked browse search and editable search use the same field shell."
+        description="Same field shell; add shadow-brand when it floats over a list or map."
       >
         <div className="grid max-w-3xl gap-4 md:grid-cols-2">
-          <SearchField href="/search" placeholder="Search Raleigh" />
+          <SearchField
+            href="/search"
+            placeholder="Search Raleigh"
+            className="shadow-brand"
+          />
           <SearchField
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -302,9 +322,12 @@ export function DesignSystemShowcase() {
       <ShowcaseSection
         id="sticky-action"
         title="Sticky action composition"
-        description="Shown statically here; product pages pin the same component to the viewport."
+        description="A gradient scrim over the page, matching the home browse nav. Product pages pin this to the viewport."
       >
-        <div className="overflow-hidden rounded-xl border">
+        <div className="relative overflow-hidden rounded-xl bg-muted/40">
+          <p className="px-4 pt-8 pb-16 text-muted-foreground">
+            Page content fades under the actions.
+          </p>
           <StickyActionBar position="static">
             <Button variant="outline" className="flex-1">
               Save

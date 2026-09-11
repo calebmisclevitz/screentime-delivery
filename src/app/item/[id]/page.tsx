@@ -56,19 +56,8 @@ export default function ItemPage() {
   const isSold = item.status === "sold";
 
   return (
-    <PageContainer className="pb-24 md:pb-10">
-      <PageHeader
-        title="Item"
-        action={
-          !isMine && (
-            <SaveButton
-              itemId={item.id}
-              title={item.title}
-              className="bg-card"
-            />
-          )
-        }
-      />
+    <PageContainer className="relative pb-floating-nav md:pb-10">
+      <PageHeader title="Item" titleHidden variant="overlay" />
 
       <div className="md:grid md:grid-cols-2 md:gap-8 md:p-6">
         <div className="relative aspect-4/3 bg-muted md:overflow-hidden md:rounded-xl">
@@ -90,28 +79,55 @@ export default function ItemPage() {
         <div className="space-y-6 p-4 md:p-0">
           <div className="space-y-4">
             <ConditionBadge condition={item.condition} />
-            <div className="space-y-2">
-              <h1>{item.title}</h1>
-              <p className="text-foreground">
+            <div className="space-y-1">
+              <p className="text-foreground type-display-medium font-medium">
                 {formatPrice(item.price)}
               </p>
+              <h1 className="type-body-large font-medium">{item.title}</h1>
             </div>
-            <p className="text-muted-foreground">
-              {item.location.neighborhood} · {formatDistance(miles)} ·{" "}
-              {formatRelativeTime(item.postedAt)}
+          
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">{item.category}</Badge>
+              <Badge variant="outline">{SIZE_LABEL[item.size]}</Badge>
+            </div>
+
+            <p className="whitespace-pre-line">
+              {item.description}
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="outline">{item.category}</Badge>
-            <Badge variant="outline">{SIZE_LABEL[item.size]}</Badge>
+          <Separator />
+
+          <div className="flex items-center gap-4">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary type-body-large font-medium text-primary-foreground">
+              {item.seller.name
+                .split(" ")
+                .map((part) => part[0])
+                .join("")
+                .slice(0, 2)}
+            </span>
+            <div className="min-w-0 flex-1 space-y-1">
+              <p className="font-medium">{item.seller.name}</p>
+              <p className="flex items-center gap-2 text-muted-foreground type-label-small">
+                <StarSolid className="size-4 text-primary" />
+                {item.seller.rating.toFixed(1)} · {item.seller.sales} sales
+              </p>
+            </div>
+          </div>
+
+          <div className="h-44 overflow-hidden rounded-xl">
+            <PinMap point={item.location} label={item.location.neighborhood} />
           </div>
 
           {item.deliveryAvailable ? (
-            <div className="flex gap-4 rounded-xl bg-card p-4 shadow-brand">
+            <div className="flex gap-4 rounded-xl bg-card p-4">
               <TruckIcon className="size-icon shrink-0 text-primary" />
-              <div className="space-y-1">
-                <p>Delivery available</p>
+              <div className="space-y-2">
+                <p className="font-medium">Delivery in 24-40 mins</p>
+                <p className="text-muted-foreground type-label-small">
+                  {item.location.neighborhood} · {formatDistance(miles)} ·{" "}
+                  {formatRelativeTime(item.postedAt)}
+                </p>
                 <p className="text-muted-foreground">
                   A Swapmeeter meets the seller and brings it to you, about{" "}
                   {formatPrice(fee)} for this trip.
@@ -123,42 +139,6 @@ export default function ItemPage() {
               Pickup only — this seller isn&apos;t offering delivery.
             </div>
           )}
-
-          <div className="space-y-2">
-            <h2>Description</h2>
-            <p className="whitespace-pre-line">
-              {item.description}
-            </p>
-          </div>
-
-          <Separator />
-
-          <div className="flex items-center gap-4">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              {item.seller.name
-                .split(" ")
-                .map((part) => part[0])
-                .join("")
-                .slice(0, 2)}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p>{item.seller.name}</p>
-              <p className="flex items-center gap-2 text-muted-foreground">
-                <StarSolid className="size-4 text-primary" />
-                {item.seller.rating.toFixed(1)} · {item.seller.sales} sales
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <h2>Pickup area</h2>
-            <div className="h-44 overflow-hidden rounded-xl">
-              <PinMap point={item.location} label={item.location.neighborhood} />
-            </div>
-            <p className="text-muted-foreground">
-              Exact address is shared once a sale is confirmed.
-            </p>
-          </div>
 
           {/* Desktop actions sit inline; mobile gets the sticky bar below. */}
           <div className="hidden gap-4 md:flex">
@@ -205,7 +185,7 @@ function ItemActions({
 
   return (
     <>
-      <SaveButton itemId={itemId} title={title} variant="full" />
+      <SaveButton itemId={itemId} title={title} size="default" />
       {isSold ? (
         <Button disabled className="flex-1">
           Sold

@@ -25,7 +25,7 @@ export function PromoRail() {
           key={promo.title}
           className={`relative h-[155px] w-[287px] shrink-0 overflow-hidden rounded-3xl ${promo.className}`}
         >
-          <p className="absolute top-2 left-4 w-[152px]">
+          <p className="absolute top-2 left-4 w-[152px] type-display-medium">
             {promo.title}
           </p>
           <span

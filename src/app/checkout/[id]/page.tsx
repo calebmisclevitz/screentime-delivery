@@ -73,7 +73,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <PageContainer width="narrow" className="pb-24 md:pb-10">
+    <PageContainer width="narrow" className="pb-floating-nav md:pb-10">
       <PageHeader title="Checkout" />
 
       <div className="space-y-8 p-4 md:p-6">
@@ -91,10 +91,6 @@ export default function CheckoutPage() {
         </SummaryCard>
 
         <section className="space-y-4">
-          <h2 className="text-muted-foreground">
-            How do you want it?
-          </h2>
-
           <FulfillmentOption
             icon={TruckIcon}
             title="Delivery"
@@ -129,9 +125,6 @@ export default function CheckoutPage() {
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Street address, Raleigh NC"
             />
-            <p className="text-muted-foreground">
-              Your courier only sees this after they collect the item.
-            </p>
           </section>
         )}
 
@@ -218,7 +211,7 @@ function FulfillmentOption({
       aria-pressed={selected}
       className={cn(
         "flex w-full gap-4 rounded-xl border p-4 text-left transition-colors",
-        selected ? "border-primary bg-secondary/40" : "border-border bg-card",
+        selected ? "bg-muted" : "border-border",
         disabled && "opacity-50",
       )}
     >
@@ -233,7 +226,7 @@ function FulfillmentOption({
       <span className="min-w-0 flex-1 space-y-1">
         <span className="flex flex-wrap items-center gap-2">
           <Icon className="size-icon text-primary" />
-          <span>{title}</span>
+          <span className="font-medium">{title}</span>
           {badge && (
             <span className="rounded-full bg-accent px-2 py-1 text-accent-foreground">
               {badge}

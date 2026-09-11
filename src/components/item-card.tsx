@@ -28,24 +28,26 @@ export function ItemCard({
         className,
       )}
     >
-      <div className="flex flex-col gap-2">
-        <p className="line-clamp-1">{item.title}</p>
-        <p className="flex items-center gap-2">
-          <span>{formatPrice(item.price)}</span>
-          <span aria-hidden className="text-muted-foreground">
-            ·
-          </span>
-          <span>{formatDistance(miles)}</span>
-          {item.deliveryAvailable && (
-            <TruckIcon
-              className="size-4 shrink-0 text-muted-foreground"
-              aria-label="Delivery available"
-            />
-          )}
-        </p>
-      </div>
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-1">
+          <p className="line-clamp-1 font-medium">{item.title}</p>
+          <p className="flex items-center gap-2 type-label-small text-muted-foreground">
+            <span>{formatPrice(item.price)}</span>
+            <span aria-hidden className="text-muted-foreground">
+              ·
+            </span>
+            <span>{formatDistance(miles)}</span>
+            {item.deliveryAvailable && (
+              <TruckIcon
+                className="size-4 shrink-0 text-muted-foreground"
+                aria-label="Delivery available"
+              />
+            )}
+          </p>
+        </div>
 
-      <ConditionBadge condition={item.condition} />
+        <ConditionBadge condition={item.condition} />
+      </div>
 
       <div className="relative aspect-square overflow-hidden rounded-lg bg-muted/50">
         <Image
@@ -64,7 +66,7 @@ export function ItemCard({
           <SaveButton
             itemId={item.id}
             title={item.title}
-            className="absolute right-2 bottom-2"
+            className="absolute right-2 bottom-2 shadow-brand"
           />
         )}
       </div>

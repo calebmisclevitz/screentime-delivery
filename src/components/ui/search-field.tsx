@@ -27,7 +27,7 @@ type SearchInputProps = Omit<
 };
 
 const fieldClassName =
-  "flex h-control w-full items-center rounded-full bg-card text-muted-foreground shadow-brand transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50";
+  "flex h-control w-full items-center rounded-full bg-card text-muted-foreground transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50";
 
 /** Shared browse-search presentation for both linked and editable contexts. */
 export function SearchField(props: SearchLinkProps | SearchInputProps) {
@@ -73,7 +73,7 @@ export function SearchField(props: SearchLinkProps | SearchInputProps) {
         type="search"
         className={cn(
           fieldClassName,
-          "pr-12 pl-12 text-foreground shadow-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden",
+          "pr-12 pl-12 text-foreground placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden",
         )}
       />
       {hasValue && onClear && (

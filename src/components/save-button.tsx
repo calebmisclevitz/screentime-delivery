@@ -7,17 +7,24 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { useHydrated, useStore } from "@/lib/store";
-import { cn } from "@/lib/utils";
 
 type Props = {
   itemId: string;
   title?: string;
   /** `icon` is the floating overlay on cards; `full` is the labelled button. */
   variant?: "icon" | "full";
+  /** Sizing for the `icon` variant; cards use the compact 32px form. */
+  size?: "default" | "compact";
   className?: string;
 };
 
-export function SaveButton({ itemId, title, variant = "icon", className }: Props) {
+export function SaveButton({
+  itemId,
+  title,
+  variant = "icon",
+  size = "compact",
+  className,
+}: Props) {
   const hydrated = useHydrated();
   const saved = useStore((s) => s.savedIds.includes(itemId));
   const toggleSaved = useStore((s) => s.toggleSaved);
@@ -37,12 +44,12 @@ export function SaveButton({ itemId, title, variant = "icon", className }: Props
     return (
       <Button
         type="button"
-        variant="outline"
+        variant="overlay"
         onClick={onClick}
         aria-pressed={isSaved}
         className={className}
       >
-        <Icon className={cn(isSaved && "text-primary")} />
+        <Icon data-icon="inline-start" />
         {isSaved ? "Saved" : "Save"}
       </Button>
     );
@@ -51,16 +58,13 @@ export function SaveButton({ itemId, title, variant = "icon", className }: Props
   return (
     <IconButton
       type="button"
-      size="compact"
-      variant="outline"
+      size={size}
+      variant="overlay"
       icon={Icon}
       onClick={onClick}
       aria-label={isSaved ? "Remove from saved" : "Save item"}
       aria-pressed={isSaved}
-      className={cn(
-        "bg-card text-primary shadow-brand hover:bg-card",
-        className,
-      )}
+      className={className}
     />
   );
 }
