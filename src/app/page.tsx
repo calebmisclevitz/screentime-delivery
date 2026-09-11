@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo } from "react";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassPlusIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassPlusIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
+import { PageContainer } from "@/components/page-container";
 import { PromoRail } from "@/components/promo-rail";
+import { Button } from "@/components/ui/button";
 import { itemsInCategory, parseCategory } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
 
@@ -31,19 +31,16 @@ function HomeContent() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl pt-browse-header pb-floating-nav md:pb-10">
+    <PageContainer className="pt-browse-header pb-floating-nav md:pb-10">
       <PromoRail />
 
-      <div className="px-4 py-3 md:px-6">
-        <Link
-          href="/categories"
-          className="flex min-w-0 items-center gap-2 text-lg tracking-wide"
-        >
-          <span className="truncate">
+      <div className="px-4 py-4 md:px-6">
+        <Button asChild variant="outline">
+          <Link href="/categories">
             {category === "All" ? "All categories" : category}
-          </span>
-          <ChevronDownIcon className="size-4 shrink-0" />
-        </Link>
+            <ChevronDownIcon data-icon="inline-end" data-icon-size="mini" />
+          </Link>
+        </Button>
       </div>
 
       {results.length === 0 ? (
@@ -59,6 +56,6 @@ function HomeContent() {
           ))}
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }

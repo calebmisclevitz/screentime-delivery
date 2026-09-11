@@ -11,6 +11,7 @@ import {
 
 import { PageHeader } from "@/components/page-header";
 import { PageMenu } from "@/components/page-menu";
+import { PageContainer } from "@/components/page-container";
 import { browseHref } from "@/lib/browse";
 import { CATEGORIES } from "@/lib/types";
 
@@ -39,9 +40,9 @@ export function CategoriesView() {
   ];
 
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <PageContainer width="narrow">
       <PageHeader title="Categories" />
       <PageMenu items={items} />
-    </div>
+    </PageContainer>
   );
 }

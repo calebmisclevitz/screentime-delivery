@@ -32,7 +32,7 @@ function stickerEl(item: Item, selected: boolean) {
   el.innerHTML = `
     <div class="flex items-center gap-1 rounded-full border py-0.5 pr-2 pl-0.5 transition-all ${ring}">
       <img src="${item.images[0]}" alt="" class="size-6 shrink-0 rounded-full object-cover" />
-      <span class="font-mono text-[11px] tracking-wide whitespace-nowrap">${formatPrice(item.price)}</span>
+      <span class="whitespace-nowrap">${formatPrice(item.price)}</span>
     </div>
   `;
   return el;
@@ -46,7 +46,7 @@ function dotEl(label: string, filled: boolean) {
   el.innerHTML = `
     <div class="flex items-center gap-1.5">
       <span class="size-3 rounded-full border-2 ${style}"></span>
-      <span class="rounded-full border border-border bg-card/90 px-2 py-0.5 font-mono text-[10px] tracking-wide whitespace-nowrap text-foreground">${label}</span>
+      <span class="rounded-full border border-border bg-card/90 px-2 py-1 whitespace-nowrap text-foreground">${label}</span>
     </div>
   `;
   return el;

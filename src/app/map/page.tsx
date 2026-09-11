@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
-import { ChevronDownIcon, TruckIcon } from "@heroicons/react/24/outline";
+import { TruckIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { StickerMap } from "@/components/map";
 import { SaveButton } from "@/components/save-button";
+import { Button } from "@/components/ui/button";
 import { itemsInCategory, parseCategory } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
 import { HOME, distanceMiles, formatDistance, formatPrice } from "@/lib/geo";
@@ -48,17 +50,16 @@ function MapContent() {
       />
 
       <div className="absolute top-browse-header left-4 z-20">
-        <Link
-          href="/categories?from=map"
-          className="flex h-11 items-center gap-2 rounded-full bg-card px-4 text-base shadow-float focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
-        >
-          {category === "All" ? "All categories" : category}
-          <ChevronDownIcon className="size-4" />
-        </Link>
+        <Button asChild variant="overlay" className="shadow-brand">
+          <Link href="/categories?from=map">
+            {category === "All" ? "All categories" : category}
+            <ChevronDownIcon data-icon="inline-end" data-icon-size="mini" />
+          </Link>
+        </Button>
       </div>
 
       {selectedItem && (
-        <div className="absolute inset-x-0 bottom-floating-nav z-20 flex justify-center px-4 pb-3">
+        <div className="absolute inset-x-0 bottom-floating-nav z-20 flex justify-center px-4 pb-4">
           <SelectedItemCard item={selectedItem} />
         </div>
       )}
@@ -72,7 +73,7 @@ function SelectedItemCard({ item }: { item: Item }) {
   return (
     <Link
       href={`/item/${item.id}`}
-      className="relative flex w-full max-w-sm gap-3 rounded-xl bg-card p-2 shadow-float transition-colors"
+      className="relative flex w-full max-w-sm gap-4 rounded-xl bg-card p-2 shadow-float transition-colors"
     >
       <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
         <Image
@@ -83,16 +84,16 @@ function SelectedItemCard({ item }: { item: Item }) {
           className="object-cover"
         />
       </div>
-      <div className="flex min-w-0 flex-1 flex-col justify-center pr-7">
-        <p className="truncate text-sm">{item.title}</p>
-        <p className="mt-1 flex items-center gap-1 font-mono text-xs tracking-wide">
+      <div className="flex min-w-0 flex-1 flex-col justify-center pr-8">
+        <p className="truncate">{item.title}</p>
+        <p className="flex items-center gap-2">
           <span>{formatPrice(item.price)}</span>
           <span aria-hidden className="text-muted-foreground">
             ·
           </span>
           <span>{formatDistance(miles)}</span>
           {item.deliveryAvailable && (
-            <TruckIcon className="size-3 text-muted-foreground" />
+            <TruckIcon className="size-4 text-muted-foreground" />
           )}
         </p>
       </div>

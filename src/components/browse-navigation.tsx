@@ -12,6 +12,7 @@ import {
   MapIcon as MapSolid,
 } from "@heroicons/react/24/solid";
 
+import { IconButton } from "@/components/ui/icon-button";
 import { browseHref, parseCategory } from "@/lib/browse";
 
 export function BrowseNavigation() {
@@ -31,7 +32,7 @@ export function BrowseNavigation() {
       <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <nav
           aria-label="Browse view"
-          className="pointer-events-auto flex items-center gap-6 rounded-full bg-card px-6 py-[15px] text-primary shadow-float"
+          className="pointer-events-auto flex items-center gap-4 rounded-full bg-card px-4 py-3 text-primary shadow-float"
         >
           <Link
             href={browseHref("/", category)}
@@ -51,13 +52,14 @@ export function BrowseNavigation() {
           </Link>
         </nav>
 
-        <Link
-          href="/sell"
+        <IconButton
+          asChild
+          icon={PlusIcon}
           aria-label="Sell an item"
-          className="pointer-events-auto flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-float transition-colors hover:bg-primary/85 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+          className="pointer-events-auto shadow-float"
         >
-          <PlusIcon className="size-6" />
-        </Link>
+          <Link href="/sell" />
+        </IconButton>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
+import { PageContainer } from "@/components/page-container";
 import { PageHeader } from "@/components/page-header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { findItem, useHydrated, useStore } from "@/lib/store";
@@ -17,7 +18,7 @@ export default function SavesPage() {
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-10">
+    <PageContainer className="pb-10">
       <PageHeader title="Saves" fallbackHref="/you" />
       {!hydrated ? (
         <div className="grid grid-cols-2 gap-px p-4 md:grid-cols-3 md:px-6 lg:grid-cols-4">
@@ -40,6 +41,6 @@ export default function SavesPage() {
           ))}
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }
