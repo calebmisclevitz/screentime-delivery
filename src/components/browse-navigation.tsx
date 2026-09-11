@@ -31,7 +31,7 @@ export function BrowseNavigation() {
       <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <nav
           aria-label="Browse view"
-          className="pointer-events-auto flex items-center gap-6 rounded-full bg-card px-6 py-[15px] text-primary shadow-float"
+          className="pointer-events-auto flex items-center gap-6 rounded-full bg-card px-6 py-4 text-primary shadow-float"
         >
           <Link
             href={browseHref("/", category)}

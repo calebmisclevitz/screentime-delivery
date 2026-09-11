@@ -22,6 +22,7 @@ const SHOTS = [
   { name: "selling", path: "/selling" },
   { name: "purchases", path: "/purchases" },
   { name: "account", path: "/account" },
+  { name: "design-system", path: "/design-system", fullPage: true },
 ];
 
 const VIEWPORTS = [
@@ -88,7 +89,16 @@ async function run(viewport) {
   for (const shot of SHOTS) {
     await page.goto(`${BASE}${shot.path}`, { waitUntil: "load" });
     await settle(page);
-    await page.screenshot({ path: `${OUT}/${shot.name}-${viewport.label}.png` });
+    if (shot.fullPage) {
+      await page.addStyleTag({
+        content:
+          "html, body { height: auto !important; overflow: visible !important; } body > main { display: block !important; overflow: visible !important; }",
+      });
+    }
+    await page.screenshot({
+      path: `${OUT}/${shot.name}-${viewport.label}.png`,
+      fullPage: shot.fullPage ?? false,
+    });
     console.log(`captured ${shot.name}-${viewport.label}`);
   }
 

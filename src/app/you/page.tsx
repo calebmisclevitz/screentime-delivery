@@ -5,6 +5,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 
+import { PageContainer } from "@/components/page-container";
 import { PageHeader } from "@/components/page-header";
 import { PageMenu } from "@/components/page-menu";
 
@@ -17,9 +18,9 @@ const YOU_LINKS = [
 
 export default function YouPage() {
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <PageContainer width="narrow">
       <PageHeader title="You" />
       <PageMenu items={YOU_LINKS} />
-    </div>
+    </PageContainer>
   );
 }

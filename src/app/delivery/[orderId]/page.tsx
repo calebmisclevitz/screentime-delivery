@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
@@ -8,7 +7,13 @@ import { ArchiveBoxXMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
 import { RouteMap } from "@/components/map";
+import { PageContainer } from "@/components/page-container";
 import { PageHeader } from "@/components/page-header";
+import {
+  SummaryCard,
+  SummaryCardBody,
+  SummaryCardImage,
+} from "@/components/summary-card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -40,16 +45,16 @@ export default function DeliveryPage() {
 
   if (!hydrated) {
     return (
-      <div className="mx-auto w-full max-w-2xl">
+      <PageContainer width="narrow">
         <PageHeader title="Delivery Status" />
         <Skeleton className="m-4 h-64 rounded-xl" />
-      </div>
+      </PageContainer>
     );
   }
 
   if (!order || !item) {
     return (
-      <div className="mx-auto w-full max-w-2xl">
+      <PageContainer width="narrow">
         <PageHeader title="Delivery Status" />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
@@ -58,7 +63,7 @@ export default function DeliveryPage() {
           actionLabel="Browse items"
           actionHref="/"
         />
-      </div>
+      </PageContainer>
     );
   }
 
@@ -73,7 +78,7 @@ export default function DeliveryPage() {
   const done = current.stage === "delivered";
 
   return (
-    <div className="mx-auto w-full max-w-2xl pb-floating-nav md:pb-10">
+    <PageContainer width="narrow" className="pb-floating-nav md:pb-10">
       <PageHeader title="Delivery Status" />
 
       <div className="h-64 md:h-80">
@@ -88,17 +93,17 @@ export default function DeliveryPage() {
 
       <div className="space-y-6 p-4 md:p-6">
         <div className="space-y-1">
-          <div className="flex items-baseline justify-between gap-3">
-            <h1 className="font-heading text-lg tracking-tight">
+          <div className="flex items-baseline justify-between gap-4">
+            <h1 className="type-body-large font-medium">
               {current.label}
             </h1>
             {!done && (
-              <span className="shrink-0 font-mono text-sm tracking-wide text-muted-foreground tabular-nums">
+              <span className="shrink-0 type-label-small text-muted-foreground tabular-nums">
                 {eta} min away
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground">{current.detail}</p>
+          <p className="text-muted-foreground">{current.detail}</p>
         </div>
 
         <div className="h-1 overflow-hidden rounded-full bg-muted">
@@ -115,19 +120,19 @@ export default function DeliveryPage() {
             const active = index === currentIndex;
             const last = index === STAGE_ORDER.length - 1;
             return (
-              <li key={stage} className="flex gap-3">
+              <li key={stage} className="flex gap-4">
                 <div className="flex flex-col items-center">
                   <span
                     className={cn(
-                      "flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                      "flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                       complete || active
                         ? "border-primary bg-primary text-primary-foreground"
                         : "border-muted-foreground/30",
                     )}
                   >
-                    {complete && <CheckIcon className="size-3" />}
+                    {complete && <CheckIcon className="size-4" />}
                     {active && !complete && (
-                      <span className="size-1.5 rounded-full bg-primary-foreground" />
+                      <span className="size-2 rounded-full bg-primary-foreground" />
                     )}
                   </span>
                   {!last && (
@@ -139,10 +144,9 @@ export default function DeliveryPage() {
                     />
                   )}
                 </div>
-                <div className={cn("pb-5", last && "pb-0")}>
+                <div className={cn("pb-6", last && "pb-0")}>
                   <p
                     className={cn(
-                      "text-sm",
                       active || complete
                         ? "text-foreground"
                         : "text-muted-foreground",
@@ -151,7 +155,9 @@ export default function DeliveryPage() {
                     {spec.label}
                   </p>
                   {active && (
-                    <p className="text-xs text-muted-foreground">{spec.detail}</p>
+                    <p className="type-label-small text-muted-foreground">
+                      {spec.detail}
+                    </p>
                   )}
                 </div>
               </li>
@@ -161,28 +167,24 @@ export default function DeliveryPage() {
 
         <Separator />
 
-        <div className="flex gap-3">
-          <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
-            <Image
-              src={item.images[0]}
-              alt={item.title}
-              fill
-              sizes="64px"
-              className="object-cover"
-            />
-          </div>
-          <div className="min-w-0 flex-1 space-y-0.5 text-sm">
+        <SummaryCard>
+          <SummaryCardImage
+            src={item.images[0]}
+            alt={item.title}
+            size="compact"
+          />
+          <SummaryCardBody>
             <p className="truncate">{item.title}</p>
             <p className="text-muted-foreground">
               Courier: {order.courierName}
             </p>
-            <p className="truncate font-mono text-xs tracking-wider text-muted-foreground">
+            <p className="truncate type-label-small text-muted-foreground">
               To {order.dropoffAddress}
             </p>
-          </div>
-        </div>
+          </SummaryCardBody>
+        </SummaryCard>
 
-        <dl className="space-y-2 text-sm">
+        <dl className="space-y-2">
           <div className="flex justify-between">
             <dt className="text-muted-foreground">Item</dt>
             <dd className="font-mono tabular-nums">{formatPrice(order.itemPrice)}</dd>
@@ -200,16 +202,16 @@ export default function DeliveryPage() {
           </div>
         </dl>
 
-        <div className="flex gap-3">
-          <Button asChild variant="outline" className="h-11 flex-1">
+        <div className="flex gap-4">
+          <Button asChild variant="outline" className="flex-1">
             <Link href="/purchases">View purchases</Link>
           </Button>
-          <Button asChild className="h-11 flex-1">
+          <Button asChild className="flex-1">
             <Link href="/">Keep browsing</Link>
           </Button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }
 
@@ -219,30 +221,30 @@ function PickupConfirmation({
   itemTitle: string;
 }) {
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <PageContainer width="narrow">
       <PageHeader title="Delivery Status" />
       <div className="space-y-6 p-4 md:p-6">
-        <div className="flex flex-col items-center gap-3 py-8 text-center">
-          <span className="flex size-11 items-center justify-center rounded-full bg-accent text-accent-foreground">
-            <CheckIcon className="size-5" />
+        <div className="flex flex-col items-center gap-4 py-8 text-center">
+          <span className="flex size-control items-center justify-center rounded-full bg-accent text-accent-foreground">
+            <CheckIcon className="size-icon" />
           </span>
           <div className="space-y-1">
-            <p className="font-heading text-base">Pickup confirmed</p>
-            <p className="mx-auto max-w-xs text-sm text-muted-foreground">
+            <p className="type-body-large font-medium">Pickup confirmed</p>
+            <p className="mx-auto max-w-xs text-muted-foreground">
               The seller has your details and will message you to arrange a time
               for {itemTitle}.
             </p>
           </div>
         </div>
-        <div className="flex gap-3">
-          <Button asChild variant="outline" className="h-11 flex-1">
+        <div className="flex gap-4">
+          <Button asChild variant="outline" className="flex-1">
             <Link href="/purchases">View purchases</Link>
           </Button>
-          <Button asChild className="h-11 flex-1">
+          <Button asChild className="flex-1">
             <Link href="/">Keep browsing</Link>
           </Button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }

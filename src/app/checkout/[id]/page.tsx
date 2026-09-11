@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -10,7 +9,14 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { EmptyState } from "@/components/empty-state";
+import { PageContainer } from "@/components/page-container";
 import { PageHeader } from "@/components/page-header";
+import { StickyActionBar } from "@/components/sticky-action-bar";
+import {
+  SummaryCard,
+  SummaryCardBody,
+  SummaryCardImage,
+} from "@/components/summary-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,7 +46,7 @@ export default function CheckoutPage() {
 
   if (!item) {
     return (
-      <div className="mx-auto w-full max-w-2xl">
+      <PageContainer width="narrow">
         <PageHeader title="Checkout" />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
@@ -49,7 +55,7 @@ export default function CheckoutPage() {
           actionLabel="Browse items"
           actionHref="/"
         />
-      </div>
+      </PageContainer>
     );
   }
 
@@ -67,33 +73,25 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl pb-24 md:pb-10">
+    <PageContainer width="narrow" className="pb-24 md:pb-10">
       <PageHeader title="Checkout" />
 
-      <div className="space-y-7 p-4 md:p-6">
-        <div className="flex gap-3 rounded-xl bg-card p-3 shadow-brand">
-          <div className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-muted">
-            <Image
-              src={item.images[0]}
-              alt={item.title}
-              fill
-              sizes="80px"
-              className="object-cover"
-            />
-          </div>
-          <div className="min-w-0 flex-1 space-y-0.5">
-            <p className="truncate text-sm">{item.title}</p>
-            <p className="font-mono text-sm tracking-wide">
+      <div className="space-y-8 p-4 md:p-6">
+        <SummaryCard>
+          <SummaryCardImage src={item.images[0]} alt={item.title} />
+          <SummaryCardBody>
+            <p className="truncate">{item.title}</p>
+            <p className="type-label-small text-foreground">
               {formatPrice(item.price)}
             </p>
-            <p className="font-mono text-xs tracking-wider text-muted-foreground">
+            <p className="type-label-small text-muted-foreground">
               {item.location.neighborhood} · {formatDistance(miles)}
             </p>
-          </div>
-        </div>
+          </SummaryCardBody>
+        </SummaryCard>
 
-        <section className="space-y-3">
-          <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
+        <section className="space-y-4">
+          <h2 className="type-label-small text-muted-foreground">
             How do you want it?
           </h2>
 
@@ -130,19 +128,18 @@ export default function CheckoutPage() {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Street address, Raleigh NC"
-              className="h-11"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="type-label-small text-muted-foreground">
               Your courier only sees this after they collect the item.
             </p>
           </section>
         )}
 
-        <section className="space-y-3">
-          <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground">
+        <section className="space-y-4">
+          <h2 className="type-label-small text-muted-foreground">
             Summary
           </h2>
-          <dl className="space-y-2 text-sm">
+          <dl className="space-y-2">
             <Row label="Item" value={formatPrice(item.price)} />
             <Row
               label="Delivery"
@@ -151,12 +148,12 @@ export default function CheckoutPage() {
             <Separator />
             <div className="flex items-baseline justify-between">
               <dt>Total</dt>
-              <dd className="font-mono text-lg tracking-wide">
+              <dd className="type-body-large font-mono">
                 {formatPrice(total)}
               </dd>
             </div>
           </dl>
-          <p className="text-xs text-muted-foreground">
+          <p className="type-label-small text-muted-foreground">
             Demo checkout — no payment is collected.
           </p>
         </section>
@@ -165,7 +162,7 @@ export default function CheckoutPage() {
           <Button
             onClick={confirm}
             disabled={submitting}
-            className="h-12 w-full"
+            className="w-full"
           >
             {chosen === "delivery"
               ? `Buy and request delivery · ${formatPrice(total)}`
@@ -174,14 +171,14 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
-        <Button onClick={confirm} disabled={submitting} className="h-12 w-full">
+      <StickyActionBar>
+        <Button onClick={confirm} disabled={submitting} className="w-full">
           {chosen === "delivery"
             ? `Buy and request delivery · ${formatPrice(total)}`
             : `Buy for pickup · ${formatPrice(total)}`}
         </Button>
-      </div>
-    </div>
+      </StickyActionBar>
+    </PageContainer>
   );
 }
 
@@ -189,7 +186,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between">
       <dt className="text-muted-foreground">{label}</dt>
-      <dd className="font-mono tabular-nums tracking-wide">{value}</dd>
+      <dd className="type-label-small text-foreground tabular-nums">{value}</dd>
     </div>
   );
 }
@@ -220,32 +217,34 @@ function FulfillmentOption({
       disabled={disabled}
       aria-pressed={selected}
       className={cn(
-        "flex w-full gap-3 rounded-xl border p-4 text-left transition-colors",
-        selected ? "border-primary bg-lilac/40" : "border-border bg-card",
+        "flex w-full gap-4 rounded-xl border p-4 text-left transition-colors",
+        selected ? "border-primary bg-secondary/40" : "border-border bg-card",
         disabled && "opacity-50",
       )}
     >
       <span
         className={cn(
-          "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border-2",
+          "flex size-6 shrink-0 items-center justify-center rounded-full border-2",
           selected ? "border-primary bg-primary" : "border-muted-foreground/40",
         )}
       >
-        {selected && <span className="size-1.5 rounded-full bg-primary-foreground" />}
+        {selected && <span className="size-2 rounded-full bg-primary-foreground" />}
       </span>
       <span className="min-w-0 flex-1 space-y-1">
         <span className="flex flex-wrap items-center gap-2">
-          <Icon className="size-4 text-primary" />
-          <span className="text-sm">{title}</span>
+          <Icon className="size-icon text-primary" />
+          <span>{title}</span>
           {badge && (
-            <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[10px] tracking-wide text-accent-foreground">
+            <span className="rounded-full bg-accent px-2 py-1 type-label-small text-accent-foreground">
               {badge}
             </span>
           )}
         </span>
-        <span className="block text-xs text-muted-foreground">{description}</span>
+        <span className="block type-label-small text-muted-foreground">
+          {description}
+        </span>
       </span>
-      <span className="shrink-0 font-mono text-sm tracking-wide tabular-nums">
+      <span className="shrink-0 type-label-small text-foreground tabular-nums">
         {price}
       </span>
     </button>

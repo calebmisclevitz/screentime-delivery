@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { ChevronLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+import { IconButton } from "@/components/ui/icon-button";
 import { cn } from "@/lib/utils";
 import { useRoutePresentation } from "@/components/route-sheet";
 
@@ -39,15 +40,17 @@ export function PageHeader({
         className,
       )}
     >
-      <button
+      <IconButton
         type="button"
         onClick={navigateBack}
+        icon={NavigationIcon}
         aria-label={navigationStyle === "close" ? "Close" : "Go back"}
-        className="flex size-9 items-center justify-center rounded-full text-foreground hover:bg-muted"
-      >
-        <NavigationIcon className="size-5" />
-      </button>
-      {title && <span className="truncate text-base font-medium">{title}</span>}
+        variant="ghost"
+        className="-ml-3"
+      />
+      {title && (
+        <span className="truncate type-body-medium font-medium">{title}</span>
+      )}
       {action && <div className="ml-auto">{action}</div>}
     </div>
   );

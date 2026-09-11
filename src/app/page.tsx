@@ -10,6 +10,7 @@ import {
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
+import { PageContainer } from "@/components/page-container";
 import { PromoRail } from "@/components/promo-rail";
 import { itemsInCategory, parseCategory } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
@@ -31,13 +32,13 @@ function HomeContent() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl pt-browse-header pb-floating-nav md:pb-10">
+    <PageContainer className="pt-browse-header pb-floating-nav md:pb-10">
       <PromoRail />
 
-      <div className="px-4 py-3 md:px-6">
+      <div className="px-4 py-4 md:px-6">
         <Link
           href="/categories"
-          className="flex min-w-0 items-center gap-2 text-lg tracking-wide"
+          className="flex min-w-0 items-center gap-2 type-body-large"
         >
           <span className="truncate">
             {category === "All" ? "All categories" : category}
@@ -59,6 +60,6 @@ function HomeContent() {
           ))}
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }

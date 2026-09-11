@@ -11,6 +11,16 @@
   --font-mono: var(--font-dm-mono);
   --font-heading: var(--font-special);
   --font-display: var(--font-special-condensed);
+  --text-label-small: 0.75rem;
+  --text-label-small--line-height: 1rem;
+  --text-body-medium: 1rem;
+  --text-body-medium--line-height: 1.5rem;
+  --text-body-large: 1.125rem;
+  --text-body-large--line-height: 1.5rem;
+  --text-heading-medium: 1.5rem;
+  --text-heading-medium--line-height: 2rem;
+  --text-display-medium: 2rem;
+  --text-display-medium--line-height: 2.5rem;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -36,27 +46,27 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-tertiary: var(--tertiary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --color-lilac: var(--lilac);
-  --color-lavender: var(--lavender);
-  --color-lime: var(--lime);
-  --color-sprout: var(--sprout);
-  --color-forest: var(--forest);
-  --color-olive: var(--olive);
   --shadow-brand: 0 3px 5px rgb(28 26 22 / 0.1);
   --shadow-float: 0 8px 12px rgb(28 26 22 / 0.1);
+  --spacing-control: 3rem;
+  --spacing-icon: 1.5rem;
+  --spacing-page-gutter: 1rem;
+  --spacing-page-gutter-wide: 1.5rem;
   --spacing-floating-nav: calc(5.75rem + env(safe-area-inset-bottom, 0px));
   --spacing-browse-header: 5rem;
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 1.5rem;
 }
 
 :root {
@@ -68,10 +78,12 @@
   --popover-foreground: #2d2d2d;
   --primary: #5e2355;
   --primary-foreground: #d9edf3;
+  --tertiary: #414420;
+  --tertiary-foreground: #d9ffbc;
   --secondary: #d9edf3;
   --secondary-foreground: #5e2355;
   --muted: #c5d8de;
-  --muted-foreground: rgb(45 45 45 / 40%);
+  --muted-foreground: #5e686b;
   --accent: #f1feba;
   --accent-foreground: #094e26;
   --destructive: oklch(0.577 0.245 27.325);
@@ -83,7 +95,7 @@
   --chart-3: #f1feba;
   --chart-4: #414420;
   --chart-5: #d9ffbc;
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #2d2d2d;
   --sidebar-primary: #5e2355;
@@ -92,12 +104,20 @@
   --sidebar-accent-foreground: #5e2355;
   --sidebar-border: rgb(45 45 45 / 13%);
   --sidebar-ring: #5e2355;
-  --lilac: #d9edf3;
-  --lavender: #bad4ff;
-  --lime: #f1feba;
-  --sprout: #d9ffbc;
-  --forest: #094e26;
-  --olive: #414420;
+  --map-ground: #deedf2;
+  --map-water: #c5d8de;
+  --map-green: #d4e6dc;
+  --map-block: #e4eef0;
+  --map-building: #dbe8ec;
+  --map-building-edge: #d3e3e9;
+  --map-road-path: #d7e8ee;
+  --map-road-minor: #cde1ea;
+  --map-road-major: #ebfeba;
+  --map-road-major-edge: #b7d1de;
+  --map-road-motorway: #bbd4e0;
+  --map-road-motorway-edge: #accad8;
+  --map-label: #6a6a6a;
+  --map-boundary: #c2d5dd;
 }
 
 .dark {
@@ -109,10 +129,12 @@
   --popover-foreground: #deedf2;
   --primary: #d9edf3;
   --primary-foreground: #5e2355;
+  --tertiary: #d9ffbc;
+  --tertiary-foreground: #414420;
   --secondary: #5e2355;
   --secondary-foreground: #d9edf3;
   --muted: #3a1a35;
-  --muted-foreground: rgb(222 237 242 / 50%);
+  --muted-foreground: #aabcc1;
   --accent: #f1feba;
   --accent-foreground: #094e26;
   --destructive: oklch(0.704 0.191 22.216);
@@ -132,12 +154,60 @@
   --sidebar-accent-foreground: #d9edf3;
   --sidebar-border: rgb(255 255 255 / 12%);
   --sidebar-ring: #d9edf3;
-  --lilac: #d9edf3;
-  --lavender: #bad4ff;
-  --lime: #f1feba;
-  --sprout: #d9ffbc;
-  --forest: #d9ffbc;
-  --olive: #d9ffbc;
+  --map-ground: #1a0a18;
+  --map-water: #3a1a35;
+  --map-green: #243c31;
+  --map-block: #251421;
+  --map-building: #30172c;
+  --map-building-edge: #44223e;
+  --map-road-path: #382033;
+  --map-road-minor: #492943;
+  --map-road-major: #5c5330;
+  --map-road-major-edge: #65415d;
+  --map-road-motorway: #5b3554;
+  --map-road-motorway-edge: #714568;
+  --map-label: #deedf2;
+  --map-boundary: #714568;
+}
+
+@utility type-label-small {
+  font-family: var(--font-dm-mono);
+  font-size: var(--text-label-small);
+  font-weight: 500;
+  line-height: var(--text-label-small--line-height);
+  letter-spacing: 0.08em;
+}
+
+@utility type-body-medium {
+  font-family: var(--font-special);
+  font-size: var(--text-body-medium);
+  font-weight: 400;
+  line-height: var(--text-body-medium--line-height);
+  letter-spacing: 0;
+}
+
+@utility type-body-large {
+  font-family: var(--font-special);
+  font-size: var(--text-body-large);
+  font-weight: 400;
+  line-height: var(--text-body-large--line-height);
+  letter-spacing: 0.025em;
+}
+
+@utility type-heading-medium {
+  font-family: var(--font-special);
+  font-size: var(--text-heading-medium);
+  font-weight: 500;
+  line-height: var(--text-heading-medium--line-height);
+  letter-spacing: 0;
+}
+
+@utility type-display-medium {
+  font-family: var(--font-special-condensed);
+  font-size: var(--text-display-medium);
+  font-weight: 400;
+  line-height: var(--text-display-medium--line-height);
+  letter-spacing: 0;
 }
 
 @layer base {
@@ -148,7 +218,7 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply type-body-medium;
   }
 }
 

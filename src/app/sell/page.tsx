@@ -7,6 +7,8 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
+import { PageContainer } from "@/components/page-container";
+import { StickyActionBar } from "@/components/sticky-action-bar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -59,10 +61,15 @@ export default function SellPage() {
   }
 
   return (
-    <form onSubmit={submit} className="mx-auto w-full max-w-2xl pb-24 md:pb-10">
+    <PageContainer
+      as="form"
+      width="narrow"
+      onSubmit={submit}
+      className="pb-24 md:pb-10"
+    >
       <PageHeader title="Sell an item" />
-      <div className="space-y-7 p-4 md:p-6">
-        <section className="space-y-3">
+      <div className="space-y-8 p-4 md:p-6">
+        <section className="space-y-4">
           <Label>Photo</Label>
           <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
             {STOCK_IMAGES.slice(0, 12).map((src) => (
@@ -84,14 +91,14 @@ export default function SellPage() {
                   className="object-cover"
                 />
                 {draft.image === src && (
-                  <span className="absolute right-1 bottom-1 flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <CheckIcon className="size-2.5" />
+                  <span className="absolute right-2 bottom-2 flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                    <CheckIcon className="size-4" />
                   </span>
                 )}
               </button>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="type-label-small text-muted-foreground">
             Demo mode — pick from the sample photo library instead of uploading.
           </p>
         </section>
@@ -103,16 +110,15 @@ export default function SellPage() {
             value={draft.title}
             onChange={(e) => set("title", e.target.value)}
             placeholder="1970s walnut record cabinet"
-            className="h-11"
             aria-invalid={submitted && draft.title.trim().length <= 2}
           />
         </section>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <section className="space-y-2">
             <Label htmlFor="price">Price</Label>
             <div className="relative">
-              <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-muted-foreground">
+              <span className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground">
                 $
               </span>
               <Input
@@ -123,7 +129,7 @@ export default function SellPage() {
                 }
                 inputMode="decimal"
                 placeholder="0"
-                className="h-11 pl-7"
+                className="pl-8"
                 aria-invalid={submitted && !priceValid}
               />
             </div>
@@ -137,7 +143,7 @@ export default function SellPage() {
                 set("category", value as Draft["category"])
               }
             >
-              <SelectTrigger id="category" className="h-11 w-full">
+              <SelectTrigger id="category" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -158,7 +164,7 @@ export default function SellPage() {
                 set("condition", value as Draft["condition"])
               }
             >
-              <SelectTrigger id="condition" className="h-11 w-full">
+              <SelectTrigger id="condition" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -177,7 +183,7 @@ export default function SellPage() {
               value={draft.neighborhood}
               onValueChange={(value) => set("neighborhood", value)}
             >
-              <SelectTrigger id="neighborhood" className="h-11 w-full">
+              <SelectTrigger id="neighborhood" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -205,7 +211,7 @@ export default function SellPage() {
         <section className="flex items-center justify-between gap-4 rounded-xl bg-card p-4 shadow-brand">
           <div className="space-y-0.5">
             <Label htmlFor="delivery">Offer delivery</Label>
-            <p className="text-xs text-muted-foreground">
+            <p className="type-label-small text-muted-foreground">
               A Swapmeeter collects it from you and takes it to the buyer. You
               never leave home.
             </p>
@@ -218,17 +224,17 @@ export default function SellPage() {
         </section>
 
         <div className="hidden md:block">
-          <Button type="submit" className="h-12 w-full">
+          <Button type="submit" className="w-full">
             Post listing
           </Button>
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
-        <Button type="submit" className="h-12 w-full">
+      <StickyActionBar>
+        <Button type="submit" className="w-full">
           Post listing
         </Button>
-      </div>
-    </form>
+      </StickyActionBar>
+    </PageContainer>
   );
 }

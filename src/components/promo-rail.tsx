@@ -11,25 +11,25 @@ const PROMOS = [
   {
     title: "popular items",
     action: "Discover now",
-    className: "bg-olive text-sprout",
-    buttonClass: "bg-sprout text-olive",
+    className: "bg-tertiary text-tertiary-foreground",
+    buttonClass: "bg-tertiary-foreground text-tertiary",
     image: "/items/technics-sl1200.jpg",
   },
 ] as const;
 
 export function PromoRail() {
   return (
-    <div className="flex gap-3 overflow-x-auto px-4 [scrollbar-width:none] md:px-6 [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-4 overflow-x-auto px-4 [scrollbar-width:none] md:px-6 [&::-webkit-scrollbar]:hidden">
       {PROMOS.map((promo) => (
         <article
           key={promo.title}
           className={`relative h-[155px] w-[287px] shrink-0 overflow-hidden rounded-3xl ${promo.className}`}
         >
-          <p className="absolute top-2.5 left-4 w-[150px] font-display text-[32px] leading-none">
+          <p className="absolute top-2 left-4 w-[152px] type-display-medium">
             {promo.title}
           </p>
           <span
-            className={`absolute bottom-4 left-4 flex h-[31px] items-center rounded-full px-4 text-sm font-medium ${promo.buttonClass}`}
+            className={`absolute bottom-4 left-4 flex h-8 items-center rounded-full px-4 type-label-small ${promo.buttonClass}`}
           >
             {promo.action}
           </span>
