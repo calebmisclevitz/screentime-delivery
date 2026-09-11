@@ -44,7 +44,10 @@ export const viewport: Viewport = {
   themeColor: "#deedf2",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+  sheet,
+}: LayoutProps<"/"> & { sheet?: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -52,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="relative flex h-dvh flex-col overflow-hidden bg-background text-foreground">
         <AppShell>{children}</AppShell>
+        {sheet}
         <Toaster position="top-center" />
       </body>
     </html>

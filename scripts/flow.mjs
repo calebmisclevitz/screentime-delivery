@@ -67,9 +67,8 @@ await capture("delivery-mid");
 await seekTo(1);
 await capture("delivery-done");
 
-await page.goto(`${BASE}/selling`, { waitUntil: "load" });
-await page.getByRole("tab", { name: /Bought/ }).click();
+await page.goto(`${BASE}/purchases`, { waitUntil: "load" });
 await page.waitForTimeout(400);
-await page.screenshot({ path: `${OUT}/selling-bought.png` });
+await page.screenshot({ path: `${OUT}/purchases.png` });
 
 await browser.close();

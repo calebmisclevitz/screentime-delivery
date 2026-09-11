@@ -41,7 +41,7 @@ export default function DeliveryPage() {
   if (!hydrated) {
     return (
       <div className="mx-auto w-full max-w-2xl">
-        <PageHeader />
+        <PageHeader title="Delivery Status" />
         <Skeleton className="m-4 h-64 rounded-xl" />
       </div>
     );
@@ -50,7 +50,7 @@ export default function DeliveryPage() {
   if (!order || !item) {
     return (
       <div className="mx-auto w-full max-w-2xl">
-        <PageHeader />
+        <PageHeader title="Delivery Status" />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
           title="Order not found"
@@ -63,7 +63,7 @@ export default function DeliveryPage() {
   }
 
   if (order.fulfillment === "pickup") {
-    return <PickupConfirmation orderId={order.id} itemTitle={item.title} />;
+    return <PickupConfirmation itemTitle={item.title} />;
   }
 
   const current = stageAt(progress);
@@ -74,7 +74,7 @@ export default function DeliveryPage() {
 
   return (
     <div className="mx-auto w-full max-w-2xl pb-floating-nav md:pb-10">
-      <PageHeader />
+      <PageHeader title="Delivery Status" />
 
       <div className="h-64 md:h-80">
         <RouteMap
@@ -202,7 +202,7 @@ export default function DeliveryPage() {
 
         <div className="flex gap-3">
           <Button asChild variant="outline" className="h-11 flex-1">
-            <Link href="/selling">View orders</Link>
+            <Link href="/purchases">View purchases</Link>
           </Button>
           <Button asChild className="h-11 flex-1">
             <Link href="/">Keep browsing</Link>
@@ -214,15 +214,13 @@ export default function DeliveryPage() {
 }
 
 function PickupConfirmation({
-  orderId,
   itemTitle,
 }: {
-  orderId: string;
   itemTitle: string;
 }) {
   return (
     <div className="mx-auto w-full max-w-2xl">
-      <PageHeader />
+      <PageHeader title="Delivery Status" />
       <div className="space-y-6 p-4 md:p-6">
         <div className="flex flex-col items-center gap-3 py-8 text-center">
           <span className="flex size-11 items-center justify-center rounded-full bg-accent text-accent-foreground">
@@ -238,7 +236,7 @@ function PickupConfirmation({
         </div>
         <div className="flex gap-3">
           <Button asChild variant="outline" className="h-11 flex-1">
-            <Link href="/selling">View orders</Link>
+            <Link href="/purchases">View purchases</Link>
           </Button>
           <Button asChild className="h-11 flex-1">
             <Link href="/">Keep browsing</Link>

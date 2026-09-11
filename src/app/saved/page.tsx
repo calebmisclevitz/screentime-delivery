@@ -1,44 +1,5 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { HeartIcon } from "@heroicons/react/24/outline";
-
-import { EmptyState } from "@/components/empty-state";
-import { ItemCard } from "@/components/item-card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { findItem, useHydrated, useStore } from "@/lib/store";
-
-export default function SavedPage() {
-  const hydrated = useHydrated();
-  const savedIds = useStore((s) => s.savedIds);
-  const listings = useStore((s) => s.listings);
-
-  const items = savedIds
-    .map((id) => findItem(id, listings))
-    .filter((item): item is NonNullable<typeof item> => Boolean(item));
-
-  return (
-    <div className="mx-auto w-full max-w-6xl pb-floating-nav md:pb-10">
-      {!hydrated ? (
-        <div className="grid grid-cols-2 gap-px p-4 md:grid-cols-3 md:px-6 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="aspect-3/4 rounded-xl" />
-          ))}
-        </div>
-      ) : items.length === 0 ? (
-        <EmptyState
-          icon={HeartIcon}
-          title="Nothing saved yet"
-          description="Tap the heart on any listing and it will show up here so you can come back to it."
-          actionLabel="Find something"
-          actionHref="/"
-        />
-      ) : (
-        <div className="grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-4">
-          {items.map((item) => (
-            <ItemCard key={item.id} item={item} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
+export default function SavedRedirect() {
+  redirect("/saves");
 }
