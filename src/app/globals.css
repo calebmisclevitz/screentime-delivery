@@ -214,14 +214,13 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* Base type lives on body so the root keeps a 16px rem basis for Tailwind sizing. */
   body {
     @apply bg-background text-foreground;
-  }
-  html {
     font-family: var(--font-special);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 1.25rem;
     letter-spacing: 0;
   }
 }
