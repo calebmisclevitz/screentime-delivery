@@ -4,27 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArchiveBoxIcon,
-  ShoppingBagIcon,
   TagIcon,
   TruckIcon,
 } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 
 import { EmptyState } from "@/components/empty-state";
-import { useClock } from "@/lib/clock";
+import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { progressFor, stageAt } from "@/lib/delivery";
 import { formatPrice } from "@/lib/geo";
 import { formatRelativeTime } from "@/lib/time";
-import { findItem, useHydrated, useStore } from "@/lib/store";
-import type { Item, Order } from "@/lib/types";
+import { useHydrated, useStore } from "@/lib/store";
+import type { Item } from "@/lib/types";
 
 export default function SellingPage() {
   const hydrated = useHydrated();
   const listings = useStore((s) => s.listings);
-  const orders = useStore((s) => s.orders);
   const markSold = useStore((s) => s.markSold);
   const removeListing = useStore((s) => s.removeListing);
 
@@ -32,18 +29,16 @@ export default function SellingPage() {
   const sold = listings.filter((l) => l.status === "sold");
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-floating-nav md:pb-10">
+    <div className="mx-auto w-full max-w-6xl pb-10">
+      <PageHeader title="Selling" fallbackHref="/you" />
       <Tabs defaultValue="active" className="gap-0">
-        <div className="sticky top-0 z-10 flex items-center gap-2 border-b bg-background/95 px-4 py-3 backdrop-blur md:px-6">
+        <div className="sticky top-browse-header z-10 flex items-center gap-2 border-b bg-background/95 px-4 py-3 backdrop-blur md:px-6">
           <TabsList className="h-10 min-w-0 flex-1">
             <TabsTrigger value="active">
               Active {hydrated && active.length > 0 && `(${active.length})`}
             </TabsTrigger>
             <TabsTrigger value="sold">
               Sold {hydrated && sold.length > 0 && `(${sold.length})`}
-            </TabsTrigger>
-            <TabsTrigger value="purchases">
-              Bought {hydrated && orders.length > 0 && `(${orders.length})`}
             </TabsTrigger>
           </TabsList>
           <Button asChild size="lg" className="h-10 shrink-0">
@@ -103,31 +98,12 @@ export default function SellingPage() {
                 </ul>
               )}
             </TabsContent>
-
-            <TabsContent value="purchases" className="p-4 md:px-6">
-              {orders.length === 0 ? (
-                <EmptyState
-                  icon={ShoppingBagIcon}
-                  title="No purchases yet"
-                  description="Buy something with delivery and you'll be able to watch the courier make their way to you."
-                  actionLabel="Browse items"
-                  actionHref="/"
-                />
-              ) : (
-                <ul className="space-y-3">
-                  {orders.map((order) => (
-                    <OrderRow key={order.id} order={order} />
-                  ))}
-                </ul>
-              )}
-            </TabsContent>
           </>
         )}
       </Tabs>
     </div>
   );
 }
-
 function ListingRow({
   item,
   onMarkSold,
@@ -183,49 +159,6 @@ function ListingRow({
             )}
           </div>
         )}
-      </div>
-    </li>
-  );
-}
-
-function OrderRow({ order }: { order: Order }) {
-  const listings = useStore((s) => s.listings);
-  const now = useClock();
-  const item = findItem(order.itemId, listings);
-  if (!item) return null;
-
-  const stage =
-    order.fulfillment === "pickup"
-      ? "Pickup arranged"
-      : stageAt(progressFor(order, now)).label;
-
-  return (
-    <li className="flex gap-3 rounded-xl bg-card p-3 shadow-brand">
-      <Link
-        href={`/delivery/${order.id}`}
-        className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-muted"
-      >
-        <Image
-          src={item.images[0]}
-          alt={item.title}
-          fill
-          sizes="80px"
-          className="object-cover"
-        />
-      </Link>
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <p className="truncate text-sm">{item.title}</p>
-        <p className="font-mono text-xs tracking-wider text-muted-foreground">
-          {order.id} · {formatPrice(order.total)} total
-        </p>
-        <p className="text-xs font-medium">{stage}</p>
-        <div className="mt-1">
-          <Button asChild variant="outline" size="sm">
-            <Link href={`/delivery/${order.id}`}>
-              {order.fulfillment === "delivery" ? "Track delivery" : "View order"}
-            </Link>
-          </Button>
-        </div>
       </div>
     </li>
   );

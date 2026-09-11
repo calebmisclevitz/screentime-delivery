@@ -2,28 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { MagnifyingGlassIcon, TruckIcon } from "@heroicons/react/24/outline";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useMemo, useState } from "react";
+import { ChevronDownIcon, TruckIcon } from "@heroicons/react/24/outline";
 
-import { CategoryChips, type CategoryValue } from "@/components/category-chips";
-import { ItemCard } from "@/components/item-card";
 import { StickerMap } from "@/components/map";
 import { SaveButton } from "@/components/save-button";
+import { itemsInCategory, parseCategory } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
 import { HOME, distanceMiles, formatDistance, formatPrice } from "@/lib/geo";
 import type { Item } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 export default function MapPage() {
-  const [category, setCategory] = useState<CategoryValue>("All");
+  return (
+    <Suspense>
+      <MapContent />
+    </Suspense>
+  );
+}
+
+function MapContent() {
+  const searchParams = useSearchParams();
+  const category = parseCategory(searchParams.get("category"));
   const [pickedId, setPickedId] = useState<string | null>(null);
-  const cardRefs = useRef(new Map<string, HTMLAnchorElement>());
 
   const items = useMemo(
-    () =>
-      category === "All"
-        ? MARKET_ITEMS
-        : MARKET_ITEMS.filter((item) => item.category === category),
+    () => itemsInCategory(MARKET_ITEMS, category),
     [category],
   );
 
@@ -32,123 +36,43 @@ export default function MapPage() {
   const selectedId = items.some((item) => item.id === pickedId)
     ? pickedId
     : null;
-
-  // Selecting a sticker should bring its card into view in the rail.
-  useEffect(() => {
-    if (!selectedId) return;
-    cardRefs.current.get(selectedId)?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
-  }, [selectedId]);
+  const selectedItem = items.find((item) => item.id === selectedId);
 
   return (
-    <div className="absolute inset-0 flex">
-      {/* Desktop results panel */}
-      <aside className="hidden w-[380px] shrink-0 flex-col border-r pt-14 lg:flex xl:w-[440px]">
-        <div className="p-4">
-          <SearchLink />
-          <CategoryChips
-            value={category}
-            onChange={setCategory}
-            className="mt-3"
-          />
-        </div>
-        <div className="flex-1 overflow-y-auto">
-          <p className="px-4 pb-3 font-mono text-xs tracking-wider text-muted-foreground">
-            {items.length} items in Raleigh
-          </p>
-          <div className="grid grid-cols-2">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                onMouseEnter={() => setPickedId(item.id)}
-                className={cn(
-                  selectedId === item.id && "bg-card",
-                )}
-              >
-                <ItemCard item={item} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </aside>
+    <div className="absolute inset-0">
+      <StickerMap
+        items={items}
+        selectedId={selectedId}
+        onSelect={setPickedId}
+        className="absolute inset-0"
+      />
 
-      <div className="relative min-w-0 flex-1">
-        <StickerMap
-          items={items}
-          selectedId={selectedId}
-          onSelect={setPickedId}
-          className="absolute inset-0"
-        />
-
-        {/* Mobile overlay controls */}
-        <div className="pointer-events-none absolute inset-x-0 top-14 z-10 space-y-3 p-3 lg:hidden">
-          <div className="pointer-events-auto">
-            <SearchLink />
-          </div>
-          <div className="pointer-events-auto">
-            <CategoryChips value={category} onChange={setCategory} />
-          </div>
-        </div>
-
-        {/* Mobile card rail */}
-        <div
-          className="absolute inset-x-0 bottom-0 z-10 flex gap-3 overflow-x-auto p-3 pb-floating-nav [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
+      <div className="absolute top-browse-header left-4 z-20">
+        <Link
+          href="/categories?from=map"
+          className="flex h-11 items-center gap-2 rounded-full bg-card px-4 text-base shadow-float focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
-          {items.map((item) => (
-            <RailCard
-              key={item.id}
-              item={item}
-              selected={selectedId === item.id}
-              onFocusItem={() => setPickedId(item.id)}
-              ref={(el) => {
-                if (el) cardRefs.current.set(item.id, el);
-                else cardRefs.current.delete(item.id);
-              }}
-            />
-          ))}
-        </div>
+          {category === "All" ? "All categories" : category}
+          <ChevronDownIcon className="size-4" />
+        </Link>
       </div>
+
+      {selectedItem && (
+        <div className="absolute inset-x-0 bottom-floating-nav z-20 flex justify-center px-4 pb-3">
+          <SelectedItemCard item={selectedItem} />
+        </div>
+      )}
     </div>
   );
 }
 
-function SearchLink() {
-  return (
-    <Link
-      href="/search"
-      className="flex h-12 items-center gap-3 rounded-full bg-card px-4 text-lg text-muted-foreground transition-colors hover:text-foreground"
-    >
-      <MagnifyingGlassIcon className="size-4" />
-      Search
-    </Link>
-  );
-}
-
-function RailCard({
-  item,
-  selected,
-  onFocusItem,
-  ref,
-}: {
-  item: Item;
-  selected: boolean;
-  onFocusItem: () => void;
-  ref: React.Ref<HTMLAnchorElement>;
-}) {
+function SelectedItemCard({ item }: { item: Item }) {
   const miles = distanceMiles(item.location, HOME);
 
   return (
     <Link
-      ref={ref}
       href={`/item/${item.id}`}
-      onFocus={onFocusItem}
-      className={cn(
-        "relative flex w-[248px] shrink-0 gap-3 rounded-xl bg-card p-2 shadow-brand transition-colors",
-        selected && "ring-2 ring-primary/30",
-      )}
+      className="relative flex w-full max-w-sm gap-3 rounded-xl bg-card p-2 shadow-float transition-colors"
     >
       <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
         <Image

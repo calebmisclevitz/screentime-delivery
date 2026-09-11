@@ -1,9 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ChevronLeftIcon,
   ClockIcon,
   MagnifyingGlassIcon,
   MagnifyingGlassMinusIcon,
@@ -12,9 +10,10 @@ import {
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
+import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import { searchItems } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
-import { applyFilters, DEFAULT_FILTERS } from "@/lib/filters";
 import { useHydrated, useStore } from "@/lib/store";
 
 const SUGGESTIONS = [
@@ -27,7 +26,6 @@ const SUGGESTIONS = [
 ];
 
 export default function SearchPage() {
-  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const hydrated = useHydrated();
@@ -39,25 +37,12 @@ export default function SearchPage() {
     inputRef.current?.focus();
   }, []);
 
-  const results = useMemo(
-    () =>
-      query.trim()
-        ? applyFilters(MARKET_ITEMS, { ...DEFAULT_FILTERS, query })
-        : [],
-    [query],
-  );
+  const results = useMemo(() => searchItems(MARKET_ITEMS, query), [query]);
 
   return (
-    <div className="mx-auto w-full max-w-6xl pb-floating-nav md:pb-10">
-      <div className="sticky top-0 z-10 flex items-center gap-2 bg-background/95 px-2 py-2 backdrop-blur md:px-4">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          aria-label="Go back"
-          className="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-muted"
-        >
-          <ChevronLeftIcon className="size-5" />
-        </button>
+    <div className="mx-auto w-full max-w-6xl pb-10">
+      <PageHeader title="Search Results" />
+      <div className="sticky top-browse-header z-10 flex items-center gap-2 bg-background/95 px-4 py-2 backdrop-blur md:px-6">
         <div className="relative flex-1">
           <MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <input

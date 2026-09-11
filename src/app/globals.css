@@ -49,6 +49,7 @@
   --shadow-brand: 0 3px 5px rgb(28 26 22 / 0.1);
   --shadow-float: 0 8px 12px rgb(28 26 22 / 0.1);
   --spacing-floating-nav: calc(5.75rem + env(safe-area-inset-bottom, 0px));
+  --spacing-browse-header: 5rem;
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);

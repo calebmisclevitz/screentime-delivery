@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 
+import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,7 +59,8 @@ export default function SellPage() {
   }
 
   return (
-    <form onSubmit={submit} className="mx-auto w-full max-w-2xl pb-[calc(var(--spacing-floating-nav)+4.5rem)] md:pb-10">
+    <form onSubmit={submit} className="mx-auto w-full max-w-2xl pb-24 md:pb-10">
+      <PageHeader title="Sell an item" />
       <div className="space-y-7 p-4 md:p-6">
         <section className="space-y-3">
           <Label>Photo</Label>
@@ -222,7 +224,7 @@ export default function SellPage() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-floating-nav z-20 border-t bg-background/95 p-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
         <Button type="submit" className="h-12 w-full">
           Post listing
         </Button>

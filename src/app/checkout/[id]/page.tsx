@@ -41,7 +41,7 @@ export default function CheckoutPage() {
   if (!item) {
     return (
       <div className="mx-auto w-full max-w-2xl">
-        <PageHeader />
+        <PageHeader title="Checkout" />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
           title="This listing is gone"
@@ -67,8 +67,8 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl pb-[calc(var(--spacing-floating-nav)+4.5rem)] md:pb-10">
-      <PageHeader />
+    <div className="mx-auto w-full max-w-2xl pb-24 md:pb-10">
+      <PageHeader title="Checkout" />
 
       <div className="space-y-7 p-4 md:p-6">
         <div className="flex gap-3 rounded-xl bg-card p-3 shadow-brand">
@@ -174,7 +174,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-floating-nav z-20 bg-background/95 p-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-20 bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
         <Button onClick={confirm} disabled={submitting} className="h-12 w-full">
           {chosen === "delivery"
             ? `Buy and request delivery · ${formatPrice(total)}`

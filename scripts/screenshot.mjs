@@ -13,11 +13,15 @@ const SHOTS = [
   { name: "home", path: "/" },
   { name: "map", path: "/map" },
   { name: "search", path: "/search" },
+  { name: "categories", path: "/categories" },
+  { name: "you", path: "/you" },
   { name: "item", path: "/item/rhodes-mark-i" },
   { name: "checkout", path: "/checkout/rhodes-mark-i" },
-  { name: "saved", path: "/saved" },
+  { name: "saves", path: "/saves" },
   { name: "sell", path: "/sell" },
   { name: "selling", path: "/selling" },
+  { name: "purchases", path: "/purchases" },
+  { name: "account", path: "/account" },
 ];
 
 const VIEWPORTS = [

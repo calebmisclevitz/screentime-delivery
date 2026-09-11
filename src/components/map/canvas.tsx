@@ -147,7 +147,10 @@ export function StickerMap({
     zoom: 13,
   });
   const onSelectRef = useRef(onSelect);
-  onSelectRef.current = onSelect;
+
+  useEffect(() => {
+    onSelectRef.current = onSelect;
+  }, [onSelect]);
 
   useEffect(() => {
     const markers: Marker[] = [];

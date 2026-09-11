@@ -36,7 +36,7 @@ export default function ItemPage() {
   if (!item) {
     return (
       <div className="mx-auto w-full max-w-6xl">
-        <PageHeader />
+        <PageHeader title="Item" />
         <EmptyState
           icon={ArchiveBoxXMarkIcon}
           title="This listing is gone"
@@ -56,6 +56,7 @@ export default function ItemPage() {
   return (
     <div className="mx-auto w-full max-w-6xl pb-[calc(var(--spacing-floating-nav)+4.5rem)] md:pb-10">
       <PageHeader
+        title="Item"
         action={
           !isMine && (
             <SaveButton
@@ -175,7 +176,7 @@ export default function ItemPage() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-floating-nav z-20 flex gap-3 bg-background/95 p-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-60 flex gap-3 bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
         <ItemActions
           itemId={item.id}
           title={item.title}
