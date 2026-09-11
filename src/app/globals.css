@@ -229,7 +229,7 @@
 /* MapLibre chrome; isolate so map layers stay under app overlays. */
 .yardsale-map,
 .maplibregl-map {
-  background: var(--muted);
+  background: var(--map-ground);
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -237,6 +237,31 @@
   letter-spacing: inherit;
   isolation: isolate;
   outline: none;
+}
+
+/* A map stays out of sight until it has painted, then fades in as one piece.
+   MapLibre writes its own inline opacity on the marker, so the pin inside it
+   is what waits. The browse map's stickers take this fade over with the
+   flight that deals them out of the loading reel. */
+.yardsale-map .maplibregl-canvas,
+.yardsale-map .maplibregl-control-container,
+.yardsale-map .maplibregl-marker > * {
+  transition: opacity 160ms ease-out;
+}
+
+.yardsale-map[data-map-ready="false"] .maplibregl-canvas,
+.yardsale-map[data-map-ready="false"] .maplibregl-control-container,
+.yardsale-map[data-map-ready="false"] .maplibregl-marker > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yardsale-map .maplibregl-canvas,
+  .yardsale-map .maplibregl-control-container,
+  .yardsale-map .maplibregl-marker > * {
+    transition: none;
+  }
 }
 
 .maplibregl-ctrl-attrib {

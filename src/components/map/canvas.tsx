@@ -7,13 +7,22 @@ import {
   Marker,
   setWorkerUrl,
 } from "maplibre-gl";
-import { useCallback, useEffect, useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { HOME, formatPrice } from "@/lib/geo";
 import type { Item, LatLng } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
+import { MINIMUM_PLAY_MS } from "./loader";
+import { stickerSource } from "./sticker-edge";
 import { applyYardsaleStyle, POSITRON_STYLE } from "./style";
+import { MapSurface } from "./surface";
 
 // Next/Turbopack does not emit the worker's sibling shared chunk, so tiles
 // never fetch unless the worker is served from public/ next to that file.
@@ -30,12 +39,18 @@ function stickerEl(item: Item, selected: boolean) {
   const scale = selected ? "scale-110" : "";
   const el = document.createElement("div");
   el.className = "cursor-pointer";
+  const img = document.createElement("img");
+  img.alt = "";
+  img.className = "size-16 object-contain drop-shadow-md";
+  img.src = stickerSource(item.images[0], (edged) => {
+    img.src = edged;
+  });
   el.innerHTML = `
     <div class="flex flex-col items-center transition-transform ${scale}">
-      <img src="${item.images[0]}" alt="" class="size-16 object-contain drop-shadow-md" />
       <span class="mt-0.5 rounded-full border px-1 py-px type-label-small whitespace-nowrap ${chip}">${formatPrice(item.price)}</span>
     </div>
   `;
+  el.firstElementChild?.prepend(img);
   return el;
 }
 
@@ -78,18 +93,19 @@ function useYardsaleMap({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
-  const readyRef = useRef(false);
+  const styleReadyRef = useRef(false);
   const listeners = useRef(new Set<() => void>());
+  const [canvasReady, setCanvasReady] = useState(false);
 
   const whenReady = useCallback((fn: (map: MapLibreMap) => void) => {
     const map = mapRef.current;
-    if (map && readyRef.current) {
+    if (map && styleReadyRef.current) {
       fn(map);
       return;
     }
     const wait = () => {
       const next = mapRef.current;
-      if (next && readyRef.current) fn(next);
+      if (next && styleReadyRef.current) fn(next);
     };
     listeners.current.add(wait);
     return () => {
@@ -113,15 +129,20 @@ function useYardsaleMap({
     });
     mapRef.current = map;
 
-    map.on("load", () => {
+    const revealCanvas = () => setCanvasReady(true);
+    const handleLoad = () => {
       applyYardsaleStyle(map);
-      readyRef.current = true;
+      map.once("idle", revealCanvas);
+      styleReadyRef.current = true;
       for (const listener of listeners.current) listener();
       window.setTimeout(() => map.resize(), 120);
-    });
+    };
+    map.on("load", handleLoad);
 
     return () => {
-      readyRef.current = false;
+      map.off("load", handleLoad);
+      map.off("idle", revealCanvas);
+      styleReadyRef.current = false;
       mapRef.current = null;
       map.remove();
     };
@@ -129,7 +150,68 @@ function useYardsaleMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only
   }, []);
 
-  return { containerRef, whenReady };
+  return { canvasReady, containerRef, whenReady };
+}
+
+/** Keeps a surface loading until the reel has had its full run. */
+function useHeldReady(ready: boolean, holdMs: number) {
+  const [held, setHeld] = useState(false);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setHeld(true), holdMs);
+    return () => window.clearTimeout(id);
+  }, [holdMs]);
+
+  return ready && held;
+}
+
+const DEAL_DURATION_MS = 460;
+const DEAL_STAGGER_MS = 12;
+
+/**
+ * Sends every sticker out from the spot the reel just vacated to its own pin,
+ * nearest first, so the loader reads as the pile the map is dealt from.
+ */
+function dealStickers(map: MapLibreMap, markers: Marker[]) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const container = map.getContainer();
+  const center = {
+    x: container.clientWidth / 2,
+    y: container.clientHeight / 2,
+  };
+
+  const flights = markers
+    .map((marker) => {
+      const point = map.project(marker.getLngLat());
+      return {
+        // MapLibre owns the marker's own transform, so the flight rides on the
+        // sticker inside it.
+        sticker: marker.getElement().firstElementChild,
+        dx: center.x - point.x,
+        dy: center.y - point.y,
+      };
+    })
+    .sort((a, b) => Math.hypot(a.dx, a.dy) - Math.hypot(b.dx, b.dy));
+
+  flights.forEach(({ sticker, dx, dy }, rank) => {
+    if (!(sticker instanceof HTMLElement)) return;
+    sticker.animate(
+      [
+        // Starts at the reel's size so the first frame of the flight matches
+        // the cutout the loader just cut away from.
+        { transform: `translate(${dx}px, ${dy}px) scale(1.4)`, opacity: 0 },
+        { opacity: 1, offset: 0.2 },
+        { transform: "translate(0, 0) scale(1)", opacity: 1 },
+      ],
+      {
+        duration: DEAL_DURATION_MS,
+        delay: rank * DEAL_STAGGER_MS,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        fill: "backwards",
+      },
+    );
+  });
 }
 
 export function StickerMap({
@@ -143,11 +225,18 @@ export function StickerMap({
   onSelect?: (id: string) => void;
   className?: string;
 }) {
-  const { containerRef, whenReady } = useYardsaleMap({
+  const { canvasReady, containerRef, whenReady } = useYardsaleMap({
     center: HOME,
     zoom: 13,
   });
+  const revealed = useHeldReady(canvasReady, MINIMUM_PLAY_MS);
   const onSelectRef = useRef(onSelect);
+  const markersRef = useRef<Marker[]>([]);
+  const dealtRef = useRef(false);
+  const reelImages = useMemo(
+    () => items.map((item) => item.images[0]),
+    [items],
+  );
 
   useEffect(() => {
     onSelectRef.current = onSelect;
@@ -169,9 +258,11 @@ export function StickerMap({
         if (selected) marker.getElement().style.zIndex = "2";
         markers.push(marker);
       }
+      markersRef.current = markers;
     });
     return () => {
       stop?.();
+      markersRef.current = [];
       for (const marker of markers) marker.remove();
     };
   }, [items, selectedId, whenReady]);
@@ -184,10 +275,21 @@ export function StickerMap({
     });
   }, [items, selectedId, whenReady]);
 
+  // Layout effect so the stickers are already mid-flight on the frame the
+  // reveal paints, rather than blinking into place first.
+  useLayoutEffect(() => {
+    if (!revealed || dealtRef.current) return;
+    dealtRef.current = true;
+    return whenReady((map) => dealStickers(map, markersRef.current));
+  }, [revealed, whenReady]);
+
   return (
-    <div
-      ref={containerRef}
-      className={cn("yardsale-map size-full", className)}
+    <MapSurface
+      containerRef={containerRef}
+      images={reelImages}
+      loader
+      ready={revealed}
+      className={className}
     />
   );
 }
@@ -212,7 +314,7 @@ export function RouteMap({
 }) {
   const seller = route[2] ?? route[0];
   const buyer = route.at(-1)!;
-  const { containerRef, whenReady } = useYardsaleMap({
+  const { canvasReady, containerRef, whenReady } = useYardsaleMap({
     center: seller,
     zoom: 13,
   });
@@ -284,9 +386,10 @@ export function RouteMap({
   }, [courier, seller, buyer, sellerLabel, buyerLabel, pickedUp, whenReady]);
 
   return (
-    <div
-      ref={containerRef}
-      className={cn("yardsale-map size-full", className)}
+    <MapSurface
+      containerRef={containerRef}
+      ready={canvasReady}
+      className={className}
     />
   );
 }
@@ -300,7 +403,7 @@ export function PinMap({
   label: string;
   className?: string;
 }) {
-  const { containerRef, whenReady } = useYardsaleMap({
+  const { canvasReady, containerRef, whenReady } = useYardsaleMap({
     center: point,
     zoom: 14,
     interactive: false,
@@ -324,9 +427,10 @@ export function PinMap({
   }, [point, label, whenReady]);
 
   return (
-    <div
-      ref={containerRef}
-      className={cn("yardsale-map size-full", className)}
+    <MapSurface
+      containerRef={containerRef}
+      ready={canvasReady}
+      className={className}
     />
   );
 }
