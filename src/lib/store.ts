@@ -3,7 +3,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { ME, MARKET_ITEMS, MY_SEEDED_LISTINGS } from "./data/items";
+import {
+  ME,
+  MARKET_ITEMS,
+  MY_SEEDED_LISTINGS,
+  backgroundForImage,
+} from "./data/items";
 import { NEIGHBORHOODS } from "./data/neighborhoods";
 import { HOME, deliveryFee, distanceMiles } from "./geo";
 import type { Draft, Fulfillment, Item, Order } from "./types";
@@ -46,7 +51,7 @@ type Actions = {
 export const useStore = create<State & Actions>()(
   persist(
     (set, get) => ({
-      savedIds: ["technics-sl1200", "kilim-rug"],
+      savedIds: ["playdate", "pixel-throw-blanket"],
       orders: [],
       listings: MY_SEEDED_LISTINGS,
       recentSearches: [],
@@ -89,6 +94,7 @@ export const useStore = create<State & Actions>()(
           condition: draft.condition,
           description: draft.description.trim(),
           images: [draft.image],
+          backgroundColor: backgroundForImage(draft.image),
           seller: ME,
           location: {
             lat: spot.lat,
@@ -129,7 +135,7 @@ export const useStore = create<State & Actions>()(
 
       clearSearches: () => set({ recentSearches: [] }),
     }),
-    { name: "swapmeet" },
+    { name: "swapmeet-v2" },
   ),
 );
 

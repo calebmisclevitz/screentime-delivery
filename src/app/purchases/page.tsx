@@ -65,7 +65,11 @@ function PurchaseRow({ order }: { order: Order }) {
   return (
     <li>
       <SummaryCard>
-        <SummaryCardImage src={item.images[0]} alt={item.title} />
+        <SummaryCardImage
+          src={item.images[0]}
+          alt={item.title}
+          backgroundColor={item.backgroundColor}
+        />
         <SummaryCardBody className="flex flex-col">
           <p className="truncate">{item.title}</p>
           <p className="text-muted-foreground">

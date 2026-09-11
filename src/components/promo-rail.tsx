@@ -6,14 +6,14 @@ const PROMOS = [
     action: "Explore",
     className: "bg-primary text-primary-foreground",
     buttonClass: "bg-background text-primary",
-    image: "/items/rattan-lounge-chair.jpg",
+    image: "/items/mustard-lounge-chair.png",
   },
   {
     title: "popular items",
     action: "Discover now",
     className: "bg-tertiary text-tertiary-foreground",
     buttonClass: "bg-tertiary-foreground text-tertiary",
-    image: "/items/technics-sl1200.jpg",
+    image: "/items/fender-twin-reverb.png",
   },
 ] as const;
 
@@ -38,7 +38,7 @@ export function PromoRail() {
             alt=""
             width={132}
             height={156}
-            className="absolute top-8 -right-2 h-[156px] w-[132px] object-cover"
+            className="absolute top-8 -right-2 h-[156px] w-[132px] object-contain"
           />
         </article>
       ))}

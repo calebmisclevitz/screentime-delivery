@@ -19,10 +19,12 @@ export function SummaryCardImage({
   src,
   alt,
   size = "default",
+  backgroundColor,
 }: {
   src: string;
   alt: string;
   size?: "default" | "compact";
+  backgroundColor?: string;
 }) {
   const pixels = size === "default" ? 80 : 64;
 
@@ -32,13 +34,14 @@ export function SummaryCardImage({
         "relative shrink-0 overflow-hidden rounded-lg bg-muted",
         size === "default" ? "size-20" : "size-16",
       )}
+      style={backgroundColor ? { backgroundColor } : undefined}
     >
       <Image
         src={src}
         alt={alt}
         fill
         sizes={`${pixels}px`}
-        className="object-cover"
+        className="object-contain p-1.5"
       />
     </div>
   );

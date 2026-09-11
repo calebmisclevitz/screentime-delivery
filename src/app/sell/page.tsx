@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { STOCK_IMAGES } from "@/lib/data/items";
+import { STOCK_IMAGES, backgroundForImage } from "@/lib/data/items";
 import { NEIGHBORHOOD_NAMES } from "@/lib/data/neighborhoods";
 import { useStore } from "@/lib/store";
 import { CATEGORIES, CONDITIONS, type Draft } from "@/lib/types";
@@ -79,16 +79,17 @@ export default function SellPage() {
                 onClick={() => set("image", src)}
                 aria-pressed={draft.image === src}
                 className={cn(
-                  "relative aspect-square overflow-hidden rounded-lg border-2 bg-muted transition-colors",
+                  "relative aspect-square overflow-hidden rounded-lg border-2 transition-colors",
                   draft.image === src ? "border-primary" : "border-transparent",
                 )}
+                style={{ backgroundColor: backgroundForImage(src) }}
               >
                 <Image
                   src={src}
                   alt=""
                   fill
                   sizes="120px"
-                  className="object-cover"
+                  className="object-contain p-1.5"
                 />
                 {draft.image === src && (
                   <span className="absolute right-2 bottom-2 flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground">

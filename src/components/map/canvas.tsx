@@ -24,15 +24,16 @@ function lngLat(point: LatLng): [number, number] {
 }
 
 function stickerEl(item: Item, selected: boolean) {
-  const ring = selected
-    ? "border-primary bg-primary text-primary-foreground shadow-lg scale-105"
+  const chip = selected
+    ? "border-primary bg-primary text-primary-foreground shadow-lg"
     : "border-border bg-card text-foreground shadow-brand";
+  const scale = selected ? "scale-110" : "";
   const el = document.createElement("div");
   el.className = "cursor-pointer";
   el.innerHTML = `
-    <div class="flex items-center gap-1 rounded-full border py-0.5 pr-2 pl-0.5 transition-all ${ring}">
-      <img src="${item.images[0]}" alt="" class="size-6 shrink-0 rounded-full object-cover" />
-      <span class="whitespace-nowrap">${formatPrice(item.price)}</span>
+    <div class="flex flex-col items-center transition-transform ${scale}">
+      <img src="${item.images[0]}" alt="" class="size-16 object-contain drop-shadow-md" />
+      <span class="mt-0.5 rounded-full border px-1 py-px type-label-small whitespace-nowrap ${chip}">${formatPrice(item.price)}</span>
     </div>
   `;
   return el;

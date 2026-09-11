@@ -40,7 +40,7 @@ A delivery runs its full course in about 90 seconds of real time, standing in fo
 - **MapLibre GL** over OpenFreeMap Positron vector tiles (no API key). Extra street labels are hidden and land/water are tinted toward the yardsale palette so item photos stay the loudest color. `npm install` copies MapLibre’s worker into `public/maplibre/` so Next can load vector tiles.
 - **Zustand** with the `persist` middleware for saved items, orders, and your own listings
 
-There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 24 seeded items scattered across real Raleigh neighborhoods, and everything you do on top of it is stored in `localStorage` under the `swapmeet` key. Clearing site data resets the demo.
+There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 41 seeded items scattered across real Raleigh neighborhoods, and everything you do on top of it is stored in `localStorage` under the `swapmeet-v2` key. Clearing site data resets the demo.
 
 ### Layout of note
 

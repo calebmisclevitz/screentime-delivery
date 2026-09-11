@@ -277,12 +277,13 @@ export function DesignSystemShowcase() {
           </Card>
           <SummaryCard>
             <SummaryCardImage
-              src="/items/rattan-lounge-chair.jpg"
-              alt="Rattan lounge chair"
+              src="/items/mustard-lounge-chair.png"
+              alt="Mustard lounge chair"
+              backgroundColor="#d5d6ff"
             />
             <SummaryCardBody>
-              <p>Rattan and Cane Lounge Chair</p>
-              <p>$420 · 1.1 MI</p>
+              <p>Mustard Lounge Chair, Walnut Arms</p>
+              <p>$640 · 1.1 MI</p>
               <ConditionBadge condition="Good" />
             </SummaryCardBody>
           </SummaryCard>

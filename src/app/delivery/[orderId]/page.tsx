@@ -172,6 +172,7 @@ export default function DeliveryPage() {
             src={item.images[0]}
             alt={item.title}
             size="compact"
+            backgroundColor={item.backgroundColor}
           />
           <SummaryCardBody>
             <p className="truncate">{item.title}</p>

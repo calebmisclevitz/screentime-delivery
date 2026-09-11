@@ -31,13 +31,13 @@ page.on("console", (msg) => {
 async function seekTo(progress) {
   await page.evaluate(
     ({ progress, duration }) => {
-      const raw = localStorage.getItem("swapmeet");
-      if (!raw) throw new Error("no persisted swapmeet state");
+      const raw = localStorage.getItem("swapmeet-v2");
+      if (!raw) throw new Error("no persisted swapmeet-v2 state");
       const parsed = JSON.parse(raw);
       const order = parsed.state.orders[0];
       if (!order) throw new Error("no order to seek");
       order.placedAt = Date.now() - progress * duration;
-      localStorage.setItem("swapmeet", JSON.stringify(parsed));
+      localStorage.setItem("swapmeet-v2", JSON.stringify(parsed));
     },
     { progress, duration: DELIVERY_DURATION_MS },
   );
@@ -50,7 +50,7 @@ async function capture(name) {
   console.log(`${name}:`, await page.locator("h1").innerText());
 }
 
-await page.goto(`${BASE}/item/teak-credenza`, { waitUntil: "load" });
+await page.goto(`${BASE}/item/cognac-leather-sofa`, { waitUntil: "load" });
 await page.getByRole("link", { name: "Buy now" }).click();
 await page.waitForURL(/\/checkout\//);
 

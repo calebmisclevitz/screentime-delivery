@@ -122,7 +122,11 @@ function ListingRow({
     <li>
       <SummaryCard>
         <Link href={`/item/${item.id}`} className="shrink-0">
-          <SummaryCardImage src={item.images[0]} alt={item.title} />
+          <SummaryCardImage
+            src={item.images[0]}
+            alt={item.title}
+            backgroundColor={item.backgroundColor}
+          />
         </Link>
         <SummaryCardBody className="flex flex-col">
           <Link href={`/item/${item.id}`} className="min-w-0">
