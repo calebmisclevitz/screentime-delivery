@@ -75,13 +75,16 @@ function SelectedItemCard({ item }: { item: Item }) {
       href={`/item/${item.id}`}
       className="relative flex w-full max-w-sm gap-4 rounded-xl bg-card p-2 shadow-float transition-colors"
     >
-      <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
+      <div
+        className="relative size-16 shrink-0 overflow-hidden rounded-lg"
+        style={{ backgroundColor: item.backgroundColor }}
+      >
         <Image
           src={item.images[0]}
           alt={item.title}
           fill
           sizes="64px"
-          className="object-cover"
+          className="object-contain p-1.5"
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center pr-8">

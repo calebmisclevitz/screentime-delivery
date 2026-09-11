@@ -24,7 +24,7 @@ export function ItemCard({
     <Link
       href={`/item/${item.id}`}
       className={cn(
-        "group relative flex flex-col gap-4 border-r border-b p-4 transition-colors hover:bg-card/60",
+        "group relative flex flex-col gap-0 border-r border-b p-4 transition-colors hover:bg-card/60",
         className,
       )}
     >
@@ -49,13 +49,13 @@ export function ItemCard({
         <ConditionBadge condition={item.condition} />
       </div>
 
-      <div className="relative aspect-square overflow-hidden rounded-lg bg-muted/50">
+      <div className="relative aspect-square">
         <Image
           src={item.images[0]}
           alt={item.title}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          className="object-contain p-3 transition-transform duration-300 group-hover:scale-[1.02]"
         />
         {item.status === "sold" && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/70">
@@ -66,7 +66,7 @@ export function ItemCard({
           <SaveButton
             itemId={item.id}
             title={item.title}
-            className="absolute right-2 bottom-2 shadow-brand"
+            className="absolute right-0 bottom-0"
           />
         )}
       </div>

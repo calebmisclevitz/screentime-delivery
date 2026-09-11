@@ -2,6 +2,7 @@ export const CATEGORIES = [
   "Music Gear",
   "Furniture",
   "Home Goods",
+  "Clothes",
   "Trinkets",
 ] as const;
 
@@ -31,6 +32,8 @@ export type Item = {
   condition: Condition;
   description: string;
   images: string[];
+  /** Fill behind a transparent cutout in detail, cards, and summaries. */
+  backgroundColor: string;
   seller: Seller;
   location: LatLng & { neighborhood: string };
   size: ItemSize;

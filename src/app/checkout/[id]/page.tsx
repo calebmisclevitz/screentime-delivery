@@ -78,7 +78,11 @@ export default function CheckoutPage() {
 
       <div className="space-y-8 p-4 md:p-6">
         <SummaryCard>
-          <SummaryCardImage src={item.images[0]} alt={item.title} />
+          <SummaryCardImage
+            src={item.images[0]}
+            alt={item.title}
+            backgroundColor={item.backgroundColor}
+          />
           <SummaryCardBody>
             <p className="truncate">{item.title}</p>
             <p className="text-foreground">

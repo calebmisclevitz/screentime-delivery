@@ -5,6 +5,7 @@ import {
   HomeModernIcon,
   MusicalNoteIcon,
   RectangleGroupIcon,
+  ShoppingBagIcon,
   SparklesIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
@@ -19,6 +20,7 @@ const CATEGORY_ICONS = {
   "Music Gear": MusicalNoteIcon,
   Furniture: RectangleGroupIcon,
   "Home Goods": HomeModernIcon,
+  Clothes: ShoppingBagIcon,
   Trinkets: SparklesIcon,
 } as const;
 
