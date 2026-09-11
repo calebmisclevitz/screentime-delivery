@@ -127,11 +127,11 @@ function ListingRow({
         <SummaryCardBody className="flex flex-col">
           <Link href={`/item/${item.id}`} className="min-w-0">
             <p className="truncate">{item.title}</p>
-            <p className="type-label-small text-foreground">
+            <p className="text-foreground">
               {formatPrice(item.price)}
             </p>
           </Link>
-          <p className="flex flex-wrap items-center gap-x-4 type-label-small text-muted-foreground">
+          <p className="flex flex-wrap items-center gap-x-4 text-muted-foreground">
             <span>
               {formatRelativeTime(item.postedAt)} · {item.location.neighborhood}
             </span>

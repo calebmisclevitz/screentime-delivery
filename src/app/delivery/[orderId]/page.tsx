@@ -94,11 +94,11 @@ export default function DeliveryPage() {
       <div className="space-y-6 p-4 md:p-6">
         <div className="space-y-1">
           <div className="flex items-baseline justify-between gap-4">
-            <h1 className="type-body-large font-medium">
+            <h1>
               {current.label}
             </h1>
             {!done && (
-              <span className="shrink-0 type-label-small text-muted-foreground tabular-nums">
+              <span className="shrink-0 text-muted-foreground">
                 {eta} min away
               </span>
             )}
@@ -155,7 +155,7 @@ export default function DeliveryPage() {
                     {spec.label}
                   </p>
                   {active && (
-                    <p className="type-label-small text-muted-foreground">
+                    <p className="text-muted-foreground">
                       {spec.detail}
                     </p>
                   )}
@@ -178,7 +178,7 @@ export default function DeliveryPage() {
             <p className="text-muted-foreground">
               Courier: {order.courierName}
             </p>
-            <p className="truncate type-label-small text-muted-foreground">
+            <p className="truncate text-muted-foreground">
               To {order.dropoffAddress}
             </p>
           </SummaryCardBody>
@@ -187,16 +187,16 @@ export default function DeliveryPage() {
         <dl className="space-y-2">
           <div className="flex justify-between">
             <dt className="text-muted-foreground">Item</dt>
-            <dd className="font-mono tabular-nums">{formatPrice(order.itemPrice)}</dd>
+            <dd>{formatPrice(order.itemPrice)}</dd>
           </div>
           <div className="flex justify-between">
             <dt className="text-muted-foreground">Delivery</dt>
-            <dd className="font-mono tabular-nums">{formatPrice(order.deliveryFee)}</dd>
+            <dd>{formatPrice(order.deliveryFee)}</dd>
           </div>
           <Separator />
           <div className="flex justify-between">
             <dt>Total paid</dt>
-            <dd className="font-mono tabular-nums">
+            <dd>
               {formatPrice(order.total)}
             </dd>
           </div>
@@ -229,7 +229,7 @@ function PickupConfirmation({
             <CheckIcon className="size-icon" />
           </span>
           <div className="space-y-1">
-            <p className="type-body-large font-medium">Pickup confirmed</p>
+            <p>Pickup confirmed</p>
             <p className="mx-auto max-w-xs text-muted-foreground">
               The seller has your details and will message you to arrange a time
               for {itemTitle}.

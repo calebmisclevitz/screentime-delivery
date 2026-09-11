@@ -91,12 +91,12 @@ export default function ItemPage() {
           <div className="space-y-4">
             <ConditionBadge condition={item.condition} />
             <div className="space-y-2">
-              <h1 className="type-heading-medium">{item.title}</h1>
-              <p className="type-label-small text-foreground">
+              <h1>{item.title}</h1>
+              <p className="text-foreground">
                 {formatPrice(item.price)}
               </p>
             </div>
-            <p className="type-label-small text-muted-foreground">
+            <p className="text-muted-foreground">
               {item.location.neighborhood} · {formatDistance(miles)} ·{" "}
               {formatRelativeTime(item.postedAt)}
             </p>
@@ -125,7 +125,7 @@ export default function ItemPage() {
           )}
 
           <div className="space-y-2">
-            <h2 className="font-medium">Description</h2>
+            <h2>Description</h2>
             <p className="whitespace-pre-line">
               {item.description}
             </p>
@@ -134,7 +134,7 @@ export default function ItemPage() {
           <Separator />
 
           <div className="flex items-center gap-4">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary type-body-large text-primary-foreground">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
               {item.seller.name
                 .split(" ")
                 .map((part) => part[0])
@@ -143,7 +143,7 @@ export default function ItemPage() {
             </span>
             <div className="min-w-0 flex-1">
               <p>{item.seller.name}</p>
-              <p className="flex items-center gap-2 type-label-small text-muted-foreground">
+              <p className="flex items-center gap-2 text-muted-foreground">
                 <StarSolid className="size-4 text-primary" />
                 {item.seller.rating.toFixed(1)} · {item.seller.sales} sales
               </p>
@@ -151,11 +151,11 @@ export default function ItemPage() {
           </div>
 
           <div className="space-y-2">
-            <h2 className="font-medium">Pickup area</h2>
+            <h2>Pickup area</h2>
             <div className="h-44 overflow-hidden rounded-xl">
               <PinMap point={item.location} label={item.location.neighborhood} />
             </div>
-            <p className="type-label-small text-muted-foreground">
+            <p className="text-muted-foreground">
               Exact address is shared once a sale is confirmed.
             </p>
           </div>

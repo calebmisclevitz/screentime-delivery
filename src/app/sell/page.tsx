@@ -98,7 +98,7 @@ export default function SellPage() {
               </button>
             ))}
           </div>
-          <p className="type-label-small text-muted-foreground">
+          <p className="text-muted-foreground">
             Demo mode — pick from the sample photo library instead of uploading.
           </p>
         </section>
@@ -211,7 +211,7 @@ export default function SellPage() {
         <section className="flex items-center justify-between gap-4 rounded-xl bg-card p-4 shadow-brand">
           <div className="space-y-0.5">
             <Label htmlFor="delivery">Offer delivery</Label>
-            <p className="type-label-small text-muted-foreground">
+            <p className="text-muted-foreground">
               A Swapmeeter collects it from you and takes it to the buyer. You
               never leave home.
             </p>

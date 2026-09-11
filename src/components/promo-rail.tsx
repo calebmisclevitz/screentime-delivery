@@ -25,11 +25,11 @@ export function PromoRail() {
           key={promo.title}
           className={`relative h-[155px] w-[287px] shrink-0 overflow-hidden rounded-3xl ${promo.className}`}
         >
-          <p className="absolute top-2 left-4 w-[152px] type-display-medium">
+          <p className="absolute top-2 left-4 w-[152px]">
             {promo.title}
           </p>
           <span
-            className={`absolute bottom-4 left-4 flex h-8 items-center rounded-full px-4 type-label-small ${promo.buttonClass}`}
+            className={`absolute bottom-4 left-4 flex h-8 items-center rounded-full px-4  ${promo.buttonClass}`}
           >
             {promo.action}
           </span>

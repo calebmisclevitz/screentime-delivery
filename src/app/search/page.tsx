@@ -70,7 +70,7 @@ export default function SearchPage() {
           {hydrated && recentSearches.length > 0 && (
             <section>
               <div className="flex items-center justify-between pb-2">
-                <h2 className="type-label-small text-muted-foreground">
+                <h2 className="text-muted-foreground">
                   Recent
                 </h2>
                 <Button
@@ -100,7 +100,7 @@ export default function SearchPage() {
           )}
 
           <section>
-            <h2 className="pb-2 type-label-small text-muted-foreground">
+            <h2 className="pb-2 text-muted-foreground">
               Try searching
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -129,7 +129,7 @@ export default function SearchPage() {
         />
       ) : (
         <>
-          <p className="px-4 pt-4 type-label-small text-muted-foreground md:px-6">
+          <p className="px-4 pt-4 text-muted-foreground md:px-6">
             {results.length} {results.length === 1 ? "result" : "results"}
           </p>
           <div className="grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-4">

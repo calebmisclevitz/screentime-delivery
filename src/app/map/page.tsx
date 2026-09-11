@@ -50,7 +50,7 @@ function MapContent() {
       <div className="absolute top-browse-header left-4 z-20">
         <Link
           href="/categories?from=map"
-          className="flex h-control items-center gap-2 rounded-full bg-card px-4 type-body-large shadow-float focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+          className="flex h-control items-center gap-2 rounded-full bg-card px-4 shadow-float focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           {category === "All" ? "All categories" : category}
           <ChevronDownIcon className="size-icon" />
@@ -85,7 +85,7 @@ function SelectedItemCard({ item }: { item: Item }) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center pr-8">
         <p className="truncate">{item.title}</p>
-        <p className="flex items-center gap-2 type-label-small">
+        <p className="flex items-center gap-2">
           <span>{formatPrice(item.price)}</span>
           <span aria-hidden className="text-muted-foreground">
             ·

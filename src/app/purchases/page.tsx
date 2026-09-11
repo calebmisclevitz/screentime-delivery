@@ -68,10 +68,10 @@ function PurchaseRow({ order }: { order: Order }) {
         <SummaryCardImage src={item.images[0]} alt={item.title} />
         <SummaryCardBody className="flex flex-col">
           <p className="truncate">{item.title}</p>
-          <p className="type-label-small text-muted-foreground">
+          <p className="text-muted-foreground">
             {order.id} · {formatPrice(order.total)} total
           </p>
-          <p className="type-label-small text-foreground">{stage}</p>
+          <p className="text-foreground">{stage}</p>
           <div className="mt-1">
             <Button asChild variant="outline" size="sm">
               <Link href={`/delivery/${order.id}`}>

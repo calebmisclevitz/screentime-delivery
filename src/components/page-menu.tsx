@@ -22,7 +22,7 @@ export function PageMenu({ items }: { items: PageMenuItem[] }) {
             <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-card">
               <Icon className="size-6" />
             </span>
-            <span className="min-w-0 flex-1 type-body-large">
+            <span className="min-w-0 flex-1">
               {item.label}
             </span>
           </Link>

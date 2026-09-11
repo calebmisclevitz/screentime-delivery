@@ -66,11 +66,11 @@ export function DesignSystemShowcase() {
   return (
     <main className="mx-auto w-full max-w-6xl space-y-16 px-4 py-8 md:px-6 md:py-16">
       <header className="max-w-2xl space-y-4">
-        <p className="type-label-small text-muted-foreground">
+        <p className="text-muted-foreground">
           Yardsale foundations
         </p>
-        <h1 className="type-display-medium">Visual design system</h1>
-        <p className="type-body-large text-muted-foreground">
+        <h1>Visual design system</h1>
+        <p className="text-muted-foreground">
           A compact review surface for the shared type, color, spacing, and
           component decisions used throughout the app.
         </p>
@@ -79,9 +79,14 @@ export function DesignSystemShowcase() {
       <ShowcaseSection
         id="typography"
         title="Typography"
-        description="Body Medium is the inherited base. Every other role is a deliberate exception."
+        description="The app currently inherits one 14 / 20 body style. These roles are loaded and ready to apply later."
       >
         <div className="divide-y rounded-xl bg-card px-4 shadow-brand">
+          <TypeSample name="Neutral base" meta="14 / 20 · 400 · current">
+            <span>
+              One body face for every label, heading, price, and paragraph.
+            </span>
+          </TypeSample>
           <TypeSample name="Display Medium" meta="32 / 40">
             <span className="type-display-medium">Sell what you have</span>
           </TypeSample>
@@ -91,8 +96,10 @@ export function DesignSystemShowcase() {
           <TypeSample name="Body Large" meta="18 / 24">
             <span className="type-body-large">Furniture in your area</span>
           </TypeSample>
-          <TypeSample name="Body Medium · base" meta="16 / 24">
-            <span>Clear, comfortable text for product UI and longer copy.</span>
+          <TypeSample name="Body Medium" meta="16 / 24">
+            <span className="type-body-medium">
+              Clear, comfortable text for product UI and longer copy.
+            </span>
           </TypeSample>
           <TypeSample name="Label Small" meta="12 / 16">
             <span className="type-label-small">PRICE · DISTANCE · STATUS</span>
@@ -120,7 +127,7 @@ export function DesignSystemShowcase() {
           <div className="space-y-4">
             {[8, 16, 24, 32, 48].map((size) => (
               <div key={size} className="flex items-center gap-4">
-                <span className="w-12 type-label-small text-muted-foreground">
+                <span className="w-12 text-muted-foreground">
                   {size}px
                 </span>
                 <span
@@ -254,8 +261,8 @@ export function DesignSystemShowcase() {
               alt="Rattan lounge chair"
             />
             <SummaryCardBody>
-              <p className="font-medium">Rattan and Cane Lounge Chair</p>
-              <p className="type-label-small">$420 · 1.1 MI</p>
+              <p>Rattan and Cane Lounge Chair</p>
+              <p>$420 · 1.1 MI</p>
               <ConditionBadge condition="Good" />
             </SummaryCardBody>
           </SummaryCard>
@@ -323,7 +330,7 @@ function ShowcaseSection({
   return (
     <section className={className} {...props}>
       <div className="mb-6 max-w-2xl">
-        <h2 className="type-heading-medium">{title}</h2>
+        <h2>{title}</h2>
         {description && <p className="text-muted-foreground">{description}</p>}
       </div>
       {children}
@@ -342,9 +349,9 @@ function TypeSample({
 }) {
   return (
     <div className="grid gap-2 py-4 md:grid-cols-[10rem_1fr] md:items-baseline">
-      <span className="type-label-small text-muted-foreground">
+      <span className="text-muted-foreground">
         {name}
-        <span className="block font-normal">{meta}</span>
+        <span className="block">{meta}</span>
       </span>
       {children}
     </div>
@@ -360,14 +367,14 @@ function ThemePanel({ title, dark = false }: { title: string; dark?: boolean }) 
           : "rounded-xl bg-background p-4 text-foreground shadow-brand"
       }
     >
-      <h3 className="mb-4 type-body-large font-medium">{title}</h3>
+      <h3 className="mb-4">{title}</h3>
       <div className="grid grid-cols-2 gap-2">
         {COLORS.map(([name, background, foreground]) => (
           <div
             key={name}
             className={`${background} ${foreground} flex min-h-20 items-end rounded-lg p-2`}
           >
-            <span className="type-label-small">{name}</span>
+            <span>{name}</span>
           </div>
         ))}
       </div>
@@ -379,7 +386,7 @@ function Shape({ label, className }: { label: string; className: string }) {
   return (
     <div className="text-center">
       <div className={`${className} size-16 bg-secondary`} />
-      <span className="type-label-small text-muted-foreground">{label}</span>
+      <span className="text-muted-foreground">{label}</span>
     </div>
   );
 }

@@ -6,7 +6,7 @@ export default function AccountPage() {
     <PageContainer width="narrow">
       <PageHeader title="Account" fallbackHref="/you" />
       <div className="space-y-2 p-4 md:p-6">
-        <h2 className="type-body-large font-medium">Your account</h2>
+        <h2>Your account</h2>
         <p className="text-muted-foreground">
           Profile, location, notifications, and payment settings will live here.
         </p>

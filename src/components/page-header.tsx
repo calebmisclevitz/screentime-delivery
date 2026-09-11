@@ -49,7 +49,7 @@ export function PageHeader({
         className="-ml-3"
       />
       {title && (
-        <span className="truncate type-body-medium font-medium">{title}</span>
+        <span className="truncate">{title}</span>
       )}
       {action && <div className="ml-auto">{action}</div>}
     </div>

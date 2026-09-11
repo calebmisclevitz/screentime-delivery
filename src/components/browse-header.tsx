@@ -22,7 +22,7 @@ export function BrowseHeader() {
           className="pointer-events-auto shrink-0 rounded-full shadow-brand focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <Avatar className="size-12">
-            <AvatarFallback className="bg-accent type-heading-medium text-primary">
+            <AvatarFallback className="bg-accent text-primary">
               Y
             </AvatarFallback>
           </Avatar>

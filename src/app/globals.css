@@ -218,7 +218,11 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply type-body-medium;
+    font-family: var(--font-special);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0;
   }
 }
 
@@ -227,6 +231,10 @@
 .maplibregl-map {
   background: var(--muted);
   font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
   isolation: isolate;
   outline: none;
 }
@@ -234,7 +242,6 @@
 .maplibregl-ctrl-attrib {
   background: color-mix(in oklch, var(--background), transparent 15%) !important;
   color: var(--muted-foreground);
-  font-size: 10px;
 }
 
 .maplibregl-ctrl-attrib a {

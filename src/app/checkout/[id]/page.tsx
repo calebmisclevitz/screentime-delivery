@@ -81,17 +81,17 @@ export default function CheckoutPage() {
           <SummaryCardImage src={item.images[0]} alt={item.title} />
           <SummaryCardBody>
             <p className="truncate">{item.title}</p>
-            <p className="type-label-small text-foreground">
+            <p className="text-foreground">
               {formatPrice(item.price)}
             </p>
-            <p className="type-label-small text-muted-foreground">
+            <p className="text-muted-foreground">
               {item.location.neighborhood} · {formatDistance(miles)}
             </p>
           </SummaryCardBody>
         </SummaryCard>
 
         <section className="space-y-4">
-          <h2 className="type-label-small text-muted-foreground">
+          <h2 className="text-muted-foreground">
             How do you want it?
           </h2>
 
@@ -129,14 +129,14 @@ export default function CheckoutPage() {
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Street address, Raleigh NC"
             />
-            <p className="type-label-small text-muted-foreground">
+            <p className="text-muted-foreground">
               Your courier only sees this after they collect the item.
             </p>
           </section>
         )}
 
         <section className="space-y-4">
-          <h2 className="type-label-small text-muted-foreground">
+          <h2 className="text-muted-foreground">
             Summary
           </h2>
           <dl className="space-y-2">
@@ -148,12 +148,12 @@ export default function CheckoutPage() {
             <Separator />
             <div className="flex items-baseline justify-between">
               <dt>Total</dt>
-              <dd className="type-body-large font-mono">
+              <dd>
                 {formatPrice(total)}
               </dd>
             </div>
           </dl>
-          <p className="type-label-small text-muted-foreground">
+          <p className="text-muted-foreground">
             Demo checkout — no payment is collected.
           </p>
         </section>
@@ -186,7 +186,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between">
       <dt className="text-muted-foreground">{label}</dt>
-      <dd className="type-label-small text-foreground tabular-nums">{value}</dd>
+      <dd className="text-foreground">{value}</dd>
     </div>
   );
 }
@@ -235,16 +235,16 @@ function FulfillmentOption({
           <Icon className="size-icon text-primary" />
           <span>{title}</span>
           {badge && (
-            <span className="rounded-full bg-accent px-2 py-1 type-label-small text-accent-foreground">
+            <span className="rounded-full bg-accent px-2 py-1 text-accent-foreground">
               {badge}
             </span>
           )}
         </span>
-        <span className="block type-label-small text-muted-foreground">
+        <span className="block text-muted-foreground">
           {description}
         </span>
       </span>
-      <span className="shrink-0 type-label-small text-foreground tabular-nums">
+      <span className="shrink-0 text-foreground">
         {price}
       </span>
     </button>

@@ -38,7 +38,7 @@ function HomeContent() {
       <div className="px-4 py-4 md:px-6">
         <Link
           href="/categories"
-          className="flex min-w-0 items-center gap-2 type-body-large"
+          className="flex min-w-0 items-center gap-2"
         >
           <span className="truncate">
             {category === "All" ? "All categories" : category}
