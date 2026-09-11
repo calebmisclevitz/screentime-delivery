@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Without these, dev chunks and the HMR socket are blocked when a phone on the
+  // LAN loads the dev server by IP, so the page renders but never hydrates.
+  allowedDevOrigins: ["10.*.*.*", "192.168.*.*", "172.*.*.*", "*.local"],
   async redirects() {
     return [{ source: "/browse", destination: "/", permanent: false }];
   },
