@@ -77,7 +77,7 @@ function PurchaseRow({ order }: { order: Order }) {
           </p>
           <p className="text-foreground">{stage}</p>
           <div className="mt-1">
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="outline" size="compact">
               <Link href={`/delivery/${order.id}`}>
                 {order.fulfillment === "delivery"
                   ? "Track delivery"

@@ -19,7 +19,7 @@ const PROMOS = [
 
 export function PromoRail() {
   return (
-    <div className="flex gap-4 overflow-x-auto px-4 [scrollbar-width:none] md:px-6 [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {PROMOS.map((promo) => (
         <article
           key={promo.title}

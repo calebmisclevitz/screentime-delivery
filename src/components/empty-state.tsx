@@ -28,7 +28,7 @@ export function EmptyState({
         </p>
       </div>
       {actionLabel && actionHref && (
-        <Button asChild size="lg" className="mt-2">
+        <Button asChild className="mt-2">
           <Link href={actionHref}>{actionLabel}</Link>
         </Button>
       )}

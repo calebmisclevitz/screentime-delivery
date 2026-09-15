@@ -20,6 +20,10 @@ export function browseHref(
     : `${path}?category=${encodeURIComponent(category)}`;
 }
 
+export function categoryLabel(category: BrowseCategory): string {
+  return category === "All" ? "For you" : category;
+}
+
 export function sortByRecent(items: Item[]): Item[] {
   return [...items].sort(
     (a, b) => Date.parse(b.postedAt) - Date.parse(a.postedAt),

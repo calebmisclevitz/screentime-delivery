@@ -12,10 +12,9 @@ type IconButtonProps = Omit<React.ComponentProps<typeof Button>, "size"> & {
 };
 
 /**
- * A named icon-only control. The default preserves a 48px touch target around
- * a 24px icon; compact is reserved for controls embedded inside other fields.
- * Pass `asChild` with a single element child (such as a `Link`) to render the
- * icon inside that element.
+ * A named icon-only control. Default is a 48px target around a 24px icon;
+ * compact is a 32px target around a 16px icon. Pass `asChild` with a single
+ * element child (such as a `Link`) to render the icon inside that element.
  */
 function IconButton({
   icon: Icon,
@@ -27,7 +26,7 @@ function IconButton({
 }: IconButtonProps) {
   return (
     <Button
-      size={size === "default" ? "icon" : "icon-sm"}
+      size={size === "default" ? "icon" : "icon-compact"}
       className={className}
       {...props}
     >
