@@ -4,7 +4,7 @@ import * as React from "react"
 import { Dialog as SheetPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { IconButton } from "@/components/ui/icon-button"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
@@ -70,15 +70,13 @@ function SheetContent({
         {children}
         {showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>
-            <Button
+            <IconButton
               variant="ghost"
+              size="compact"
               className="absolute top-3 right-3"
-              size="icon-sm"
-            >
-              <XMarkIcon
-              />
-              <span className="sr-only">Close</span>
-            </Button>
+              icon={XMarkIcon}
+              aria-label="Close"
+            />
           </SheetPrimitive.Close>
         )}
       </SheetPrimitive.Content>

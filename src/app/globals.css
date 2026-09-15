@@ -55,6 +55,7 @@
   --shadow-brand: 0 3px 5px rgb(28 26 22 / 0.1);
   --shadow-float: 0 8px 12px rgb(28 26 22 / 0.1);
   --spacing-control: 3rem;
+  --spacing-control-compact: 2rem;
   --spacing-icon: 1.5rem;
   --spacing-icon-mini: 1.25rem;
   --spacing-page-gutter: 1rem;

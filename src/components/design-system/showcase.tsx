@@ -33,6 +33,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SearchField } from "@/components/ui/search-field";
+import { UserAvatar } from "@/components/user-avatar";
 import {
   Select,
   SelectContent,
@@ -122,7 +123,7 @@ export function DesignSystemShowcase() {
       <ShowcaseSection
         id="spacing"
         title="Spacing and shape"
-        description="Common layout increments use an 8px rhythm; controls and icons use 48px and 24px defaults."
+        description="Common layout increments use an 8px rhythm; controls use 48px default and 32px compact sizes, with 24px icons on icon-only buttons."
       >
         <div className="grid gap-8 rounded-xl bg-card p-4 shadow-brand md:grid-cols-2 md:p-6">
           <div className="space-y-4">
@@ -150,7 +151,7 @@ export function DesignSystemShowcase() {
       <ShowcaseSection
         id="actions"
         title="Buttons and icon buttons"
-        description="The normal action is 48px high with a 24px icon; overlay is the white-on-media treatment. Add shadow-brand when the control sits on a photo or map. Trailing affordances use the 20px mini icon set via data-icon-size."
+        description="Labeled and icon buttons share 48px default and 32px compact sizes across color styles. Icon-only controls use 24px and 16px glyphs; labeled actions and selects keep 20px icons. Overlay is the white-on-media treatment. Add shadow-brand when the control sits on a photo or map."
       >
         <div className="flex flex-wrap items-center gap-4">
           <Button>Primary</Button>
@@ -168,10 +169,17 @@ export function DesignSystemShowcase() {
           </Button>
           <Button variant="overlay">
             All categories
-            <ChevronDownMiniIcon data-icon="inline-end" data-icon-size="mini" />
+            <ChevronDownMiniIcon data-icon="inline-end" />
           </Button>
         </div>
-        <div className="mt-8 flex items-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <Button size="compact">Primary</Button>
+          <Button size="compact" variant="overlay">
+            Overlay
+          </Button>
+          <Button size="compact" variant="ghost">
+            Ghost
+          </Button>
           <IconButton icon={HeartIcon} aria-label="Save item" />
           <IconButton
             icon={HeartIcon}
@@ -186,7 +194,18 @@ export function DesignSystemShowcase() {
             variant="overlay"
             className="shadow-brand"
           />
-          <Button size="sm">Compact action</Button>
+        </div>
+      </ShowcaseSection>
+
+      <ShowcaseSection
+        id="avatar"
+        title="Avatar"
+        description="A 48px initials mark. Body large at medium weight sits on the primary fill."
+      >
+        <div className="flex flex-wrap items-center gap-4">
+          <UserAvatar name="You" />
+          <UserAvatar name="Marla V." />
+          <UserAvatar name="Dez Okafor" />
         </div>
       </ShowcaseSection>
 

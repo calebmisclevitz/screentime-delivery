@@ -5,11 +5,9 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { TruckIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { StickerMap } from "@/components/map";
 import { SaveButton } from "@/components/save-button";
-import { Button } from "@/components/ui/button";
 import { itemsInCategory, parseCategory } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
 import { HOME, distanceMiles, formatDistance, formatPrice } from "@/lib/geo";
@@ -48,15 +46,6 @@ function MapContent() {
         onSelect={setPickedId}
         className="absolute inset-0"
       />
-
-      <div className="absolute top-browse-header left-4 z-20">
-        <Button asChild variant="overlay" className="shadow-brand">
-          <Link href="/categories?from=map">
-            {category === "All" ? "All categories" : category}
-            <ChevronDownIcon data-icon="inline-end" data-icon-size="mini" />
-          </Link>
-        </Button>
-      </div>
 
       {selectedItem && (
         <div className="absolute inset-x-0 bottom-floating-nav z-20 flex justify-center px-4 pb-4">

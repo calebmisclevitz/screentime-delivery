@@ -149,12 +149,12 @@ function ListingRow({
           {(onMarkSold || onRemove) && (
             <div className="mt-1 flex gap-2">
               {onMarkSold && (
-                <Button variant="outline" size="sm" onClick={onMarkSold}>
+                <Button variant="outline" size="compact" onClick={onMarkSold}>
                   Mark sold
                 </Button>
               )}
               {onRemove && (
-                <Button variant="ghost" size="sm" onClick={onRemove}>
+                <Button variant="ghost" size="compact" onClick={onRemove}>
                   Remove
                 </Button>
               )}

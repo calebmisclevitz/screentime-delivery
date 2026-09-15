@@ -4,15 +4,23 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo } from "react";
 import { MagnifyingGlassPlusIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { EmptyState } from "@/components/empty-state";
 import { ItemCard } from "@/components/item-card";
 import { PageContainer } from "@/components/page-container";
 import { PromoRail } from "@/components/promo-rail";
 import { Button } from "@/components/ui/button";
-import { itemsInCategory, parseCategory } from "@/lib/browse";
+import {
+  browseHref,
+  categoryLabel,
+  itemsInCategory,
+  parseCategory,
+  type BrowseCategory,
+} from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
+import { CATEGORIES } from "@/lib/types";
+
+const HOME_TABS: BrowseCategory[] = ["All", ...CATEGORIES];
 
 export default function HomePage() {
   return (
@@ -34,14 +42,30 @@ function HomeContent() {
     <PageContainer className="pt-browse-header pb-floating-nav md:pb-10">
       <PromoRail />
 
-      <div className="px-4 py-4 md:px-6">
-        <Button asChild variant="outline">
-          <Link href="/categories">
-            {category === "All" ? "All categories" : category}
-            <ChevronDownIcon data-icon="inline-end" data-icon-size="mini" />
-          </Link>
-        </Button>
-      </div>
+      <nav
+        aria-label="Categories"
+        className="flex overflow-x-auto px-4 py-6"
+      >
+        {HOME_TABS.map((tab) => {
+          const active = tab === category;
+          return (
+            <Button
+              key={tab}
+              asChild
+              size="compact"
+              variant={active ? "overlay" : "ghost"}
+              className={active ? undefined : "text-muted-foreground"}
+            >
+              <Link
+                href={browseHref("/", tab)}
+                aria-current={active ? "page" : undefined}
+              >
+                {categoryLabel(tab)}
+              </Link>
+            </Button>
+          );
+        })}
+      </nav>
 
       {results.length === 0 ? (
         <EmptyState

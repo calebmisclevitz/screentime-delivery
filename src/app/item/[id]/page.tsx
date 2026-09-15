@@ -11,6 +11,7 @@ import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 
 import { ConditionBadge } from "@/components/condition-badge";
 import { EmptyState } from "@/components/empty-state";
+import { UserAvatar } from "@/components/user-avatar";
 import { PinMap } from "@/components/map";
 import { PageContainer } from "@/components/page-container";
 import { PageHeader } from "@/components/page-header";
@@ -102,13 +103,7 @@ export default function ItemPage() {
           <Separator />
 
           <div className="flex items-center gap-4">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary type-body-large font-medium text-primary-foreground">
-              {item.seller.name
-                .split(" ")
-                .map((part) => part[0])
-                .join("")
-                .slice(0, 2)}
-            </span>
+            <UserAvatar name={item.seller.name} />
             <div className="min-w-0 flex-1 space-y-1">
               <p className="font-medium">{item.seller.name}</p>
               <p className="flex items-center gap-2 text-muted-foreground type-label-small">

@@ -75,7 +75,7 @@ export default function SearchPage() {
                 </h2>
                 <Button
                   variant="ghost"
-                  size="sm"
+                  size="compact"
                   onClick={clearSearches}
                   className="text-muted-foreground"
                 >
@@ -108,7 +108,7 @@ export default function SearchPage() {
                 <Button
                   key={term}
                   type="button"
-                  size="sm"
+                  size="compact"
                   variant="secondary"
                   onClick={() => setQuery(term)}
                   className="bg-card text-muted-foreground shadow-brand hover:text-foreground"
