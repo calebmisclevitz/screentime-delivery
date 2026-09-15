@@ -10,7 +10,7 @@ import { StickerMap } from "@/components/map";
 import { SaveButton } from "@/components/save-button";
 import { itemsInCategory, parseCategory } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
-import { HOME, distanceMiles, formatDistance, formatPrice } from "@/lib/geo";
+import { HOME, distanceKm, formatDistance, formatPrice } from "@/lib/geo";
 import type { Item } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -61,7 +61,7 @@ export function PersistentMapView() {
 }
 
 function SelectedItemCard({ item }: { item: Item }) {
-  const miles = distanceMiles(item.location, HOME);
+  const kilometres = distanceKm(item.location, HOME);
 
   return (
     <Link
@@ -85,7 +85,7 @@ function SelectedItemCard({ item }: { item: Item }) {
         <p className="flex items-center gap-2 text-muted-foreground type-label-small">
           <span>{formatPrice(item.price)}</span>
           <span aria-hidden>·</span>
-          <span>{formatDistance(miles)}</span>
+          <span>{formatDistance(kilometres)}</span>
           {item.deliveryAvailable && (
             <TruckIcon className="size-4" />
           )}

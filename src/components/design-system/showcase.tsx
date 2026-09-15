@@ -260,7 +260,7 @@ export function DesignSystemShowcase() {
         <div className="grid max-w-3xl gap-4 md:grid-cols-2">
           <SearchField
             href="/search"
-            placeholder="Search Raleigh"
+            placeholder="Search Bengaluru"
             className="shadow-brand"
           />
           <SearchField
@@ -303,7 +303,7 @@ export function DesignSystemShowcase() {
             />
             <SummaryCardBody>
               <p>Mustard Lounge Chair, Walnut Arms</p>
-              <p>$640 · 1.1 MI</p>
+              <p>₹51,200 · 1.8 KM</p>
               <ConditionBadge condition="Good" />
             </SummaryCardBody>
           </SummaryCard>

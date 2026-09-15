@@ -10,25 +10,25 @@ import {
   backgroundForImage,
 } from "./data/items";
 import { NEIGHBORHOODS } from "./data/neighborhoods";
-import { HOME, deliveryFee, distanceMiles } from "./geo";
+import { HOME, deliveryFee, distanceKm } from "./geo";
 import type { Draft, Fulfillment, Item, Order } from "./types";
 
 export { useHydrated } from "./clock";
 
 const COURIERS = [
-  "Rosalie B.",
-  "Amir T.",
-  "Devon Marsh",
+  "Asha R.",
+  "Arjun N.",
+  "Deepak Rao",
   "Priya N.",
-  "Hollis Grant",
+  "Manu Gowda",
 ];
 
-/** Courier standby points around Raleigh, so each order starts somewhere different. */
+/** Courier standby points around Bengaluru, so each order starts somewhere different. */
 const COURIER_STARTS = [
-  { lat: 35.7721, lng: -78.6553 },
-  { lat: 35.7994, lng: -78.6265 },
-  { lat: 35.8112, lng: -78.6591 },
-  { lat: 35.7688, lng: -78.6301 },
+  { lat: 12.9629, lng: 77.6387 },
+  { lat: 12.9927, lng: 77.6101 },
+  { lat: 12.9438, lng: 77.6042 },
+  { lat: 12.9847, lng: 77.6186 },
 ];
 
 type State = {
@@ -64,9 +64,11 @@ export const useStore = create<State & Actions>()(
         })),
 
       placeOrder: (item, fulfillment, dropoff) => {
-        const miles = distanceMiles(item.location, HOME);
+        const kilometres = distanceKm(item.location, HOME);
         const fee =
-          fulfillment === "delivery" ? deliveryFee(item.size, miles) : 0;
+          fulfillment === "delivery"
+            ? deliveryFee(item.size, kilometres)
+            : 0;
         const seed = get().orders.length;
         const order: Order = {
           id: `SM-${Math.random().toString(36).toUpperCase().slice(2, 8)}`,
@@ -99,7 +101,7 @@ export const useStore = create<State & Actions>()(
           location: {
             lat: spot.lat,
             lng: spot.lng,
-            neighborhood: draft.neighborhood.trim() || "Glenwood South",
+            neighborhood: draft.neighborhood.trim() || "Indiranagar",
           },
           size: "medium",
           deliveryAvailable: draft.deliveryAvailable,
@@ -135,7 +137,7 @@ export const useStore = create<State & Actions>()(
 
       clearSearches: () => set({ recentSearches: [] }),
     }),
-    { name: "swapmeet-v2" },
+    { name: "swapmeet-bengaluru-v1" },
   ),
 );
 

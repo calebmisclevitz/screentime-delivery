@@ -25,7 +25,7 @@ import {
   HOME,
   SIZE_LABEL,
   deliveryFee,
-  distanceMiles,
+  distanceKm,
   formatDistance,
   formatPrice,
 } from "@/lib/geo";
@@ -59,8 +59,9 @@ export default function CheckoutPage() {
     );
   }
 
-  const miles = distanceMiles(item.location, HOME);
-  const fee = fulfillment === "delivery" ? deliveryFee(item.size, miles) : 0;
+  const kilometres = distanceKm(item.location, HOME);
+  const fee =
+    fulfillment === "delivery" ? deliveryFee(item.size, kilometres) : 0;
   const total = item.price + fee;
   const canDeliver = item.deliveryAvailable;
   const chosen = canDeliver ? fulfillment : "pickup";
@@ -89,7 +90,7 @@ export default function CheckoutPage() {
               {formatPrice(item.price)}
             </p>
             <p className="text-muted-foreground">
-              {item.location.neighborhood} · {formatDistance(miles)}
+              {item.location.neighborhood} · {formatDistance(kilometres)}
             </p>
           </SummaryCardBody>
         </SummaryCard>
@@ -103,7 +104,11 @@ export default function CheckoutPage() {
                 ? `A Swapmeeter picks it up in ${item.location.neighborhood} and brings it to you. ${SIZE_LABEL[item.size]}.`
                 : "This seller isn't offering delivery for this item."
             }
-            price={canDeliver ? formatPrice(deliveryFee(item.size, miles)) : "—"}
+            price={
+              canDeliver
+                ? formatPrice(deliveryFee(item.size, kilometres))
+                : "—"
+            }
             selected={chosen === "delivery"}
             disabled={!canDeliver}
             onSelect={() => setFulfillment("delivery")}
@@ -127,7 +132,7 @@ export default function CheckoutPage() {
               id="dropoff"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder="Street address, Raleigh NC"
+              placeholder="Street address, Bengaluru"
             />
           </section>
         )}

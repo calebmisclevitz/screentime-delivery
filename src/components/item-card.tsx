@@ -5,7 +5,7 @@ import { ConditionBadge } from "@/components/condition-badge";
 import { ItemImage } from "@/components/item-image";
 import { SaveButton } from "@/components/save-button";
 import { Badge } from "@/components/ui/badge";
-import { HOME, distanceMiles, formatDistance, formatPrice } from "@/lib/geo";
+import { HOME, distanceKm, formatDistance, formatPrice } from "@/lib/geo";
 import type { Item } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +18,7 @@ export function ItemCard({
   className?: string;
   showSave?: boolean;
 }) {
-  const miles = distanceMiles(item.location, HOME);
+  const kilometres = distanceKm(item.location, HOME);
 
   return (
     <Link
@@ -36,7 +36,7 @@ export function ItemCard({
             <span aria-hidden className="text-muted-foreground">
               ·
             </span>
-            <span>{formatDistance(miles)}</span>
+            <span>{formatDistance(kilometres)}</span>
             {item.deliveryAvailable && (
               <TruckIcon
                 className="size-4 shrink-0 text-muted-foreground"

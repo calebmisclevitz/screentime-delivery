@@ -57,10 +57,18 @@ type MapColor =
   | "building"
   | "road-path"
   | "road-minor"
+  | "road-arterial"
   | "road-major"
   | "label";
 
-/** Layer id, paint property, semantic map color. */
+/**
+ * Layer id, paint property, semantic map color.
+ *
+ * In a dense grid the trunk and primary roads carry most of the frame, so they
+ * only get the accent on their inner line — the casing and the low-zoom subtle
+ * layer stay on the quieter arterial step. That keeps the accent as thin
+ * structure behind the listings rather than a mat the stickers sit on.
+ */
 const PAINT: Array<[string, PaintProperty, MapColor]> = [
   ["background", "background-color", "ground"],
   ["water", "fill-color", "water"],
@@ -75,8 +83,8 @@ const PAINT: Array<[string, PaintProperty, MapColor]> = [
   ["highway_path", "line-color", "road-path"],
   ["highway_minor", "line-color", "road-minor"],
   ["highway_major_inner", "line-color", "road-major"],
-  ["highway_major_casing", "line-color", "road-major"],
-  ["highway_major_subtle", "line-color", "road-major"],
+  ["highway_major_casing", "line-color", "road-arterial"],
+  ["highway_major_subtle", "line-color", "road-arterial"],
   ["highway_motorway_inner", "line-color", "road-major"],
   ["highway_motorway_casing", "line-color", "road-major"],
   ["highway_motorway_subtle", "line-color", "road-major"],

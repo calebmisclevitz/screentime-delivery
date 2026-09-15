@@ -30,7 +30,7 @@ const EMPTY: Draft = {
   category: "Home Goods",
   condition: "Good",
   description: "",
-  neighborhood: "Glenwood South",
+  neighborhood: "Indiranagar",
   image: STOCK_IMAGES[0],
   deliveryAvailable: true,
 };
@@ -122,7 +122,7 @@ export default function SellPage() {
           </Label>
           <div className="relative">
             <span className="absolute top-1/2 left-4 -translate-y-1/2 text-foreground">
-              $
+              ₹
             </span>
             <Input
               id="price"

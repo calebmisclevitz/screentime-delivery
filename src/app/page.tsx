@@ -71,7 +71,7 @@ function HomeContent() {
         <EmptyState
           icon={MagnifyingGlassPlusIcon}
           title="Nothing listed in this category"
-          description="Try another category to see more of what's listed in Raleigh."
+          description="Try another category to see more of what's listed in Bengaluru."
         />
       ) : (
         <div className="grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-4">
