@@ -28,7 +28,7 @@ export function BrowseHeader() {
       {onMap && (
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent"
+          className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-muted to-transparent"
         />
       )}
       <div className="relative mx-auto grid w-full max-w-6xl grid-cols-[3rem_1fr_3rem] items-center px-4 py-4">

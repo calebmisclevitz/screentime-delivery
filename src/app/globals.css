@@ -106,20 +106,15 @@
   --sidebar-accent-foreground: #5e2355;
   --sidebar-border: rgb(45 45 45 / 13%);
   --sidebar-ring: #5e2355;
-  --map-ground: #deedf2;
-  --map-water: #c5d8de;
-  --map-green: #d4e6dc;
-  --map-block: #e4eef0;
-  --map-building: #dbe8ec;
-  --map-building-edge: #d3e3e9;
-  --map-road-path: #d7e8ee;
-  --map-road-minor: #cde1ea;
+  --map-ground: var(--muted);
+  --map-block: #bbd1d8;
+  --map-building: #b5ccd4;
+  --map-road-path: #aec8d0;
+  --map-green: #aecbc4;
+  --map-road-minor: #a4c1cb;
   --map-road-major: #ebfeba;
-  --map-road-major-edge: #b7d1de;
-  --map-road-motorway: #bbd4e0;
-  --map-road-motorway-edge: #accad8;
-  --map-label: #6a6a6a;
-  --map-boundary: #c2d5dd;
+  --map-water: #97b8c3;
+  --map-label: #4a595e;
 }
 
 .dark {
@@ -156,20 +151,15 @@
   --sidebar-accent-foreground: #d9edf3;
   --sidebar-border: rgb(255 255 255 / 12%);
   --sidebar-ring: #d9edf3;
-  --map-ground: #1a0a18;
-  --map-water: #3a1a35;
-  --map-green: #243c31;
-  --map-block: #251421;
-  --map-building: #30172c;
-  --map-building-edge: #44223e;
-  --map-road-path: #382033;
-  --map-road-minor: #492943;
+  --map-ground: var(--muted);
+  --map-block: #331730;
+  --map-building: #2e152a;
+  --map-road-path: #2a1327;
+  --map-green: #17261f;
+  --map-road-minor: #231020;
   --map-road-major: #5c5330;
-  --map-road-major-edge: #65415d;
-  --map-road-motorway: #5b3554;
-  --map-road-motorway-edge: #714568;
+  --map-water: #1c0d1a;
   --map-label: #deedf2;
-  --map-boundary: #714568;
 }
 
 @utility type-label-small {

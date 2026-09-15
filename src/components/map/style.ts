@@ -4,10 +4,14 @@ export const POSITRON_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
 /**
  * Positron paints its ground and roads in neutral greys, which go muddy over
- * the pale blue background. Everything here is a tint of that background so
- * the map reads as one family and listing stickers stay the only real color.
+ * the muted ground. Everything here is a darker step off that ground so the
+ * map reads as one family and listing stickers stay the only real color.
+ * Features are filled rather than outlined, so casings match what they carry.
  */
-/** Positron layers that add street names, shields, rails, and extra places. */
+/**
+ * Positron layers that add street names, shields, rails, extra places, and
+ * administrative boundaries.
+ */
 const HIDDEN_LAYERS = [
   "highway-name-path",
   "highway-name-minor",
@@ -29,6 +33,9 @@ const HIDDEN_LAYERS = [
   "label_other",
   "label_village",
   "waterway_line_label",
+  "boundary_2",
+  "boundary_3",
+  "boundary_disputed",
 ];
 
 const LABEL_LAYERS = [
@@ -48,15 +55,10 @@ type MapColor =
   | "green"
   | "block"
   | "building"
-  | "building-edge"
   | "road-path"
   | "road-minor"
   | "road-major"
-  | "road-major-edge"
-  | "road-motorway"
-  | "road-motorway-edge"
-  | "label"
-  | "boundary";
+  | "label";
 
 /** Layer id, paint property, semantic map color. */
 const PAINT: Array<[string, PaintProperty, MapColor]> = [
@@ -67,24 +69,21 @@ const PAINT: Array<[string, PaintProperty, MapColor]> = [
   ["landcover_wood", "fill-color", "green"],
   ["landuse_residential", "fill-color", "block"],
   ["building", "fill-color", "building"],
-  ["building", "fill-outline-color", "building-edge"],
+  ["building", "fill-outline-color", "building"],
   ["road_area_pier", "fill-color", "ground"],
   ["road_pier", "line-color", "ground"],
   ["highway_path", "line-color", "road-path"],
   ["highway_minor", "line-color", "road-minor"],
   ["highway_major_inner", "line-color", "road-major"],
-  ["highway_major_casing", "line-color", "road-major-edge"],
+  ["highway_major_casing", "line-color", "road-major"],
   ["highway_major_subtle", "line-color", "road-major"],
-  ["highway_motorway_inner", "line-color", "road-motorway"],
-  ["highway_motorway_casing", "line-color", "road-motorway-edge"],
-  ["highway_motorway_subtle", "line-color", "road-motorway"],
-  ["highway_motorway_bridge_inner", "line-color", "road-motorway"],
-  ["highway_motorway_bridge_casing", "line-color", "road-motorway-edge"],
-  ["tunnel_motorway_inner", "line-color", "road-motorway"],
-  ["tunnel_motorway_casing", "line-color", "road-motorway-edge"],
-  ["boundary_2", "line-color", "boundary"],
-  ["boundary_3", "line-color", "boundary"],
-  ["boundary_disputed", "line-color", "boundary"],
+  ["highway_motorway_inner", "line-color", "road-major"],
+  ["highway_motorway_casing", "line-color", "road-major"],
+  ["highway_motorway_subtle", "line-color", "road-major"],
+  ["highway_motorway_bridge_inner", "line-color", "road-major"],
+  ["highway_motorway_bridge_casing", "line-color", "road-major"],
+  ["tunnel_motorway_inner", "line-color", "road-major"],
+  ["tunnel_motorway_casing", "line-color", "road-major"],
 ];
 
 function mapColor(name: MapColor) {

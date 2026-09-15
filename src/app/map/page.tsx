@@ -77,15 +77,13 @@ function SelectedItemCard({ item }: { item: Item }) {
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center pr-8">
-        <p className="truncate">{item.title}</p>
-        <p className="flex items-center gap-2">
+        <p className="truncate font-medium">{item.title}</p>
+        <p className="flex items-center gap-2 text-muted-foreground type-label-small">
           <span>{formatPrice(item.price)}</span>
-          <span aria-hidden className="text-muted-foreground">
-            ·
-          </span>
+          <span aria-hidden>·</span>
           <span>{formatDistance(miles)}</span>
           {item.deliveryAvailable && (
-            <TruckIcon className="size-4 text-muted-foreground" />
+            <TruckIcon className="size-4" />
           )}
         </p>
       </div>

@@ -16,15 +16,6 @@ import { searchItems } from "@/lib/browse";
 import { MARKET_ITEMS } from "@/lib/data/items";
 import { useHydrated, useStore } from "@/lib/store";
 
-const SUGGESTIONS = [
-  "Rhodes",
-  "teak",
-  "turntable",
-  "brass",
-  "Five Points",
-  "lamp",
-];
-
 export default function SearchPage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -66,8 +57,8 @@ export default function SearchPage() {
       </div>
 
       {!query.trim() ? (
-        <div className="space-y-8 p-4 md:px-6">
-          {hydrated && recentSearches.length > 0 && (
+        hydrated && recentSearches.length > 0 ? (
+          <div className="p-4 md:px-6">
             <section>
               <div className="flex items-center justify-between pb-2">
                 <h2 className="text-muted-foreground">
@@ -97,28 +88,8 @@ export default function SearchPage() {
                 ))}
               </ul>
             </section>
-          )}
-
-          <section>
-            <h2 className="pb-2 text-muted-foreground">
-              Try searching
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {SUGGESTIONS.map((term) => (
-                <Button
-                  key={term}
-                  type="button"
-                  size="compact"
-                  variant="secondary"
-                  onClick={() => setQuery(term)}
-                  className="bg-card text-muted-foreground shadow-brand hover:text-foreground"
-                >
-                  {term}
-                </Button>
-              ))}
-            </div>
-          </section>
-        </div>
+          </div>
+        ) : null
       ) : results.length === 0 ? (
         <EmptyState
           icon={MagnifyingGlassMinusIcon}
