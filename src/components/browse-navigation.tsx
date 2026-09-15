@@ -14,6 +14,7 @@ import {
 
 import { IconButton } from "@/components/ui/icon-button";
 import { browseHref, parseCategory } from "@/lib/browse";
+import { cn } from "@/lib/utils";
 
 export function BrowseNavigation() {
   const pathname = usePathname();
@@ -27,7 +28,10 @@ export function BrowseNavigation() {
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent"
+        className={cn(
+          "absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t to-transparent",
+          onMap ? "from-muted" : "from-background",
+        )}
       />
       <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <nav

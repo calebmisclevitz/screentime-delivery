@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
@@ -21,11 +20,10 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { STOCK_IMAGES, backgroundForImage } from "@/lib/data/items";
+import { STOCK_IMAGES } from "@/lib/data/items";
 import { NEIGHBORHOOD_NAMES } from "@/lib/data/neighborhoods";
 import { useStore } from "@/lib/store";
 import { CATEGORIES, CONDITIONS, type Draft } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 const EMPTY: Draft = {
   title: "",
@@ -65,86 +63,93 @@ export default function SellPage() {
       as="form"
       width="narrow"
       onSubmit={submit}
-      className="pb-floating-nav md:pb-10"
+      className="pb-32 md:pb-10"
     >
       <PageHeader title="Sell an item" />
-      <div className="space-y-8 p-4 md:p-6">
+      <div className="space-y-8 px-4 pb-8 md:px-6">
         <section className="space-y-4">
-          <Label>Photo</Label>
-          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
-            {STOCK_IMAGES.slice(0, 12).map((src) => (
-              <button
-                key={src}
-                type="button"
-                onClick={() => set("image", src)}
-                aria-pressed={draft.image === src}
-                className={cn(
-                  "relative aspect-square overflow-hidden rounded-lg border-2 transition-colors",
-                  draft.image === src ? "border-primary" : "border-transparent",
-                )}
-                style={{ backgroundColor: backgroundForImage(src) }}
+          <div className="flex items-center justify-between">
+            <Label className="font-medium">Add Photos</Label>
+            <span className="type-label-small">(Up to 8)</span>
+          </div>
+          <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 md:-mx-6 md:px-6">
+            {Array.from({ length: 8 }, (_, index) => (
+              <div
+                key={index}
+                className="relative size-32 shrink-0 rounded-xl bg-muted"
               >
-                <Image
-                  src={src}
-                  alt=""
-                  fill
-                  sizes="120px"
-                  className="object-contain p-1.5"
-                />
-                {draft.image === src && (
-                  <span className="absolute right-2 bottom-2 flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <CheckIcon className="size-4" />
-                  </span>
-                )}
-              </button>
+                <PlusIcon className="absolute top-1/2 left-1/2 size-icon -translate-x-1/2 -translate-y-1/2 text-muted-foreground" />
+              </div>
             ))}
           </div>
-          <p className="text-muted-foreground">
-            Demo mode — pick from the sample photo library instead of uploading.
-          </p>
         </section>
 
-        <section className="space-y-2">
-          <Label htmlFor="title">Title</Label>
+        <section className="space-y-4">
+          <Label htmlFor="title" className="font-medium">
+            Item name
+          </Label>
           <Input
             id="title"
             value={draft.title}
             onChange={(e) => set("title", e.target.value)}
-            placeholder="1970s walnut record cabinet"
+            placeholder="Name"
             aria-invalid={submitted && draft.title.trim().length <= 2}
           />
         </section>
 
-        <div className="grid gap-6 sm:grid-cols-2">
-          <section className="space-y-2">
-            <Label htmlFor="price">Price</Label>
-            <div className="relative">
-              <span className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground">
-                $
-              </span>
-              <Input
-                id="price"
-                value={draft.price}
-                onChange={(e) =>
-                  set("price", e.target.value.replace(/[^0-9.]/g, ""))
-                }
-                inputMode="decimal"
-                placeholder="0"
-                className="pl-8"
-                aria-invalid={submitted && !priceValid}
-              />
-            </div>
-          </section>
+        <section className="space-y-4">
+          <Label htmlFor="neighborhood" className="font-medium">
+            Location
+          </Label>
+          <Select
+            value={draft.neighborhood}
+            onValueChange={(value) => set("neighborhood", value)}
+          >
+            <SelectTrigger id="neighborhood" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {NEIGHBORHOOD_NAMES.map((neighborhood) => (
+                <SelectItem key={neighborhood} value={neighborhood}>
+                  {neighborhood}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </section>
 
-          <section className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+        <section className="space-y-4">
+          <Label htmlFor="price" className="font-medium">
+            Pricing
+          </Label>
+          <div className="relative">
+            <span className="absolute top-1/2 left-4 -translate-y-1/2 text-foreground">
+              $
+            </span>
+            <Input
+              id="price"
+              value={draft.price}
+              onChange={(e) =>
+                set("price", e.target.value.replace(/[^0-9.]/g, ""))
+              }
+              inputMode="decimal"
+              placeholder="0"
+              className="pl-8"
+              aria-invalid={submitted && !priceValid}
+            />
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <Label className="font-medium">Product Details</Label>
+          <div className="space-y-4">
             <Select
               value={draft.category}
               onValueChange={(value) =>
                 set("category", value as Draft["category"])
               }
             >
-              <SelectTrigger id="category" className="w-full">
+              <SelectTrigger aria-label="Category" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -155,17 +160,14 @@ export default function SellPage() {
                 ))}
               </SelectContent>
             </Select>
-          </section>
 
-          <section className="space-y-2">
-            <Label htmlFor="condition">Condition</Label>
             <Select
               value={draft.condition}
               onValueChange={(value) =>
                 set("condition", value as Draft["condition"])
               }
             >
-              <SelectTrigger id="condition" className="w-full">
+              <SelectTrigger aria-label="Condition" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -176,51 +178,31 @@ export default function SellPage() {
                 ))}
               </SelectContent>
             </Select>
-          </section>
-
-          <section className="space-y-2">
-            <Label htmlFor="neighborhood">Pickup neighborhood</Label>
-            <Select
-              value={draft.neighborhood}
-              onValueChange={(value) => set("neighborhood", value)}
-            >
-              <SelectTrigger id="neighborhood" className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {NEIGHBORHOOD_NAMES.map((neighborhood) => (
-                  <SelectItem key={neighborhood} value={neighborhood}>
-                    {neighborhood}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </section>
-        </div>
-
-        <section className="space-y-2">
-          <Label htmlFor="description">Description</Label>
-          <Textarea
-            id="description"
-            value={draft.description}
-            onChange={(e) => set("description", e.target.value)}
-            placeholder="Say where it came from, what shape it's in, and anything a buyer should know."
-            rows={5}
-          />
+            <Textarea
+              aria-label="Description"
+              value={draft.description}
+              onChange={(e) => set("description", e.target.value)}
+              placeholder="Description"
+              rows={3}
+            />
+          </div>
         </section>
 
-        <section className="flex items-center justify-between gap-4 rounded-xl bg-card p-4 shadow-brand">
-          <div className="space-y-0.5">
-            <Label htmlFor="delivery">Offer delivery</Label>
-            <p className="text-muted-foreground">
-              A Swapmeeter collects it from you and takes it to the buyer. You
-              never leave home.
+        <section className="flex items-start justify-between gap-4 rounded-xl border bg-background p-4">
+          <div className="space-y-2">
+            <Label htmlFor="delivery" className="font-medium">
+              Offer Delivery
+            </Label>
+            <p className="max-w-72 text-muted-foreground">
+              A Swapmeeter collects it from you and takes it to the buyer.
             </p>
           </div>
           <Switch
             id="delivery"
+            size="sm"
             checked={draft.deliveryAvailable}
             onCheckedChange={(checked) => set("deliveryAvailable", checked)}
+            className="mt-0.5 w-11"
           />
         </section>
 
