@@ -32,6 +32,7 @@ import {
 import { IconButton } from "@/components/ui/icon-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ProgressIndicator } from "@/components/ui/progress-indicator";
 import { SearchField } from "@/components/ui/search-field";
 import { UserAvatar } from "@/components/user-avatar";
 import {
@@ -335,6 +336,9 @@ export function DesignSystemShowcase() {
             <Skeleton className="h-8 w-1/2" />
             <Skeleton className="h-24 w-full" />
             <Skeleton className="h-control w-full rounded-full" />
+          </div>
+          <div className="flex min-h-32 items-center justify-center rounded-xl bg-card shadow-brand">
+            <ProgressIndicator label="Loading example" className="size-6" />
           </div>
         </div>
       </ShowcaseSection>

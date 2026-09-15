@@ -8,7 +8,6 @@ import {
   TagIcon,
   TruckIcon,
 } from "@heroicons/react/24/outline";
-import { toast } from "sonner";
 
 import { EmptyState } from "@/components/empty-state";
 import { PageContainer } from "@/components/page-container";
@@ -100,20 +99,10 @@ export default function SellingPage() {
               key={item.id}
               item={item}
               onMarkSold={
-                tab === "active"
-                  ? () => {
-                      markSold(item.id);
-                      toast("Marked as sold", { description: item.title });
-                    }
-                  : undefined
+                tab === "active" ? () => markSold(item.id) : undefined
               }
               onRemove={
-                tab === "active"
-                  ? () => {
-                      removeListing(item.id);
-                      toast("Listing removed", { description: item.title });
-                    }
-                  : undefined
+                tab === "active" ? () => removeListing(item.id) : undefined
               }
             />
           ))}

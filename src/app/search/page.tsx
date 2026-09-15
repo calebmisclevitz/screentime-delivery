@@ -100,7 +100,7 @@ export default function SearchPage() {
         />
       ) : (
         <>
-          <p className="px-4 pt-4 text-muted-foreground md:px-6">
+          <p className="px-4 py-4 text-muted-foreground md:px-6">
             {results.length} {results.length === 1 ? "result" : "results"}
           </p>
           <div className="grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-4">

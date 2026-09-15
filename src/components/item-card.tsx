@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { TruckIcon } from "@heroicons/react/24/outline";
 
 import { ConditionBadge } from "@/components/condition-badge";
+import { ItemImage } from "@/components/item-image";
 import { SaveButton } from "@/components/save-button";
 import { Badge } from "@/components/ui/badge";
 import { HOME, distanceMiles, formatDistance, formatPrice } from "@/lib/geo";
@@ -50,7 +50,7 @@ export function ItemCard({
       </div>
 
       <div className="relative aspect-square">
-        <Image
+        <ItemImage
           src={item.images[0]}
           alt={item.title}
           fill
@@ -65,7 +65,6 @@ export function ItemCard({
         {showSave && (
           <SaveButton
             itemId={item.id}
-            title={item.title}
             className="absolute right-0 bottom-0"
           />
         )}

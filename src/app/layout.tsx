@@ -6,7 +6,6 @@ import {
 } from "next/font/google";
 
 import { AppShell } from "@/components/app-shell";
-import { Toaster } from "@/components/ui/sonner";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
@@ -56,7 +55,6 @@ export default function RootLayout({
       <body className="relative flex h-dvh flex-col overflow-hidden bg-background text-foreground">
         <AppShell>{children}</AppShell>
         {sheet}
-        <Toaster position="top-center" />
       </body>
     </html>
   );

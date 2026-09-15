@@ -2,7 +2,6 @@
 
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
@@ -10,7 +9,6 @@ import { useHydrated, useStore } from "@/lib/store";
 
 type Props = {
   itemId: string;
-  title?: string;
   /** `icon` is the floating overlay on cards; `full` is the labelled button. */
   variant?: "icon" | "full";
   /** Sizing for the `icon` variant; cards use the compact 32px form. */
@@ -20,7 +18,6 @@ type Props = {
 
 export function SaveButton({
   itemId,
-  title,
   variant = "icon",
   size = "compact",
   className,
@@ -35,9 +32,6 @@ export function SaveButton({
     e.preventDefault();
     e.stopPropagation();
     toggleSaved(itemId);
-    toast(isSaved ? "Removed from saved" : "Saved", {
-      description: title,
-    });
   }
 
   if (variant === "full") {

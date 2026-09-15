@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
@@ -53,8 +52,7 @@ export default function SellPage() {
     e.preventDefault();
     setSubmitted(true);
     if (!valid) return;
-    const item = addListing(draft);
-    toast("Listing posted", { description: item.title });
+    addListing(draft);
     router.push("/selling");
   }
 
