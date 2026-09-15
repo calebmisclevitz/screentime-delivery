@@ -24,7 +24,7 @@ import {
   HOME,
   SIZE_LABEL,
   deliveryFee,
-  distanceMiles,
+  distanceKm,
   formatDistance,
   formatPrice,
 } from "@/lib/geo";
@@ -51,8 +51,8 @@ export default function ItemPage() {
     );
   }
 
-  const miles = distanceMiles(item.location, HOME);
-  const fee = deliveryFee(item.size, miles);
+  const kilometres = distanceKm(item.location, HOME);
+  const fee = deliveryFee(item.size, kilometres);
   const isMine = item.seller.id === "me";
   const isSold = item.status === "sold";
 
@@ -123,7 +123,7 @@ export default function ItemPage() {
               <div className="space-y-2">
                 <p className="font-medium">Delivery in 24-40 mins</p>
                 <p className="text-muted-foreground type-label-small">
-                  {item.location.neighborhood} · {formatDistance(miles)} ·{" "}
+                  {item.location.neighborhood} · {formatDistance(kilometres)} ·{" "}
                   {formatRelativeTime(item.postedAt)}
                 </p>
                 <p className="text-muted-foreground">

@@ -1,53 +1,55 @@
 import type { ItemSize, LatLng } from "./types";
 
-/** Downtown Raleigh, NC — the demo city center. */
-export const RALEIGH_CENTER: LatLng = { lat: 35.7796, lng: -78.6382 };
+/** Bengaluru city centre — the demo city centre. */
+export const BENGALURU_CENTER: LatLng = { lat: 12.9716, lng: 77.5946 };
 
-/** The signed-in demo user's home base, in Glenwood South. */
+/** The signed-in demo user's home base, in Indiranagar. */
 export const HOME: LatLng & { address: string } = {
-  lat: 35.7846,
-  lng: -78.6469,
-  address: "612 Glenwood Ave, Raleigh, NC 27603",
+  lat: 12.9784,
+  lng: 77.6408,
+  address: "100 Feet Road, Indiranagar, Bengaluru 560038",
 };
 
-const EARTH_RADIUS_MI = 3958.8;
+const EARTH_RADIUS_KM = 6371.0088;
 
-export function distanceMiles(a: LatLng, b: LatLng): number {
+export function distanceKm(a: LatLng, b: LatLng): number {
   const toRad = (deg: number) => (deg * Math.PI) / 180;
   const dLat = toRad(b.lat - a.lat);
   const dLng = toRad(b.lng - a.lng);
   const h =
     Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
-  return EARTH_RADIUS_MI * 2 * Math.asin(Math.sqrt(h));
+  return EARTH_RADIUS_KM * 2 * Math.asin(Math.sqrt(h));
 }
 
-export function formatDistance(miles: number): string {
-  return miles < 0.1 ? "Nearby" : `${miles.toFixed(1)} mi`;
+export function formatDistance(kilometres: number): string {
+  return kilometres < 0.1 ? "Nearby" : `${kilometres.toFixed(1)} km`;
 }
 
 const SIZE_BASE_FEE: Record<ItemSize, number> = {
-  small: 6,
-  medium: 11,
-  large: 19,
+  small: 500,
+  medium: 900,
+  large: 1500,
 };
 
 export const SIZE_LABEL: Record<ItemSize, string> = {
   small: "Fits in a backpack",
   medium: "Fits in a car",
-  large: "Needs a truck",
+  large: "Needs a tempo",
 };
 
-/** Base fee by item bulk, plus $1.40 per mile, rounded to the nearest half dollar. */
-export function deliveryFee(size: ItemSize, miles: number): number {
-  const raw = SIZE_BASE_FEE[size] + miles * 1.4;
-  return Math.round(raw * 2) / 2;
+/** Base fee by item bulk, plus ₹70 per kilometre, rounded to the nearest ₹10. */
+export function deliveryFee(size: ItemSize, kilometres: number): number {
+  const raw = SIZE_BASE_FEE[size] + kilometres * 70;
+  return Math.round(raw / 10) * 10;
 }
 
 export function formatPrice(value: number): string {
-  return value % 1 === 0
-    ? `$${value.toLocaleString("en-US")}`
-    : `$${value.toFixed(2)}`;
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 /**
@@ -55,10 +57,10 @@ export function formatPrice(value: number): string {
  * whole path rather than per segment, so speed stays constant.
  */
 export function pointAlongPath(path: LatLng[], t: number): LatLng {
-  if (path.length === 0) return RALEIGH_CENTER;
+  if (path.length === 0) return BENGALURU_CENTER;
   if (path.length === 1) return path[0];
 
-  const legs = path.slice(1).map((p, i) => distanceMiles(path[i], p));
+  const legs = path.slice(1).map((p, i) => distanceKm(path[i], p));
   const total = legs.reduce((sum, l) => sum + l, 0);
   if (total === 0) return path[0];
 

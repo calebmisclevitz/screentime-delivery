@@ -31,7 +31,7 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Yardsale — Raleigh",
+  title: "Yardsale — Bengaluru",
   description:
     "Buy and sell secondhand nearby. Choose delivery and a neighbor brings it to you.",
 };
@@ -49,7 +49,7 @@ export default function RootLayout({
 }: LayoutProps<"/"> & { sheet?: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       className={`${specialGothic.variable} ${specialGothicCondensed.variable} ${dmMono.variable} antialiased`}
     >
       <body className="relative flex h-dvh flex-col overflow-hidden bg-background text-foreground">

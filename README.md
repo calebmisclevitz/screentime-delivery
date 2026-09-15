@@ -1,6 +1,6 @@
 # Swapmeet
 
-A mobile-first marketplace for buying and selling secondhand things near you, demoed in Raleigh, North Carolina.
+A mobile-first marketplace for buying and selling secondhand things near you, demoed in Bengaluru, India.
 
 The thing that makes Swapmeet different from Craigslist or Facebook Marketplace is delivery. Most secondhand sales die at the logistics step: the buyer can't fit a credenza in their car and the seller doesn't want to drive across town. In Swapmeet the buyer picks **Delivery** at checkout and a neighbor collects the item from the seller and brings it over, for a fee based on the item's bulk and the distance.
 
@@ -40,7 +40,7 @@ A delivery runs its full course in about 90 seconds of real time, standing in fo
 - **MapLibre GL** over OpenFreeMap Positron vector tiles (no API key). Extra street labels are hidden and land/water are tinted toward the yardsale palette so item photos stay the loudest color. `npm install` copies MapLibre’s worker into `public/maplibre/` so Next can load vector tiles.
 - **Zustand** with the `persist` middleware for saved items, orders, and your own listings
 
-There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 41 seeded items scattered across real Raleigh neighborhoods, and everything you do on top of it is stored in `localStorage` under the `swapmeet-v2` key. Clearing site data resets the demo.
+There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 41 seeded items scattered across real Bengaluru neighbourhoods, and everything you do on top of it is stored in `localStorage` under the `swapmeet-bengaluru-v1` key. Clearing site data resets the demo.
 
 ### Layout of note
 

@@ -112,6 +112,7 @@
   --map-road-path: #aec8d0;
   --map-green: #aecbc4;
   --map-road-minor: #a4c1cb;
+  --map-road-arterial: #9dbcc7;
   --map-road-major: #ebfeba;
   --map-water: #97b8c3;
   --map-label: #4a595e;
@@ -157,6 +158,7 @@
   --map-road-path: #2a1327;
   --map-green: #17261f;
   --map-road-minor: #231020;
+  --map-road-arterial: #1f0e1d;
   --map-road-major: #5c5330;
   --map-water: #1c0d1a;
   --map-label: #deedf2;

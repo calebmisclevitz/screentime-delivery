@@ -16,7 +16,7 @@ import {
   useState,
 } from "react";
 
-import { HOME, formatPrice } from "@/lib/geo";
+import { BENGALURU_CENTER, formatPrice } from "@/lib/geo";
 import type { Item, LatLng } from "@/lib/types";
 
 import { MINIMUM_PLAY_MS } from "./loader";
@@ -226,8 +226,8 @@ export function StickerMap({
   className?: string;
 }) {
   const { canvasReady, containerRef, whenReady } = useYardsaleMap({
-    center: HOME,
-    zoom: 13,
+    center: BENGALURU_CENTER,
+    zoom: 11,
   });
   const revealed = useHeldReady(canvasReady, MINIMUM_PLAY_MS);
   const onSelectRef = useRef(onSelect);
