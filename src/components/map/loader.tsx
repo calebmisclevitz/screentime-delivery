@@ -11,7 +11,7 @@ const FRAME_MS = 1000 / FRAMES_PER_SECOND;
 const REEL_LENGTH = 9;
 
 /** How long the reel plays before a surface is allowed to reveal its map. */
-export const MINIMUM_PLAY_MS = 2000;
+export const MINIMUM_PLAY_MS = 1000;
 
 /** An even spread of the source list, so consecutive cuts land on unlike objects. */
 function reel(images: string[]) {

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
@@ -11,6 +10,7 @@ import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 
 import { ConditionBadge } from "@/components/condition-badge";
 import { EmptyState } from "@/components/empty-state";
+import { ItemImage } from "@/components/item-image";
 import { UserAvatar } from "@/components/user-avatar";
 import { PinMap } from "@/components/map";
 import { PageContainer } from "@/components/page-container";
@@ -65,7 +65,7 @@ export default function ItemPage() {
           className="relative aspect-square md:overflow-hidden md:rounded-xl"
           style={{ backgroundColor: item.backgroundColor }}
         >
-          <Image
+          <ItemImage
             src={item.images[0]}
             alt={item.title}
             fill
@@ -142,7 +142,6 @@ export default function ItemPage() {
           <div className="hidden gap-4 md:flex">
             <ItemActions
               itemId={item.id}
-              title={item.title}
               isMine={isMine}
               isSold={isSold}
             />
@@ -153,7 +152,6 @@ export default function ItemPage() {
       <StickyActionBar>
         <ItemActions
           itemId={item.id}
-          title={item.title}
           isMine={isMine}
           isSold={isSold}
         />
@@ -164,12 +162,10 @@ export default function ItemPage() {
 
 function ItemActions({
   itemId,
-  title,
   isMine,
   isSold,
 }: {
   itemId: string;
-  title: string;
   isMine: boolean;
   isSold: boolean;
 }) {
@@ -183,7 +179,7 @@ function ItemActions({
 
   return (
     <>
-      <SaveButton itemId={itemId} title={title} size="default" />
+      <SaveButton itemId={itemId} size="default" />
       {isSold ? (
         <Button disabled className="flex-1">
           Sold

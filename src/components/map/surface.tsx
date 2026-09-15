@@ -2,6 +2,7 @@
 
 import type { Ref } from "react";
 
+import { ProgressIndicator } from "@/components/ui/progress-indicator";
 import { cn } from "@/lib/utils";
 
 import { MapLoader } from "./loader";
@@ -32,6 +33,12 @@ export function MapSurface({
         className="yardsale-map size-full"
       />
       {loader && !ready && <MapLoader images={images} />}
+      {!loader && !ready && (
+        <ProgressIndicator
+          label="Loading map"
+          className="pointer-events-none absolute inset-0 m-auto size-6"
+        />
+      )}
     </div>
   );
 }

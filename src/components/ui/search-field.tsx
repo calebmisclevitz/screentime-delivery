@@ -84,7 +84,9 @@ export function SearchField(props: SearchLinkProps | SearchInputProps) {
           icon={XMarkIcon}
           aria-label={clearLabel}
           onClick={onClear}
-          className="absolute top-1/2 right-2 -translate-y-1/2"
+          // Centered with margins, not a translate: the button's press state
+          // animates `translate`, which would cancel out the centering.
+          className="absolute inset-y-0 right-2 my-auto"
         />
       )}
     </div>
