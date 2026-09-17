@@ -137,7 +137,7 @@ export const useStore = create<State & Actions>()(
 
       clearSearches: () => set({ recentSearches: [] }),
     }),
-    { name: "swapmeet-bengaluru-v1" },
+    { name: "pickup-bengaluru-v1" },
   ),
 );
 

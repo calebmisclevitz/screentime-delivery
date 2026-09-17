@@ -30,7 +30,7 @@ export function MapSurface({
       <div
         ref={containerRef}
         data-map-ready={ready}
-        className="yardsale-map size-full"
+        className="pickup-map size-full"
       />
       {loader && !ready && <MapLoader images={images} />}
       {!loader && !ready && (

@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import { SwopLogo } from "@/components/swop-logo";
+import { PickupLogo } from "@/components/pickup-logo";
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
@@ -57,7 +57,7 @@ export function BrowseHeader() {
             </Link>
           </Button>
         ) : (
-          <SwopLogo className="justify-self-center" />
+          <PickupLogo className="justify-self-center" />
         )}
 
         <Link

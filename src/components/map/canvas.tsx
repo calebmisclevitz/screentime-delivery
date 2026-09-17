@@ -21,7 +21,7 @@ import type { Item, LatLng } from "@/lib/types";
 
 import { MINIMUM_PLAY_MS } from "./loader";
 import { stickerSource } from "./sticker-edge";
-import { applyYardsaleStyle, POSITRON_STYLE } from "./style";
+import { applyPickupStyle, POSITRON_STYLE } from "./style";
 import { MapSurface } from "./surface";
 
 // Next/Turbopack does not emit the worker's sibling shared chunk, so tiles
@@ -80,7 +80,7 @@ function courierEl() {
   return el;
 }
 
-function useYardsaleMap({
+function usePickupMap({
   center,
   zoom,
   interactive = true,
@@ -131,7 +131,7 @@ function useYardsaleMap({
 
     const revealCanvas = () => setCanvasReady(true);
     const handleLoad = () => {
-      applyYardsaleStyle(map);
+      applyPickupStyle(map);
       map.once("idle", revealCanvas);
       styleReadyRef.current = true;
       for (const listener of listeners.current) listener();
@@ -225,7 +225,7 @@ export function StickerMap({
   onSelect?: (id: string) => void;
   className?: string;
 }) {
-  const { canvasReady, containerRef, whenReady } = useYardsaleMap({
+  const { canvasReady, containerRef, whenReady } = usePickupMap({
     center: BENGALURU_CENTER,
     zoom: 11,
   });
@@ -294,8 +294,8 @@ export function StickerMap({
   );
 }
 
-const ROUTE_SOURCE = "yardsale-route";
-const ROUTE_LAYER = "yardsale-route-line";
+const ROUTE_SOURCE = "pickup-route";
+const ROUTE_LAYER = "pickup-route-line";
 
 export function RouteMap({
   route,
@@ -314,7 +314,7 @@ export function RouteMap({
 }) {
   const seller = route[2] ?? route[0];
   const buyer = route.at(-1)!;
-  const { canvasReady, containerRef, whenReady } = useYardsaleMap({
+  const { canvasReady, containerRef, whenReady } = usePickupMap({
     center: seller,
     zoom: 13,
   });
@@ -403,7 +403,7 @@ export function PinMap({
   label: string;
   className?: string;
 }) {
-  const { canvasReady, containerRef, whenReady } = useYardsaleMap({
+  const { canvasReady, containerRef, whenReady } = usePickupMap({
     center: point,
     zoom: 14,
     interactive: false,

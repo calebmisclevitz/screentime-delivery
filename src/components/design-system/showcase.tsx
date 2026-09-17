@@ -70,7 +70,7 @@ export function DesignSystemShowcase() {
     <main className="mx-auto w-full max-w-6xl space-y-16 px-4 py-8 md:px-6 md:py-16">
       <header className="max-w-2xl space-y-4">
         <p className="text-muted-foreground">
-          Yardsale foundations
+          Pickup foundations
         </p>
         <h1>Visual design system</h1>
         <p className="text-muted-foreground">
@@ -244,7 +244,7 @@ export function DesignSystemShowcase() {
             <div>
               <Label htmlFor="delivery-preview">Offer delivery</Label>
               <p className="text-muted-foreground">
-                Let a Swapmeeter bring it to the buyer.
+                Let a neighbor bring it to the buyer.
               </p>
             </div>
             <Switch id="delivery-preview" defaultChecked />

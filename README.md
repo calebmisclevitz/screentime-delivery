@@ -1,10 +1,8 @@
-# Swapmeet
+# Pickup
 
 A mobile-first marketplace for buying and selling secondhand things near you, demoed in Bengaluru, India.
 
-The thing that makes Swapmeet different from Craigslist or Facebook Marketplace is delivery. Most secondhand sales die at the logistics step: the buyer can't fit a credenza in their car and the seller doesn't want to drive across town. In Swapmeet the buyer picks **Delivery** at checkout and a neighbor collects the item from the seller and brings it over, for a fee based on the item's bulk and the distance.
-
-This is an unbranded MVP. The theme is deliberately monochrome and the copy is minimal so design and brand can be layered on later.
+The thing that makes Pickup different from Craigslist or Facebook Marketplace is delivery. Most secondhand sales die at the logistics step: the buyer can't fit a credenza in their car and the seller doesn't want to drive across town. In Pickup the buyer picks **Delivery** at checkout and a neighbor collects the item from the seller and brings it over, for a fee based on the item's bulk and the distance.
 
 ## Running it
 
@@ -37,10 +35,10 @@ A delivery runs its full course in about 90 seconds of real time, standing in fo
 
 - **Next.js 16** App Router with TypeScript and Tailwind v4
 - **shadcn/ui** on Radix, default style, `neutral` base color for the monochrome theme
-- **MapLibre GL** over OpenFreeMap Positron vector tiles (no API key). Extra street labels are hidden and land/water are tinted toward the yardsale palette so item photos stay the loudest color. `npm install` copies MapLibre’s worker into `public/maplibre/` so Next can load vector tiles.
+- **MapLibre GL** over OpenFreeMap Positron vector tiles (no API key). Extra street labels are hidden and land/water are tinted toward the Pickup palette so item photos stay the loudest color. `npm install` copies MapLibre’s worker into `public/maplibre/` so Next can load vector tiles.
 - **Zustand** with the `persist` middleware for saved items, orders, and your own listings
 
-There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 41 seeded items scattered across real Bengaluru neighbourhoods, and everything you do on top of it is stored in `localStorage` under the `swapmeet-bengaluru-v1` key. Clearing site data resets the demo.
+There is no backend. The catalog in [src/lib/data/items.ts](src/lib/data/items.ts) is a static module of 41 seeded items scattered across real Bengaluru neighbourhoods, and everything you do on top of it is stored in `localStorage` under the `pickup-bengaluru-v1` key. Clearing site data resets the demo.
 
 ### Layout of note
 
@@ -60,7 +58,7 @@ src/
     store.ts               the persisted Zustand store
 ```
 
-MapLibre reaches for `window` at import time, so every map is loaded through `next/dynamic` with `ssr: false`. `.yardsale-map` gets `isolation: isolate` in `globals.css` so the canvas stays under floating search and sticky headers.
+MapLibre reaches for `window` at import time, so every map is loaded through `next/dynamic` with `ssr: false`. `.pickup-map` gets `isolation: isolate` in `globals.css` so the canvas stays under floating search and sticky headers.
 
 Anything read from `localStorage` is gated behind `useHydrated()` so the server and client render the same markup on the first pass.
 

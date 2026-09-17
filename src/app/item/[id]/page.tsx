@@ -127,7 +127,7 @@ export default function ItemPage() {
                   {formatRelativeTime(item.postedAt)}
                 </p>
                 <p className="text-muted-foreground">
-                  A Swapmeeter meets the seller and brings it to you, about{" "}
+                  A neighbor meets the seller and brings it to you, about{" "}
                   {formatPrice(fee)} for this trip.
                 </p>
               </div>

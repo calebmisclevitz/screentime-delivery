@@ -20,7 +20,7 @@ const STAGE_SPECS: StageSpec[] = [
     stage: "matching",
     until: 0.12,
     label: "Finding a courier",
-    detail: "Pinging Swapmeeters near the pickup",
+    detail: "Pinging neighbors near the pickup",
   },
   {
     stage: "to_seller",

@@ -101,7 +101,7 @@ function mapColor(name: MapColor) {
 }
 
 /** Quiet OpenFreeMap Positron so listing stickers stay the loudest color. */
-export function applyYardsaleStyle(map: MapLibreMap) {
+export function applyPickupStyle(map: MapLibreMap) {
   for (const id of HIDDEN_LAYERS) {
     if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", "none");
   }
