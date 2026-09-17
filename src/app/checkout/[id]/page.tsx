@@ -101,7 +101,7 @@ export default function CheckoutPage() {
             title="Delivery"
             description={
               canDeliver
-                ? `A Swapmeeter picks it up in ${item.location.neighborhood} and brings it to you. ${SIZE_LABEL[item.size]}.`
+                ? `A neighbor picks it up in ${item.location.neighborhood} and brings it to you. ${SIZE_LABEL[item.size]}.`
                 : "This seller isn't offering delivery for this item."
             }
             price={
@@ -112,7 +112,7 @@ export default function CheckoutPage() {
             selected={chosen === "delivery"}
             disabled={!canDeliver}
             onSelect={() => setFulfillment("delivery")}
-            badge="Swapmeet exclusive"
+            badge="Pickup exclusive"
           />
 
           <FulfillmentOption

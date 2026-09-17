@@ -31,7 +31,7 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Yardsale — Bengaluru",
+  title: "Pickup — Bengaluru",
   description:
     "Buy and sell secondhand nearby. Choose delivery and a neighbor brings it to you.",
 };

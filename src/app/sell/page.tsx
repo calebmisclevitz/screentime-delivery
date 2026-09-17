@@ -192,7 +192,7 @@ export default function SellPage() {
               Offer Delivery
             </Label>
             <p className="max-w-72 text-muted-foreground">
-              A Swapmeeter collects it from you and takes it to the buyer.
+              A neighbor collects it from you and takes it to the buyer.
             </p>
           </div>
           <Switch

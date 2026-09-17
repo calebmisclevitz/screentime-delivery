@@ -31,13 +31,13 @@ page.on("console", (msg) => {
 async function seekTo(progress) {
   await page.evaluate(
     ({ progress, duration }) => {
-      const raw = localStorage.getItem("swapmeet-bengaluru-v1");
+      const raw = localStorage.getItem("pickup-bengaluru-v1");
       if (!raw) throw new Error("no persisted Bengaluru demo state");
       const parsed = JSON.parse(raw);
       const order = parsed.state.orders[0];
       if (!order) throw new Error("no order to seek");
       order.placedAt = Date.now() - progress * duration;
-      localStorage.setItem("swapmeet-bengaluru-v1", JSON.stringify(parsed));
+      localStorage.setItem("pickup-bengaluru-v1", JSON.stringify(parsed));
     },
     { progress, duration: DELIVERY_DURATION_MS },
   );
